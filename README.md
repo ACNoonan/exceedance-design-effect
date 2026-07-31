@@ -1,6 +1,6 @@
 # exceedance-design-effect
 
-Verification code for **"Effective Sample Size for Conformal Calibration under Shared Ancestry."**
+Verification code for **"The Exceedance Design Effect: Effective Sample Size for Thresholds under Clustering."**
 
 Concept DOI: [10.5281/zenodo.21595640](https://doi.org/10.5281/zenodo.21595640) — always resolves to
 the newest version, and the only DOI worth citing.
