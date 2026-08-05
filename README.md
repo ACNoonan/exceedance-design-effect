@@ -4,10 +4,6 @@ Verification code for **"The Exceedance Design Effect: Effective Sample Size for
 
 Concept DOI: [10.5281/zenodo.21595640](https://doi.org/10.5281/zenodo.21595640), which always resolves to the newest version and is the only DOI worth citing.
 
-Every number in the paper regenerates from these scripts. Python 3.11+, numpy, scipy, matplotlib. Scripts locate their own imports, so `python theory/prop1_exact.py` works from any working directory.
-
-**Provenance.** Tag [`v7-zenodo`](../../tree/v7-zenodo) is byte-identical to `sw02_verification_code.zip` on the v7 record ([10.5281/zenodo.21798943](https://doi.org/10.5281/zenodo.21798943)), except its README. HEAD reorganizes the same scripts into the directories below and repairs what the flat archive got wrong: the three cross-lane scripts (`e1_shape_test.py`, `p5b_cluster_budget.py`, `q11_vovk_clustered.py`) pointed their imports at research-workspace directories that never shipped, so they could not run from the archive; and `p5b_cluster_budget.py` imported `p5_tail_separability.py`, which no published archive contained. Both are fixed here — the import preambles now cover the archive layout, and the missing module ships in `empirical_core/`. No scientific content changed; `git diff v7-zenodo..HEAD` shows every edit.
-
 ## Layout
 
 | directory | what lives there |
@@ -89,28 +85,9 @@ The shared modules stay at root: `calkit/` and `_conformal.py` (the two conforma
 
 ## The lane directories
 
-`empirical_core/e1_shape_test.py` asks whether the coverage law holds distributionally or only in variance; `e2_beam_families.py` generates ancestry-sharing families and measures ρ_I against decode config (§6.2); `p5b_cluster_budget.py` is §8's tail-separability budget and `p5_tail_separability.py` the precondition module it builds on. `deploy_gate/` carries `measure_conll.py` and `verify_pasc_consequence.py`, §3's measurement on [pasc2026]'s substrate. `nhanes/one_sided_rho_I.py` is §5.2's geographic-clustering check. `sw02ext/q11_vovk_clustered.py` (with its run log) is §8's clustered training-conditional shift. `figures/build_figures.py` renders all five figures; `figures/figure.py` is the ancestry-sharing sweep it grew from.
+- `empirical_core/` — `e1_shape_test.py`: does the coverage law hold distributionally, or only in variance; `e2_beam_families.py`: generated beam families vs decode config (§6.2); `p5b_cluster_budget.py`: §8's tail-separability budget, with `p5_tail_separability.py` as its precondition module
+- `deploy_gate/` — §3's measurement on [pasc2026]'s CoNLL substrate
+- `nhanes/` — §5.2's geographic-clustering check
+- `sw02ext/` — §8's clustered training-conditional shift, with its run log
+- `figures/` — `build_figures.py` renders all five figures; `figure.py` is the sweep it grew from
 
-## Notes
-
-The `*_RESULTS.txt` files are recorded outputs, included so the tables can be checked without
-re-running; each sits beside the script that produced it. The exact scripts use no Monte Carlo and
-each asserts that independent clusters reproduce the exact Beta mean before any clustered number is
-read. `prop1_exact.py` and `prop1_combinatorial.py` reach §4.3's drift table by deliberately
-disjoint routes — one by FFT convolution and Gauss-Legendre quadrature, the other by a combinatorial
-identity built from hypergeometric CDFs — and agree to every printed digit.
-
-`verdict.py` is the reporting helper the newer scripts route through: it refuses to print a verdict
-without the raw evidence it reduced and the components it was computed from, and any failed
-precondition forces the verdict to INCONCLUSIVE. It is pure stdlib and imports nothing.
-
-`calkit/conformal.py` holds `split_conformal`; `_conformal.py` is a deliberate research-side
-duplicate carrying `check_agrees_with_calkit()`, which asserts the two return identical thresholds
-on 200 random inputs. It passes.
-
-The third-party PRM dataset is NOT included here — `prm/prm_measurement.py` fetches it from
-https://huggingface.co/datasets/young-j-park/prm_calibration on first run and caches it in `prm/`.
-`test_marginal_scope.py` reads the same cache and refuses to run without it rather than downloading
-a second copy, so run `prm_measurement.py` first. It reproduces §6.1's family structure, ρ_I,
-design effect and n_eff from an independently written path — asserting the row and family counts
-rather than assuming them — before reporting anything new.
