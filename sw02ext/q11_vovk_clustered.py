@@ -52,8 +52,11 @@ import numpy as np
 from scipy.stats import norm
 from scipy.optimize import brentq
 
+# the audit lane's modules sit two levels up in the working tree, and under
+# prm/ at the code-archive root (one level up from sw02ext/). Cover both layouts.
 AUDIT = Path(__file__).resolve().parents[2] / "2026-07-26-sw02-exchangeability-audit"
-sys.path.insert(0, str(AUDIT))
+for _p in (Path(__file__).resolve().parents[1] / "prm", AUDIT):
+    sys.path.insert(0, str(_p))
 from prm_measurement import load, size_profile  # noqa: E402
 
 LINE = "=" * 88

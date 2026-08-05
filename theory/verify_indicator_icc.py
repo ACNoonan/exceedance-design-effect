@@ -39,7 +39,11 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import beta as beta_dist, expon, multivariate_normal, norm
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+# calkit/ and _conformal.py sit at the code-archive root; in the paper's working
+# tree they are vendored under external/. Cover both layouts.
+_HERE = Path(__file__).resolve().parent
+for _p in (_HERE.parent / "external", _HERE.parent, _HERE / "external", _HERE):
+    sys.path.insert(0, str(_p))
 from calkit.conformal import split_conformal  # noqa: E402
 
 N_FAMILIES = 50

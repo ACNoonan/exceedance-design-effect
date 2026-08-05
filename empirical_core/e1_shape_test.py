@@ -49,8 +49,11 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import beta as beta_dist, kstest, skew
 
+# the audit lane's modules sit beside this lane in the working tree, and under
+# prm/ in the published code archive. Cover both layouts.
 PARENT = Path(__file__).resolve().parents[1] / "2026-07-26-sw02-exchangeability-audit"
-sys.path.insert(0, str(PARENT))
+for _p in (Path(__file__).resolve().parents[1] / "prm", PARENT):
+    sys.path.insert(0, str(_p))
 from prm_dispersion import (  # noqa: E402
     JITTER, _flatten, coverage_dist, operating_level, plugin_ratio,
 )

@@ -2,36 +2,103 @@
 
 Verification code for **"The Exceedance Design Effect: Effective Sample Size for Thresholds under Clustering."**
 
-Concept DOI: [10.5281/zenodo.21595640](https://doi.org/10.5281/zenodo.21595640), which always resolves to the newest version and is the only DOI worth citing. This tree is the v7 archive ([10.5281/zenodo.21798943](https://doi.org/10.5281/zenodo.21798943)), byte-identical to `sw02_verification_code.zip` on that record except for this README, whose section pointers are corrected for v7's section order (the coverage law is §2 and related work is §3; the zip's copy predates the swap).
+Concept DOI: [10.5281/zenodo.21595640](https://doi.org/10.5281/zenodo.21595640), which always resolves to the newest version and is the only DOI worth citing.
 
-Every number in the paper regenerates from these scripts. Python 3.11+, numpy, scipy, matplotlib.
+Every number in the paper regenerates from these scripts. Python 3.11+, numpy, scipy, matplotlib. Scripts locate their own imports, so `python theory/prop1_exact.py` works from any working directory.
+
+**Provenance.** Tag [`v7-zenodo`](../../tree/v7-zenodo) is byte-identical to `sw02_verification_code.zip` on the v7 record ([10.5281/zenodo.21798943](https://doi.org/10.5281/zenodo.21798943)), except its README. HEAD reorganizes the same scripts into the directories below and repairs what the flat archive got wrong: the three cross-lane scripts (`e1_shape_test.py`, `p5b_cluster_budget.py`, `q11_vovk_clustered.py`) pointed their imports at research-workspace directories that never shipped, so they could not run from the archive; and `p5b_cluster_budget.py` imported `p5_tail_separability.py`, which no published archive contained. Both are fixed here — the import preambles now cover the archive layout, and the missing module ships in `empirical_core/`. No scientific content changed; `git diff v7-zenodo..HEAD` shows every edit.
+
+## Layout
+
+| directory | what lives there |
+|---|---|
+| `theory/` | exact and simulated verification of Theorem 1, the propositions and corollaries, and the Proposition-1 remainder work |
+| `tails/` | Proposition 3 — the tail limits of ρ_I and the λ_U estimation question |
+| `prm/` | the released PRM calibration set (§6.1): measurement, dispersion, trajectory index, and their shared download cache |
+| `selection/` | the selection channel — Theorem 2's construction, the dose–response sweep, and the reweighting costs |
+| `empirical_core/` | the EC-01 lane: distributional shape test, generated beam families (§6.2), the §8 tail-separability budget |
+| `deploy_gate/` | §3's measurement on [pasc2026]'s substrate (CoNLL) |
+| `nhanes/` | §5.2's real-substrate check, where the clustering is geographic rather than generative |
+| `sw02ext/` | §8's clustered training-conditional shift |
+| `figures/` | the figure builders |
+| `docs/` | the two documents the paper cites: the SW-12 lemma reduction and the prior-art convergence inventory |
+
+The shared modules stay at root: `calkit/` and `_conformal.py` (the two conformal implementations), and `verdict.py` (the reporting helper).
+
+## theory/
 
 | script | produces |
 |---|---|
 | `verify_indicator_icc.py` | §4.1, §4.2, §5 — the coverage law, the score-correlation rival, level-dependence |
+| `sim_validation.py` | Corollary 1 — copula-family invariance at matched delta(p) |
 | `drift_coefficient.py` | §4.3 — the O(1/b) drift coefficient, falsification tests, exchangeable control |
-| `ragged_and_estimation.py` | §2.4 ragged families; §8 estimator bias and spread |
-| `informative_sizes.py` | §2.5 — informative cluster sizes, simulated and measured on the PRM set |
-| `prm_measurement.py` | §6.1 — the released PRM calibration set (downloads ~33 MB on first run) |
-| `prm_dispersion.py` | §6.1 — MEASURES the dispersion ratio by cluster bootstrap (raw 1.09×, tie-broken 4.4×) against the plug-in 5.55; four preconditions incl. a synthetic ground-truth arm; needs the cache from `prm_measurement.py` |
-| `trajectory_index.py` | §6.1 — recovers the trajectory index the release does not carry, by prefix-nesting: 3,961 maximal chains, $\rho_I$ 0.688 and design effect 7.06 at the trajectory level against 0.495 / 30.8 at the question level. Its P3 precondition re-derives §6.1's published question-level numbers from this independent path before the new ones are reported; needs the cache from `prm_measurement.py` |
-| `test_marginal_scope.py` | §2.5, §6.1, §10 — the per-question / per-prefix test-marginal gap and its two baselines |
 | `prop1_exact.py` | §4.3 — the exact drift table and the measured O(n^-2) remainder |
 | `prop1_combinatorial.py` | §4.3 — the same drift by an exact combinatorial identity sharing no code path with `prop1_exact.py` |
 | `prop1_edgeworth_probe.py` | §10 — shows Proposition 1's Edgeworth step is inert for the atom mixture: a continuity-corrected normal with no skewness term reaches the coefficient, its own error entering at O(n^-2) |
-| `composition_check.py` | §2.3 — the negative-$\rho_I$ sweep ($n_\text{eff} > n$); ragged sizes and within-family structure composing |
+| `drift_tables.py` | §4.3's two drift tables, regenerated by the exact route with an artifact on disk |
+| `residual_check.py` | independent check of the drift-coefficient prediction and its residual — a re-measurement, not a re-derivation |
+| `marginal_guarantee_exact.py` | §3, §6.1 — whether clustered calibration breaks the ≥ 1−α marginal guarantee, exactly rather than by simulation |
+| `overcoverage_bound.py` | §2.6 — whether clustering can break the over-coverage bound too, with tie-free and matched-sign controls |
+| `composition_check.py` | §2.3 — the negative-ρ_I sweep (n_eff > n); ragged sizes and within-family structure composing |
 | `nested_structure.py` | §4.4 — the invariance class, with the discriminability check |
 | `assumption_stress.py` | §4.2's counterexample; §2.3 across-family dependence |
-| `sim_validation.py` | Corollary 1 — copula-family invariance at matched delta(p) |
+| `ragged_and_estimation.py` | §2.4 ragged families; §8 estimator bias and spread |
+| `edgeworth_terms.py` | which analytic term makes Proposition 1's remainder O(n^-2) |
+| `sw12_uniform_nondegeneracy.py` | SW-12 step (1) — uniform non-degeneracy of the cluster-count law over a window of t |
+| `sw12_lattice_edgeworth.py` | SW-12 step (2) — the CDF-level lattice Edgeworth expansion and whether it is uniform in the level |
+| `sawtooth_integral.py` | attempts [esseen1945]'s lattice term by quadrature; retained because its precondition fails — the value halves with every refinement, which is how we learned the integral is zero |
+| `sawtooth_fourier.py` | the sawtooth term is exponentially small, not merely o(1/n) |
+| `condition6_check.py` | whether (A1)–(A2) imply Francisco–Fuller Condition 6 |
+| `compound_deff.py` | the compound design effect, separated from Kish's naive ρ product |
+| `compound_deff_sweep.py` | whether the 3.6-SE residual is a finite-b delta-method artifact or a real bias |
+
+## tails/
+
+| script | produces |
+|---|---|
 | `verify_tail_limit.py` | Proposition 3 — tail limits of rho_I, and the atom-mixture exact form |
-| `build_figures.py` | all five figures |
+| `evt_tail_rate.py` | the tail approach rate, building on `verify_tail_limit.py` |
+| `evt_lambda_u_estimation.py` | §5 — whether a practitioner can estimate their own tail-dependence floor λ_U |
+
+## prm/
+
+| script | produces |
+|---|---|
+| `prm_measurement.py` | §6.1 — the released PRM calibration set (downloads ~33 MB on first run) |
+| `prm_dispersion.py` | §6.1 — MEASURES the dispersion ratio by cluster bootstrap (raw 1.09×, tie-broken 4.4×) against the plug-in 5.55; four preconditions incl. a synthetic ground-truth arm; needs the cache from `prm_measurement.py` |
+| `trajectory_index.py` | §6.1 — recovers the trajectory index the release does not carry, by prefix-nesting: 3,961 maximal chains, ρ_I 0.688 and design effect 7.06 at the trajectory level against 0.495 / 30.8 at the question level. Its P3 precondition re-derives §6.1's published question-level numbers from this independent path before the new ones are reported; needs the cache from `prm_measurement.py` |
+| `test_marginal_scope.py` | §2.5, §6.1, §10 — the per-question / per-prefix test-marginal gap and its two baselines |
+| `icc_estimators.py` | §8 — whether one-way ANOVA is the best ICC estimator on ragged sizes, or just better than the one it replaced |
+| `deployment_reframe.py` | §6 — the deployment reframe and its un-clustered negative control |
+| `ceiling_rho_response.py` | §6.1's sampling-depth ceiling, recomputed with ρ_I responding to family size |
+| `sw52_direct_sim.py` | whether the measured-vs-plug-in gap is the law running high or the bootstrap running low |
+
+## selection/
+
+| script | produces |
+|---|---|
+| `k1_construction.py` | Theorem 2's construction; prints five preconditions and all five are capable of failing |
+| `selection_dose_response.py` | selection-on-score — the dose–response curve in simulation |
+| `sw15_epsilon_matched.py` | whether the crossing-as-fraction-of-attainable-correlation is stable or merely ε-dependent |
+| `informative_sizes.py` | §2.5 — informative cluster sizes, simulated and measured on the PRM set |
+| `jrc_bridge.py` | whether Jin–Ren–Candès (arXiv:2111.12161) applies to Theorem 2's construction |
+| `known_pi_repair.py` | whether Theorem 2's tilt is repairable when π is known |
+| `unselected_slice.py` | how small an unselected slice beats a large selected calibration sample |
+| `weighting_deff.py` | the quantile step and the weighted-calibration design effect — the two items the full-read audit left open |
+| `reweighting_cost.py` | what §2.5's size-reweighting repair costs in effective sample size |
+
+## The lane directories
+
+`empirical_core/e1_shape_test.py` asks whether the coverage law holds distributionally or only in variance; `e2_beam_families.py` generates ancestry-sharing families and measures ρ_I against decode config (§6.2); `p5b_cluster_budget.py` is §8's tail-separability budget and `p5_tail_separability.py` the precondition module it builds on. `deploy_gate/` carries `measure_conll.py` and `verify_pasc_consequence.py`, §3's measurement on [pasc2026]'s substrate. `nhanes/one_sided_rho_I.py` is §5.2's geographic-clustering check. `sw02ext/q11_vovk_clustered.py` (with its run log) is §8's clustered training-conditional shift. `figures/build_figures.py` renders all five figures; `figures/figure.py` is the ancestry-sharing sweep it grew from.
+
+## Notes
 
 The `*_RESULTS.txt` files are recorded outputs, included so the tables can be checked without
-re-running. The exact scripts use no Monte Carlo and each asserts that independent clusters
-reproduce the exact Beta mean before any clustered number is read. `prop1_exact.py` and
-`prop1_combinatorial.py` reach §4.3's drift table by deliberately disjoint routes — one by FFT
-convolution and Gauss-Legendre quadrature, the other by a combinatorial identity built from
-hypergeometric CDFs — and agree to every printed digit.
+re-running; each sits beside the script that produced it. The exact scripts use no Monte Carlo and
+each asserts that independent clusters reproduce the exact Beta mean before any clustered number is
+read. `prop1_exact.py` and `prop1_combinatorial.py` reach §4.3's drift table by deliberately
+disjoint routes — one by FFT convolution and Gauss-Legendre quadrature, the other by a combinatorial
+identity built from hypergeometric CDFs — and agree to every printed digit.
 
 `verdict.py` is the reporting helper the newer scripts route through: it refuses to print a verdict
 without the raw evidence it reduced and the components it was computed from, and any failed
@@ -41,10 +108,9 @@ precondition forces the verdict to INCONCLUSIVE. It is pure stdlib and imports n
 duplicate carrying `check_agrees_with_calkit()`, which asserts the two return identical thresholds
 on 200 random inputs. It passes.
 
-
-The third-party PRM dataset is NOT included here — `prm_measurement.py` fetches it from
-https://huggingface.co/datasets/young-j-park/prm_calibration on first run.
+The third-party PRM dataset is NOT included here — `prm/prm_measurement.py` fetches it from
+https://huggingface.co/datasets/young-j-park/prm_calibration on first run and caches it in `prm/`.
 `test_marginal_scope.py` reads the same cache and refuses to run without it rather than downloading
-a second copy, so run `prm_measurement.py` first. It reproduces §6.1's family structure, $\rho_I$,
-design effect and $n_\text{eff}$ from an independently written path — asserting the row and family
-counts rather than assuming them — before reporting anything new.
+a second copy, so run `prm_measurement.py` first. It reproduces §6.1's family structure, ρ_I,
+design effect and n_eff from an independently written path — asserting the row and family counts
+rather than assuming them — before reporting anything new.

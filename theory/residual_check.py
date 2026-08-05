@@ -29,7 +29,11 @@ from scipy.optimize import brentq
 from scipy.stats import norm
 from scipy.stats import multivariate_normal as mvn
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+# calkit/ and _conformal.py sit at the code-archive root; in the paper's working
+# tree they are vendored under external/. Cover both layouts.
+_HERE = Path(__file__).resolve().parent
+for _p in (_HERE.parent / "external", _HERE.parent, _HERE / "external", _HERE):
+    sys.path.insert(0, str(_p))
 from _conformal import nominal_rank_coverage, split_conformal  # noqa: E402
 
 M, ALPHA = 4, 0.10

@@ -38,8 +38,11 @@ from scipy.optimize import brentq
 from scipy.stats import chi2, norm, t as tdist
 
 HERE = Path(__file__).resolve().parent
+# the audit lane's modules sit beside this lane in the working tree, and under
+# prm/ in the published code archive. Cover both layouts.
 PARENT = HERE.parent / "2026-07-26-sw02-exchangeability-audit"
-sys.path.insert(0, str(PARENT))
+for _p in (HERE.parent / "prm", PARENT):
+    sys.path.insert(0, str(_p))
 from prm_measurement import anova_icc, load  # noqa: E402
 
 sys.path.insert(0, str(HERE))
