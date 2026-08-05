@@ -1,0 +1,40 @@
+SW-12 / is Proposition 1's Edgeworth step load-bearing or inert?  atom mixture, m=4, q=0.3
+
+[1] COST OF THE NORMAL SUBSTITUTION IN E[L], at fixed atom count i = round(q*b).
+    E[C|i] = E[L]/(M+1), so an error of c/M in E[L] is c/M^2 in E[C] -- inside
+    Proposition 1's O(n^-2) remainder. 'err x M' bounded is therefore the pass.
+     b      n      M      E[L] exact     E[L] normal         err    err x M
+    25    100     76       69.073171       69.082881   9.710e-03      0.738
+    50    200    155      140.193122      140.197819   4.697e-03      0.728
+   100    400    310      279.695845      279.698162   2.317e-03      0.718
+   200    800    620      558.697181      558.698331   1.151e-03      0.713
+   400   1600   1240     1116.697842     1116.698416   5.735e-04      0.711
+   800   3200   2480     2232.698172     2232.698458   2.863e-04      0.710
+  1600   6400   4960     4464.698336     4464.698479   1.430e-04      0.709
+
+    error scales as M^(-1.01); need M^-1 or steeper   PASS
+    err x M converges to ~0.709, a definite constant
+
+[2] THE DRIFT, carried through the full binomial mixture over atom counts.
+    If the normal route reaches Proposition 1 with its own error inside the
+    remainder, the Edgeworth term is inert rather than load-bearing.
+     b      n    drift exact   drift normal     predicted  ratio nrm   exact-nrm     x n^2
+    25    100  -3.684136e-03  -3.571610e-03 -3.608911e-03     0.9897  -1.125e-04   -1.1253
+    50    200  -1.822484e-03  -1.793162e-03 -1.802239e-03     0.9950  -2.932e-05   -1.1729
+   100    400  -9.056805e-04  -8.983256e-04 -9.005611e-04     0.9975  -7.355e-06   -1.1768
+   200    800  -4.514273e-04  -4.495859e-04 -4.501404e-04     0.9988  -1.841e-06   -1.1785
+   400   1600  -2.253577e-04  -2.248971e-04 -2.250351e-04     0.9994  -4.607e-07   -1.1793
+   800   3200  -1.125895e-04  -1.124743e-04 -1.125088e-04     0.9997  -1.152e-07   -1.1797
+
+    exact-minus-normal scales as n^(-1.99); Proposition 1 claims O(n^-2)   PASS
+
+VERDICT: INERT. The plain continuity-corrected normal reaches Proposition 1's
+coefficient, and its own error lands inside the claimed O(n^-2) remainder. The
+skewness term therefore only has to NOT CONTRIBUTE at O(1/n) -- which is what
+the sketch's int phi(z)(z^2-1) dz = 0 says -- rather than to be expanded with a
+bounded remainder. The remaining obligation is a SUMMED Berry-Esseen bound,
+sum_l [P(A_l <= k-1) - Phi(z_l)] = O(M^-1), for hypergeometric CDFs along a
+linear boundary. Pointwise is classical (Hoeglund 1978); summed is the work.
+
+STILL NOT A PROOF, and still atom-mixture only: rho_I' = 0 here, so the derivative
+term behind Corollary 3's sign claim is untouched. SW-12 stays open.

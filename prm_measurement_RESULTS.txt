@@ -1,0 +1,33 @@
+
+[1] FAMILY STRUCTURE  (clusters = questions)
+    rows n            = 25028
+    families b        = 500
+    sizes             = min 8, median 44, max 135
+    m_bar             = 50.06
+    m_tilde           = 61.29   <- size-biased mean, the one that matters
+    CV^2              = 0.224
+    exact, assumption-free: using m_bar understates (m-1) by +22.9%
+
+[2] SCORE-LEVEL ICC (for comparison, NOT the governing quantity)
+    ICC(success_prob) = 0.5986
+
+[3] INDICATOR ICC AND EFFECTIVE SAMPLE SIZE, BY ACHIEVABLE THRESHOLD
+ thresh  coverage p   rho_I    DEFF    n_eff  n_eff/n
+  0.000      0.6744  0.4355   27.25    918.3    0.037
+  0.125      0.7639  0.5007   31.18    802.6    0.032
+  0.250      0.8062  0.5254   32.68    766.0    0.031
+  0.375      0.8342  0.5367   33.36    750.3    0.030
+  0.500      0.8553  0.5307   32.99    758.6    0.030
+  0.625      0.8737  0.5177   32.21    777.0    0.031
+  0.750      0.8909  0.4946   30.81    812.2    0.032
+  0.875      0.9145  0.4274   26.76    935.1    0.037
+
+[4] WHAT THIS MEANS FOR THEIR REPORTED GUARANTEE
+    nearest achievable level to 0.90: p = 0.8909 (threshold 0.750)
+    rho_I = 0.4946, DEFF = 30.8
+    n = 25028 calibration points carry n_eff = 812 points of information
+    coverage sd if exchangeable : 0.0020
+    coverage sd as clustered    : 0.0109   (5.6x wider)
+    5th-95th pct of achieved coverage: [0.873, 0.909] vs [0.888, 0.894] assumed
+
+    Caveats in the module docstring are load-bearing. Read them before quoting.

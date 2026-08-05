@@ -1,0 +1,48 @@
+========================================================================================
+sw02ext/Q-11 -- Vovk's correction transported to clustered calibration
+========================================================================================
+
+released PRM profile: n=25028, b=500, m_bar=50.06, m_tilde=61.29
+
+PC-V1  the two routes must AGREE at rho_I=1 and DISAGREE below it
+    rho_I     DEFF     n_eff   n/m_tilde  infl sqrt(DEFF)  infl sqrt(m_til)
+   0.2000    13.06    1916.8       408.4            3.613             7.829
+   0.4946    30.82     812.1       408.4            5.551             7.829
+   0.8000    49.23     508.4       408.4            7.016             7.829
+   1.0000    61.29     408.4       408.4            7.829             7.829
+  at rho_I=1: sqrt(DEFF)=7.8285 vs sqrt(m_tilde)=7.8285 -> PASS (agree)
+
+PC-V4  at m_j == 1 both routes must collapse to the i.i.d. shift
+  iid 0.047985 | clustered-Hoeffding(m=1) 0.047985 | n_eff-heuristic 0.047985 -> PASS
+
+the three shifts on the released profile (alpha=0.10, delta=0.10):
+  i.i.d. Vovk                    0.678 pp   (effective count 25028)
+  clustered Hoeffding            5.310 pp   (effective count 408)   inflation 7.83x
+  n_eff substitution (mine)      3.765 pp   (effective count 812)   inflation 5.55x
+
+PC-V2 / PC-V3  MONTE CARLO -- does each shifted level deliver P(C >= 1-alpha) >= 1-delta?
+  (b=500 real ragged profile; coverage computed exactly, not resampled)
+    rho_I                  route  level used   P(C>=0.90)    verdict
+   0.4946            i.i.d. Vovk     0.90678        0.737      FAILS
+   0.4946    clustered Hoeffding     0.95310        1.000      holds
+   0.4946     n_eff substitution     0.93765        1.000      holds
+   0.2000            i.i.d. Vovk     0.90678        0.835      FAILS
+   0.2000    clustered Hoeffding     0.95310        1.000      holds
+   0.2000     n_eff substitution     0.92451        1.000      holds
+
+  required: P(C >= 0.9) >= 0.9
+
+PC-V3 VERDICT: the negative control did NOT discriminate. Both clustered routes
+  returned 1.000, so this test cannot separate them -- it only shows both are valid
+  and that i.i.d. Vovk is not. Recorded as NON-DISCRIMINATING, not as vindication of
+  the heuristic, which still has no proof under dependence.
+
+HOW LOOSE IS EITHER? The exact shift needed, found by bisection on the simulation:
+    rho_I  exact shift   Hoeffding   n_eff heur  Hoeff/exact  heur/exact
+   0.4946       1.394pp      5.310pp       3.765pp          3.8         2.7
+   0.2000       0.894pp      5.310pp       2.451pp          5.9         2.7
+  Both are Hoeffding-loose: 3.8-5.9x for the distribution-free bound, 2.7x for the
+  heuristic. Note the SHAPE of that: the heuristic is 2.7x at BOTH rho_I because it
+  tracks rho_I, while the distribution-free bound degrades from 3.8x to 5.9x as rho_I
+  falls, because it cannot. Neither should be shipped as 'the correction' without
+  saying it is a bound and how loose it is at the operating rho_I.

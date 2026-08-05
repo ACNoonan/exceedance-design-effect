@@ -1,0 +1,25 @@
+
+[0] CONFIG  p=0.9, m=4, rho_I=0.5  ->  Gaussian r=0.7881
+    rho_I(p)  = +0.500000
+    rho_I'(p) = -0.656989  <- level-dependence slope, negative
+    predicted b*drift from (*) = -0.1722
+      term  -(2p-1) rho_I  = -0.4000   (dominant)
+      term  p(1-p) rho_I'  = -0.0591
+
+[1] IS b*drift FLAT, AND AT THE PREDICTED VALUE?
+    b      n      drift        SE   b*drift      pred   sigma
+   25    100   -0.00674   0.00008   -0.1686   -0.1724   +2.02
+   50    200   -0.00338   0.00005   -0.1690   -0.1723   +1.22
+  100    400   -0.00169   0.00005   -0.1693   -0.1722   +0.56
+  200    800   -0.00080   0.00004   -0.1594   -0.1722   +1.70
+
+[2] FALSIFICATION — (*) at other (m, 1-alpha, rho_I). A fit would not travel.
+  m  1-alpha   rho_I   b*drift      pred   sigma
+  4     0.90    0.25   -0.0939   -0.0977   +1.73
+  8     0.90    0.50   -0.1969   -0.2010   +1.60
+  4     0.95    0.50   -0.1891   -0.1913   +1.07
+  2     0.90    0.60   -0.1272   -0.1331   +1.97
+
+[3] CONTROL — exchangeable (rho_I=0). (*) says drift is exactly zero.
+    b=  25  drift=+0.000003  SE=0.000047  (0.1 sigma from 0)
+    b= 200  drift=+0.000016  SE=0.000017  (1.0 sigma from 0)

@@ -1,0 +1,30 @@
+[0] DISCRIMINABILITY — could these models have disagreed?
+    structure                rhobar_I  r* exch      TV skew nested  skew exch  skew diff
+    m=4 exch (control)         0.1850   0.4000  0.0000     -2.1014    -2.1014       0.0%
+    m=4 nested .30/.50         0.1690   0.3727  0.0041     -2.0399    -2.0570       0.8%
+    m=4 nested .05/.75         0.1646   0.3650  0.0424     -1.8548    -2.0443       9.3%
+    m=8 nested .02/.85         0.2515   0.5038  0.0921     -1.8583    -2.2508      17.4%
+    m=8 nested .05/.80         0.0887   0.2187  0.0700     -1.4036    -1.6352      14.2%
+    control TV must be 0 (validates the matching); worst nested TV 0.0921
+    -> the distributions differ materially, so agreement below is not vacuous
+
+Nested one-factor Gaussian. 'within'/'across' are SCORE correlations; rhobar_I is the
+mean pairwise INDICATOR correlation at p=0.90, which is what the law is fed.
+c=0 rows are the exchangeable control — they must reproduce the ordinary result.
+
+structure                           w/in   acr rhobar_I  sd exact   sd pred   ratio    drift ex  drift pred   ratio
+-- control: exchangeable (c = 0) ------------------------------------------------------------------------------
+exchangeable m=4, r=0.40            0.40  0.40  0.1850  0.013228  0.013219  1.0007  -3.773e-04  -3.778e-04  0.9987
+exchangeable m=8, r=0.30            0.30  0.30  0.1290  0.010355  0.010344  1.0011  -3.214e-04  -3.216e-04  0.9994
+-- nested: mild heterogeneity ---------------------------------------------------------------------------------
+nested m=4 (2x2), .30 / .50         0.50  0.30  0.1689  0.013020  0.013013  1.0006  -3.454e-04  -3.458e-04  0.9986
+nested m=8 (2x4), .25 / .40         0.40  0.25  0.1385  0.010535  0.010523  1.0012  -3.398e-04  -3.400e-04  0.9994
+-- nested: severe heterogeneity (the N3 stress case) ----------------------------------------------------------
+nested m=4 (2x2), .05 / .75         0.75  0.05  0.1646  0.012958  0.012956  1.0002  -2.957e-04  -2.962e-04  0.9985
+nested m=8 (4x2), .05 / .80         0.80  0.05  0.0887  0.009548  0.009545  1.0003  -1.893e-04  -1.895e-04  0.9991
+nested m=8 (2x4), .02 / .85         0.85  0.02  0.2515  0.012476  0.012458  1.0015  -4.937e-04  -4.943e-04  0.9988
+
+VERDICT
+  N1 Theorem 1 with rhobar_I : sd ratios in [1.0002, 1.0015]  HOLDS
+  N2 Proposition 1 with rhobar_I: drift ratios in [0.9985, 0.9994]  HOLDS
+  N3 worst drift deviation at: nest m=4 .05/.75  (-0.15%)

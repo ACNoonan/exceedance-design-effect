@@ -1,0 +1,44 @@
+[1] ACROSS-FAMILY DEPENDENCE — a global factor shared by every cluster
+    b=200 clusters of m=4, n=800, p=0.90012
+
+     g (across)      a  within  r_cond rhoI(cond) rhoI(marg)  n_eff true n_eff if pooled
+           0.00   0.40    0.40  0.4000     0.1850     0.1850       514.5           514.5
+           0.10   0.30    0.40  0.3333     0.1469     0.1850       555.3           514.5
+           0.20   0.25    0.45  0.3125     0.1356     0.2158       568.6           485.6
+           0.35   0.20    0.55  0.3077     0.1331     0.2842       571.8           431.8
+           0.50   0.15    0.65  0.3000     0.1290     0.3636       576.8           382.6
+
+    BRANCH A (test point shares W): coverage is invariant to the common shift, so the
+    law holds EXACTLY at r_cond. Across-family dependence costs nothing. But an ICC
+    estimated from pooled calibration data is the marginal one, so n_eff is understated
+    (last column) — conservative, and by a lot at large g.
+
+    BRANCH B (test point has its own W'): C = Phi(Phi^-1(V) + xi), xi ~ N(0, 2g/(1-g))
+         g  sd(V) branch A  sd(C) branch B  inflation
+      0.00        0.013228        0.013228       1.00x
+      0.05        0.012989        0.062178       4.79x
+      0.10        0.012729        0.093129       7.32x
+      0.20        0.012578        0.145874      11.60x
+      0.35        0.012543        0.215086      17.15x
+
+    Branch B is not a clustering effect and no n_eff repairs it — the inflation comes
+    from the calibration set and the test point sitting under different draws of W.
+
+[2] CAN THE SCORE-CORRELATION RIVAL BE ANTI-CONSERVATIVE?
+    m=2, b=400, n=800, p=0.90012
+         q  rho_score  rho_I(p)  DEFF true  DEFF rival   sd exact    sd law  sd rival          verdict
+      1.00      1.000    1.0000     2.0000      2.0000   0.014946  0.014992  0.014992     conservative
+      0.75      0.500    0.7223     1.7223      1.5000   0.013901  0.013912  0.012983 ANTI-CONSERVATIVE
+      0.50      0.000    0.4445     1.4445      1.0000   0.012715  0.012741  0.010601 ANTI-CONSERVATIVE
+      0.30     -0.400    0.2223     1.2223      0.6000   0.011688  0.011720  0.008211 ANTI-CONSERVATIVE
+      0.10     -0.800    0.0001     1.0001      0.2000   0.010569  0.010601  0.004741 ANTI-CONSERVATIVE
+      0.05     -0.900   -0.0554     0.9446      0.1000   0.010272  0.010303  0.003352 ANTI-CONSERVATIVE
+      0.02     -0.960   -0.0887     0.9113      0.0400   0.010089  0.010119  0.002120 ANTI-CONSERVATIVE
+
+    -> the rival is NOT conservative by design: counterexample found
+    At q=0.5 the score correlation is exactly 0 — a practitioner applying the rival
+    applies no correction at all — while rho_I(p) > 0 and the true design effect
+    exceeds 1. Throughout 0.10 < q < 0.50 the score correlation is NEGATIVE,
+    which reads as a variance bonus, while the true design effect still exceeds 1.
+    Below q = 1 - p = 0.10 the two agree in sign and the bonus is real:
+    rho_I(p) = [q - (1-p)]/p, so the crossing is exactly at q = 1 - p.

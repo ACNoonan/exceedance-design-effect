@@ -1,0 +1,58 @@
+operating point (§6.1's rule: achievable threshold nearest 0.9): t = 0.750, achieved p = 0.8909
+
+==============================================================================
+PRECONDITIONS — a failure in any one of these invalidates everything below
+==============================================================================
+  P1 published inputs reproduce: m_bar 50.06 (50.06), m_tilde 61.29 (61.29), rho_I 0.4946 (0.4946),
+     DEFF 30.8 (30.8) at threshold 0.750, achieved p 0.8909 (0.8909)  -> PASS
+     would fail if: the cached release changed, or the ANOVA estimator drifted from
+     the one that produced the published DEFF=30.8.
+  P2 jitter 0.124 < atom spacing 0.125: ranks across atoms preserved -> PASS
+     would fail if: jitter could move a score past the next atom, which would change
+     the empirical CDF rather than merely break ties inside it.
+  P3 permuted/iid sd ratio = 1.000 (must be ~1)  -> PASS
+     would fail if: the cluster resampler, the varying resampled n, or the coverage
+     map were themselves generating dispersion. Permuting membership IS i.i.d.
+     sampling with extra steps, so any gap here is the harness, not the data.
+  P4 synthetic ground truth, 3 realisations on the RELEASED size profile,
+     TRUE rho_I=0.4941, sizes drawn independently of scores:
+     ANOVA rho_I 0.4455  plug-in 5.28  measured 5.39  ratio 0.980   -> PASS
+     (law at the TRUE rho_I would be 5.55; ANOVA runs ~10% low on ragged sizes and the two partly cancel —
+      reported because it matters for how the real-data gap is attributed.)
+     would fail if: the law, the estimator or the harness were wrong. This is the
+     check that makes the REAL-DATA gap attributable to the data.
+  all pass.
+
+==============================================================================
+[1] THE MARGINAL IS ATOMIC — why (A2) fails on the released score (SW-27)
+==============================================================================
+    distinct values: 9   largest atom: 67.4% at 0.000
+    attainable coverage values F(atom): [0.6744 0.7639 0.8062 0.8342 0.8553 0.8737 0.8909 0.9145 1.    ]
+    (A2) requires F continuous with f(q_p) > 0. It is neither, so Theorem 1's
+    Bahadur step and density cancellation have no purchase on this variable.
+
+==============================================================================
+[2] MEASURED DISPERSION — raw versus tie-broken, against the plug-in
+==============================================================================
+    arm           cluster sd    iid sd  MEASURED   plug-in
+    raw              0.01289   0.01181      1.09      5.55
+                rho_I 0.4946 at achieved p 0.8909; 5-95 cluster [0.8909, 0.9145], iid [0.8909, 0.9145]
+    tie-broken       0.00874   0.00196      4.46      5.55
+                rho_I 0.4946 at achieved p 0.8909; 5-95 cluster [0.8759, 0.9045], iid [0.8876, 0.8941]
+
+    PAPER PRINTS 5.6x and [0.873, 0.909] vs [0.888, 0.894].
+    Raw score        : 1.09x — the effect is invisible; discreteness dominates.
+    Tie-broken       : 4.46x — real, large, and NOT 5.6.
+    Mean coverage, tie-broken cluster arm: 0.8907 (nominal 0.8909)
+
+==============================================================================
+[3] LOCALISING THE 28% GAP — it tracks the size-score coupling (SW-24)
+==============================================================================
+    subset              b    CV^2  spearman  plug-in  measured   ratio
+    all 500           500   0.224    -0.427     5.55      4.39    1.26
+    sizes 35-70       259   0.046    -0.315     4.62      4.26    1.08
+    sizes 40-60       145   0.015    -0.224     4.67      4.43    1.05
+
+    As the coupling is removed the plug-in converges on the measurement. P4 shows
+    the same size profile WITHOUT coupling has no gap, so the driver is
+    informativeness, not size dispersion. Proposition 2 needs that scope condition.

@@ -1,0 +1,28 @@
+p=0.9, m=4, b=50, n=200, reps=20000
+TARGET delta(p) = 0.855000  ->  rho_I = 0.5
+
+tuned:  gaussian r=0.7881   clayton theta=9.6011   t(3) r=0.7270
+check:  delta_g=0.855000  delta_c=0.855000  delta_t=0.855002
+
+THEOREM PREDICTS, for all six configurations:  n_eff=80.0  sd=0.03354
+
+TEST 1 — matched-delta distribution-freeness
+   copula  marginal      mean        sd   sd/pred
+    gauss     gauss   0.89955   0.03313     0.988
+    gauss     expon   0.89955   0.03313     0.988
+     t(3)     gauss   0.89991   0.03378     1.007
+     t(3)     expon   0.89991   0.03378     1.007
+  clayton     gauss   0.89986   0.03335     0.994
+  clayton     expon   0.89986   0.03335     0.994
+
+  spread across all six: 1.94% of mean sd  -> CONSISTENT with distribution-freeness
+
+TEST 2 — mean drift vs number of clusters  ** VOID AS WRITTEN, see module docstring **
+    b      n      mean      drift   drift*b
+   25    100   0.89952   -0.00048   -0.0121
+   50    200   0.89922   -0.00078   -0.0391
+  100    400   0.89955   -0.00045   -0.0448
+  200    800   0.89971   -0.00029   -0.0575
+  400   1600   0.89987   -0.00013   -0.0509
+  These numbers are Monte Carlo noise around an estimator whose mean is p by
+  construction. They are NOT evidence of an O(1/b) drift. Blocked on L2.

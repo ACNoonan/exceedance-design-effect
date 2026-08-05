@@ -1,0 +1,50 @@
+======================================================================================================================
+OVER-COVERAGE BOUND UNDER A POSITIVE-DRIFT CLUSTER MODEL — exact
+======================================================================================================================
+[0] PRECONDITIONS
+    c=1 degenerates to independence, b=200 m=4: E[C]-k/(n+1) = -1.998e-15  PASS
+    c=1 degenerates to independence, b=100 m=8: E[C]-k/(n+1) = -1.443e-15  PASS
+    known bounds c=0.95 m=4 b=200 p=0.850: b*drift = +0.0337 (integrity.md records +0.0337)  PASS
+    closed-form bracket vs numeric rho_I': b*drift +0.0336 vs +0.0336  PASS
+    T tail-comonotone    max|E[N(t)]/m - t| = 1.11e-16, max|sum pmf - 1| = 4.44e-16  PASS
+    S split-uniform      max|E[N(t)]/m - t| = 1.11e-16, max|sum pmf - 1| = 4.44e-16  PASS
+    -> preconditions hold
+
+[1] DOES THE OVER-COVERAGE BOUND FAIL?  c = 0.95, alpha = 0.1
+    bound = 1 - alpha + 1/(n+1); E[C] computed exactly, no Monte Carlo. b is chosen per
+    row to put the tie region >= 6.0 sd above the operating level (see [3]).
+       m      b       n  rho_I(p)  BRACKET  (c-p)/sd    E[C] (T)    E[C] (S)     |T-S|     bound  E[C]-bound          
+       4    785    3140    0.4739   0.0947       7.0    0.900077    0.900077   7.9e-13  0.900318   -0.000241     holds
+       8    700    5600    0.4738   0.0947       7.0    0.900077    0.900077   3.0e-11  0.900179   -0.000101     holds
+      12    671    8052    0.4739   0.0947       7.0    0.900102    0.900102   7.8e-13  0.900124   -0.000022     holds
+      16    657   10512    0.4738   0.0947       7.0    0.900096    0.900096   4.4e-11  0.900095   +0.000001  VIOLATED
+      20    649   12980    0.4737   0.0947       7.0    0.900077    0.900077   8.4e-11  0.900077   +0.000000  VIOLATED
+      24    643   15432    0.4738   0.0947       7.0    0.900090    0.900090   1.6e-11  0.900065   +0.000025  VIOLATED
+      32    636   20352    0.4738   0.0947       7.0    0.900087    0.900087   5.8e-11  0.900049   +0.000038  VIOLATED
+      48    629   30192    0.4737   0.0947       7.0    0.900084    0.900084   1.4e-10  0.900033   +0.000051  VIOLATED
+
+[1b] CONTROL — a copula matched on rho_I and m, with the drift's sign reversed
+       m      b       n  rho_score  rho_I(p)   rho_I~        E[C]     bound  E[C]-bound          
+      24    643   15432   0.764616    0.4738   -0.675    0.899692  0.900065   -0.000373     holds
+      48    629   30192   0.764564    0.4737   -0.675    0.899668  0.900033   -0.000365     holds
+
+[2] THE THRESHOLD, PREDICTED AND OBSERVED
+    Leading order says the bound fails once (m-1)*BRACKET > 2(1-dlt), dlt in [0,1).
+    c=0.98: BRACKET = 0.0367 at p=0.9, so m_crit is between 28 and 55 depending on the ceiling slack
+    c=0.95: BRACKET = 0.0947 at p=0.9, so m_crit is between 12 and 22 depending on the ceiling slack
+    c=0.92: BRACKET = 0.1565 at p=0.9, so m_crit is between 7 and 14 depending on the ceiling slack
+
+[3] TIES ARE NOT THE MECHANISM
+    max |E[C](tied model T) - E[C](tie-free model S)| over the sweep: 1.37e-10
+    largest violation margin over the sweep:                          5.07e-05
+    ratio: the tie region moves E[C] by 2.7e-06 of the margin it would
+    have to explain. The two models differ only above c, and c is held 6+ sd above
+    the operating level, so the classical distinctness caveat is not what fires.
+
+VERDICT
+    The over-coverage bound DOES fail. Crossover sits between m = 12 and m = 24;
+    the rows either side of it turn on the ceiling remainder in k rather than on the
+    drift, so the honest statement is a crossover region, not a single m. It fails
+    identically for the tie-free model, and a copula matched on rho_I with the
+    opposite drift sign stays inside the bound at the same m — so what breaks it is
+    the sign of rho_I', with m only shrinking the slack it has to beat.

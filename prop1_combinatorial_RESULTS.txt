@@ -1,0 +1,49 @@
+SW-12 / combinatorial identity for E[C] under the atom mixture, m=4, q=0.3
+
+[0] PRECONDITION — at q=0 there are no atoms, so (*) must return k/(n+1) EXACTLY.
+    Not 'to 1e-14': (*) is an identity, so the only error is floating point.
+    b=  50 m=4   E[C] - k/(n+1) = +0.000e+00   PASS
+    b= 120 m=5   E[C] - k/(n+1) = +0.000e+00   PASS
+    b= 400 m=2   E[C] - k/(n+1) = +0.000e+00   PASS
+
+[0b] OPPOSITE ENDPOINT — at q=1 every cluster is an atom, so the sample is b distinct
+     draws of multiplicity m each and coverage is the exact Beta mean ceil(k/m)/(b+1).
+     This endpoint is not reachable by prop1_exact.py's controls.
+    b=  25 m=4 k=   91   E[C] - ceil(k/m)/(b+1) = +0.000e+00   PASS
+    b=  50 m=4 k=  181   E[C] - ceil(k/m)/(b+1) = +0.000e+00   PASS
+    b= 100 m=4 k=  361   E[C] - ceil(k/m)/(b+1) = +0.000e+00   PASS
+
+[1] THE DRIFT BY IDENTITY (*) — this column must reproduce prop1_exact.py's
+    MODEL A, which reaches the same numbers through an FFT convolution and
+    Gauss-Legendre quadrature. No code is shared between the two routes.
+     b      n         p     exact drift      predicted    ratio     residual   n^2*resid
+    25    100   0.90099      -3.684e-03     -3.609e-03   1.0208   -7.522e-05     -0.7522
+    50    200   0.90050      -1.822e-03     -1.802e-03   1.0112   -2.025e-05     -0.8098
+   100    400   0.90025      -9.057e-04     -9.006e-04   1.0057   -5.119e-06     -0.8191
+   200    800   0.90012      -4.514e-04     -4.501e-04   1.0029   -1.287e-06     -0.8236
+   400   1600   0.90006      -2.254e-04     -2.250e-04   1.0014   -3.226e-07     -0.8258
+   800   3200   0.90003      -1.126e-04     -1.125e-04   1.0007   -8.075e-08     -0.8269
+
+[2] REMAINDER SCALING: |residual| ~ n^(-1.98)   [Proposition 1 claims O(n^-2)]
+    n^2 * residual at n=3200: -0.8269
+    prop1_exact.py reports n^(-1.98) and -0.8269 at the same n.
+
+[3] THE REFORMULATION (**) — hypergeometric form vs gap form vs brute-force
+    enumeration of every arrangement. Small cases, including both degenerate
+    endpoints i=0 (no atoms) and i=M (all atoms).
+      M   i   m    k      hypergeom           gaps    brute force    max diff
+      8   3   4   12     5.83928571     5.83928571     5.83928571    3.55e-15
+     10   4   3    9     5.22857143     5.22857143     5.22857143    3.55e-15
+     12   5   2   11     7.89646465     7.89646465     7.89646465    9.77e-15
+     14   6   4   25    11.10422910    11.10422910    11.10422910    7.11e-15
+      9   0   4    5     5.00000000     5.00000000     5.00000000    0.00e+00
+      9   9   4   20     5.00000000     5.00000000     5.00000000    0.00e+00
+     11   2   5   14     8.18181818     8.18181818     8.18181818    1.78e-15
+     13   7   3   20     9.81876457     9.81876457     9.81876457    1.24e-14
+
+ALL CHECKS PASS
+
+WHAT THIS DOES NOT DO: it does not bound the remainder. It confirms the exact
+computation independently, and it shows the remaining analytic problem can be
+posed without the continuous level t, which is the part integrity.md flags as
+the crux. The derivative term behind Corollary 3 is untouched by either route.

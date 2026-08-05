@@ -1,0 +1,47 @@
+==============================================================================
+PRECONDITIONS — a failure in any one invalidates every number below
+==============================================================================
+  P0 release composition: n = 25028 (25028), b = 500 (500), m_bar 50.06, m_tilde 61.29  -> PASS
+     would fail if: the cached release changed, or families were keyed differently.
+  P1 jitter 0.124 < atom spacing 0.125  -> PASS
+     would fail if: jitter could move a score past the next atom, changing the CDF
+     rather than merely breaking ties inside it.
+  P2 POSITIVE control — clustered/i.i.d. sd ratio = 4.44 (published 4.46)  -> PASS
+     would fail if: the effect is not in this release, or the harness drifted from
+     the one that produced the published figure. Without this the negative control
+     below is uninformative — a harness that inflates NOTHING would also pass it.
+  all pass.
+
+==============================================================================
+[3] NEGATIVE CONTROL — clustering removed by construction, same code path
+==============================================================================
+    draw         n    level  measured sd   Beta sd  meas/Beta  clust/iid
+    1          500   0.9000      0.01321   0.01338      0.988      0.985
+    2          500   0.9000      0.01332   0.01338      0.995      0.994
+    3          500   0.9000      0.01370   0.01338      1.024      1.032
+
+    mean measured/Beta = 1.002, mean clustered-arm/i.i.d.-arm = 1.004   -> PASS
+    Same 500 questions, same operating rule, same coverage_dist() call — the only
+    change is that each family now holds one prefix instead of 8-135.
+    The identical harness returns 4.44x on the clustered release and 1.00x here.
+
+==============================================================================
+[2] DEPLOYMENT REFRAME — what one draw looks like, not what the average looks like
+==============================================================================
+    operating point: threshold nearest 0.8909; rho_I 0.4946, m_tilde 61.29, plug-in sqrt(DEFF) 5.55 vs measured 4.44
+
+                                      worst 1 in 100   typical   best 1 in 100
+    what exchangeability implies              88.6%     89.1%          89.6%
+    what the release delivers                 86.9%     89.1%          90.9%
+    mean coverage                                      0.8909 / 0.8906   <- the statistic papers report
+
+    Deployments per 1,000 landing short of the level they were calibrated to:
+       shortfall   threshold   exchangeable   delivered
+           0.5%      0.8859            4.0       284.5
+           1.0%      0.8809            0.0       139.8
+           2.0%      0.8709            0.0        17.0
+           3.0%      0.8609            0.0         0.8
+
+    Both columns come from the same 4,000-replicate bootstrap over the same 500
+    released questions. The only difference is whether prefixes are resampled with
+    their question (delivered) or independently (exchangeable).

@@ -1,0 +1,25 @@
+==============================================================================
+EC-01 P5b — cluster budget for separating a DEFF floor from a decay
+==============================================================================
+matched at p=0.9: rho_I = 0.3224   (gaussian r=0.6000, t3 r=0.4781, lambda_U=0.3004)
+at p=0.99 the truth to be separated: gaussian 0.1794 vs t3 0.3187   (gap 0.1393)
+released profile m_tilde = 61.29, held fixed while b varies
+
+P1  vectorised ICC == prm_measurement.anova_icc on the released set (0.427376544054 vs 0.427376544054) -> PASS
+    would fail if: the count-form algebra is not the same estimator, in which case
+    every number below is from a different instrument than the paper's.
+
+        b         n               gaussian (CI)                     t3 (CI)    sep
+      500     25264   0.1835 [0.0959,0.2721]   0.3077 [0.1732,0.4397]   0.15
+     1000     49038   0.1823 [0.1176,0.2452]   0.3112 [0.2081,0.4211]   0.30
+     2000    100501   0.1747 [0.1252,0.2248]   0.3119 [0.2337,0.3916]   0.65
+     4000    201055   0.1795 [0.1449,0.2165]   0.3127 [0.2581,0.3722]   0.85
+     8000    396060   0.1823 [0.1547,0.2116]   0.3062 [0.2682,0.3464]   1.00
+
+==============================================================================
+  CLUSTER BUDGET: b >= 4000 clusters (n ~ 201,055) to separate
+  a design-effect floor from a decay at p = 0.99, at the released m_tilde.
+  The released artifact has b = 500 — short by 8.0x.
+==============================================================================
+
+wrote result_p5b.json

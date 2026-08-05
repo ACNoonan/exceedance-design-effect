@@ -1,0 +1,59 @@
+==========================================================================
+RAW EVIDENCE — chain reconstruction
+==========================================================================
+  rows 25028   maximal chains 3961  (nominal 500 x N_val=8 = 4000)
+  every row lies on >=1 chain: 25028/25028
+  chains per prefix: mean 1.139  max 8
+     on exactly 1 chain(s):  24513  (97.94%)
+     on exactly 2 chain(s):     11  ( 0.04%)
+     on exactly 3 chain(s):      4  ( 0.02%)
+     on exactly 4 chain(s):      1  ( 0.00%)
+     on exactly 5 chain(s):      1  ( 0.00%)
+     on exactly 6 chain(s):      1  ( 0.00%)
+     on exactly 7 chain(s):     30  ( 0.12%)
+     on exactly 8 chain(s):    467  ( 1.87%)
+  chains per question: min 4 median 8 max 8
+
+==========================================================================
+TWO LEVELS OF CLUSTERING at threshold 0.75
+==========================================================================
+  level            b   m_tilde    rho_I     DEFF  sqrt(DEFF)
+  QUESTION       500     61.29   0.4946    30.81        5.55
+  TRAJECTORY    3315      9.81   0.6877     7.06        2.66
+
+==========================================================================
+  Is within-trajectory correlation higher than within-question, and is §6.1's 'lower bound' caveat right?
+--------------------------------------------------------------------------
+  RAW EVIDENCE (10 sample rows — read before the verdict):
+    'rows on exactly 1 chain(s): 24513 (97.94%)'
+    'rows on exactly 2 chain(s): 11 (0.04%)'
+    'rows on exactly 3 chain(s): 4 (0.02%)'
+    'rows on exactly 4 chain(s): 1 (0.00%)'
+    'rows on exactly 5 chain(s): 1 (0.00%)'
+    'rows on exactly 6 chain(s): 1 (0.00%)'
+    'rows on exactly 7 chain(s): 30 (0.12%)'
+    'rows on exactly 8 chain(s): 467 (1.87%)'
+    'question-level family sizes: [35, 103, 79, 99, 41, 22, 37, 57]'
+    'trajectory-level family sizes: [3, 5, 4, 5, 5, 4, 2, 6, 19, 7, 19, 8]'
+--------------------------------------------------------------------------
+  COMPONENTS the verdict is computed from:
+    maximal chains recovered     3961
+    nominal trajectories (500 x 8) 4000
+    rows on exactly one chain    0.9794
+    rho_I within QUESTION        0.4946
+    rho_I within TRAJECTORY      0.6877
+    m_tilde QUESTION             61.29
+    m_tilde TRAJECTORY           9.81
+    DEFF QUESTION                30.81
+    DEFF TRAJECTORY              7.06
+--------------------------------------------------------------------------
+  PRECONDITIONS on the instrument (3/3 passed):
+    ✔ P1 chain count matches the paper's N_val  [observed: 3961 maximal chains vs 4,000 nominal]
+        would fail if: the nesting reconstruction is not recovering trajectories at all — park2025 §3.1 states N_val = 8 per question over 500 questions, so a count far from 4,000 would mean prefixes do not chain the way Stage 2 describes.
+    ✔ P2 every row is covered  [observed: 25028/25028 rows lie on at least one chain]
+        would fail if: some prefix lies on no maximal chain, which is impossible under string-prefix nesting and would mean the grouping logic is wrong.
+    ✔ P3 question-level reproduces §6.1  [observed: m_tilde 61.29 (61.29), rho_I 0.4946 (0.4946), DEFF 30.81 (30.8)]
+        would fail if: this script's family construction differs from prm_measurement.py's, in which case the trajectory-level number is not comparable to the published one.
+--------------------------------------------------------------------------
+  VERDICT: rho_I IS higher within trajectory (0.6877 vs 0.4946) — the caveat's DIRECTION is confirmed
+==========================================================================

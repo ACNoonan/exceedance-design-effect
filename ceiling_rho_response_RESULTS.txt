@@ -1,0 +1,50 @@
+==============================================================================
+PRECONDITIONS — a failure in any one invalidates every number below
+==============================================================================
+  P1 fixed-rho ceiling reproduces the paper: 825.9 vs 826  -> PASS
+     would fail if: b, CV^2 or rho_I drifted from the values section 6.1 prints, in
+     which case this correction is being applied to a different measurement.
+  P2 beam intervals disjoint: [0.51, 0.556] below [0.567, 0.646]  -> PASS
+     would fail if: the beam sweep's fall were inside noise. THE WHOLE CORRECTION
+     RESTS ON THIS — if the intervals overlapped, the fixed-rho premise would be
+     unrefuted and section 6.1's original arithmetic would stand.
+  P3 fitted exponent is negative: beta = -0.0953  -> PASS
+     would fail if: rho_I rose with family size, which would move the ceiling the
+     other way and make the published number an over- rather than under-statement.
+  P4 NEGATIVE CONTROL on the propagation: at s = 1 it returns 825.9 (= the published 826), and with the sign of beta flipped it returns 723.7 (< 826)  -> PASS
+     would fail if: the sign of the response were coded backwards — the flipped arm is
+     required to move the ceiling DOWN, so a sign error cannot pass both halves.
+  all pass.
+
+==============================================================================
+THE CEILING, WITH rho_I RESPONDING TO FAMILY SIZE
+==============================================================================
+      family scaling     rho_I   ceiling   gain over 812   basis
+        1x (as held)    0.4946                             plug-in reports 812
+      any, rho fixed    0.4946     825.9              14   the published premise, now refuted
+                  2x    0.4630     882.3              70   interpolated inside the measured 4x
+                  4x    0.4334     942.6             131   MEASURED — the beam sweep's own scaling
+                 10x    0.3971    1028.6             217   extrapolated beyond the measured 4x
+                100x    0.3189    1281.0             469   extrapolated beyond the measured 4x
+
+    The published sentence says ten times the prefixes buys twelve. Under the measured
+    response it buys 217, and at the one scaling
+    actually manipulated (4x) it buys 131.
+
+    THERE IS NO LONGER A FINITE CEILING. With beta < 0 the limit diverges, slowly:
+    1029 at ten times and 1281 at a
+    hundred. 'Already at the ceiling' is the wrong shape of statement; the right one is
+    that depth buys hundreds where breadth buys thousands.
+
+    For contrast, NOT PROPAGATED: the confounded cross-sectional endpoint
+    rho_I = 0.1143 gives 3574. Large
+    families are large because the question is hard, so this mixes the size response
+    with the difficulty composition and cannot be read as a response to scaling.
+
+==============================================================================
+WHAT SURVIVES
+==============================================================================
+    Doubling the number of questions buys about 800 effective points; unbounded
+    sampling depth buys hundreds. Breadth still beats depth, by roughly 4x rather
+    than by the 60x the fixed-rho arithmetic implied. Section 8 item 11 stands; the
+    premise sentence and the figure 'twelve' do not.

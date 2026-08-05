@@ -1,0 +1,41 @@
+
+[1] THE LAW  (n=200 = 50x4, alpha=0.1, k=181, p=0.9005, 20000 reps)
+  rho   rho_I   n_eff  sd_sim  sd_law sd_naive  p05_sim  p05_law  p95_sim  p95_law
+ 0.00  0.0000   200.0  0.0212  0.0212   0.0212   0.8632   0.8635   0.9325   0.9329
+ 0.20  0.0798   161.4  0.0234  0.0236   0.0268   0.8585   0.8591   0.9351   0.9362
+ 0.40  0.1847   128.7  0.0265  0.0264   0.0314   0.8523   0.8538   0.9382   0.9401
+ 0.60  0.3221   101.7  0.0299  0.0297   0.0354   0.8445   0.8475   0.9421   0.9444
+ 0.80  0.5135    78.7  0.0341  0.0337   0.0390   0.8350   0.8397   0.9466   0.9496
+ 0.95  0.7545    61.3  0.0388  0.0382   0.0415   0.8249   0.8308   0.9516   0.9550
+ 1.00  1.0000    50.0  0.0414  0.0423   0.0423   0.8261   0.8227   0.9599   0.9597
+
+    max |sd_sim - sd_law|   = 0.00096   <- Theorem 1
+    max |sd_sim - sd_naive| = 0.00552   <- score-ICC rival, 5.7x worse
+
+[2] ENDPOINT RECOVERY
+    rho=0  Beta(181,20) analytic : sd=0.0211 p05=0.8637 p95=0.9327
+           simulated              : sd=0.0212 p05=0.8632 p95=0.9325
+    rho=1  Ramos Beta(46,5) [2605.19024 §4.2]: sd=0.0412 p05=0.8262 p95=0.9598
+           our law at n_eff=b=50   : sd=0.0423 p05=0.8227 p95=0.9597
+           simulated              : sd=0.0414 p05=0.8261 p95=0.9599
+    (residual at rho=1 is ceil(k/m) discreteness — see draft §7, not claimed)
+
+[3] LEVEL-DEPENDENCE — same clustering (rho=0.6, m=4), three coverage targets
+ 1-alpha       p   rho_I   DEFF   n_eff  sd_sim  sd_law
+    0.90  0.9005  0.3221  1.966   101.7  0.0301  0.0297
+    0.95  0.9502  0.2738  1.821   109.8  0.0211  0.0207
+    0.99  0.9900  0.1792  1.538   130.1  0.0093  0.0087
+
+[4] EXACT Phi_2 vs SMALL-rho EXPANSION rho*phi(z_p)^2/(p(1-p)) — exact/linear ratio
+     p   rho=0.2   rho=0.5   rho=0.8
+  0.50      1.01      1.05      1.16
+  0.90      1.17      1.45      1.88
+  0.95      1.29      1.82      2.62
+  0.99      1.68      3.36      6.46
+    the expansion is unusable in the tails — use the exact form (draft §5)
+
+[5] MARGINAL INVARIANCE — a code check, NOT evidence (see integrity.md SW-05)
+    Gaussian marginal : mean=0.8985 sd=0.0301
+    Exp(1)   marginal : mean=0.8985 sd=0.0301
+    predicted by law  : sd=0.0297
+    (identical by construction — the copula test is in sim_validation.py Test 1)

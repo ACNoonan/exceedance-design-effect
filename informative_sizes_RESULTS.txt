@@ -1,0 +1,27 @@
+
+[1] SIMULATION — same size profile, different size/score pairing
+    n=242, b=60, within-family score correlation r=0.6, nominal=0.9012
+
+   size-score coupling  mean cov  shift (pp)       sd    verdict
+           independent    0.8964       -0.48   0.0356         ok
+ large fams score HIGH    0.9666       +6.54   0.0146 conservative
+  large fams score LOW    0.7202      -18.10   0.0462     UNSAFE
+
+    For comparison, the entire design effect at this configuration moves the MEAN
+    by under 1 pp. The marginal violation is first-order; the design effect is not.
+
+[2] IS THE COUPLING PRESENT IN THE REAL PRM CALIBRATION SET?
+    families = 500
+    Spearman(size, family mean score) = -0.4247   p = 2.57e-23
+    Pearson (size, family mean score) = -0.4112   p = 7.93e-22
+
+   size quartile  families  mean size  mean score
+              Q1       121       25.3      0.3925
+              Q2       126       37.5      0.3199
+              Q3       123       52.2      0.1508
+              Q4       130       83.1      0.0651
+
+    Strong and highly significant: larger families score systematically lower
+    (harder questions -> longer traces -> more prefixes). Assumption (A1)-(A2) is
+    violated in the released data. Direction of the induced coverage error is NOT
+    determined here -- their nonconformity score is not in the release.

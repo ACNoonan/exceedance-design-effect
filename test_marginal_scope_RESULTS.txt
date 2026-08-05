@@ -1,0 +1,44 @@
+[0] PRECONDITION — reproduce §6.1's composition, not merely its rates
+    rows n           = 25028          (§6.1: 25028)
+    families b       = 500            (§6.1: 500)
+    m_bar / m_tilde  = 50.06 / 61.29 (§6.1: 50.06 / 61.29)
+    Spearman(size, family mean) = -0.4247, p = 2.57e-23  (§6.1: -0.42, p ~ 3e-23)
+
+[1] THE TWO TEST MARGINALS, AT EVERY ACHIEVABLE THRESHOLD
+    p_pool = per-PREFIX (calibration's own weighting) | p_perq = per-QUESTION
+
+ thresh    p_pool    p_perq   gap (pp)
+  0.000    0.6744    0.6183      -5.62
+  0.125    0.7639    0.7011      -6.28
+  0.250    0.8062    0.7427      -6.35
+  0.375    0.8342    0.7718      -6.24
+  0.500    0.8553    0.7961      -5.92
+  0.625    0.8737    0.8190      -5.47
+  0.750    0.8909    0.8410      -4.99
+  0.875    0.9145    0.8731      -4.14
+
+    gap range across all achievable levels: -6.35 to -4.14 pp — stable, not a tail artefact
+
+[2] AT THE LEVEL §6.1 REPORTS (nearest achievable to 0.90)
+    threshold t            = 0.750
+    per-prefix  (= nominal) = 0.8909
+    per-question            = 0.8410
+    FIRST-ORDER GAP         = -4.99 percentage points
+
+[3] THE COMMENSURABLE COMPARISON (Proposition 1 drift — both are MEAN effects)
+    rho_I(0.891)            = 0.4946
+    rho_I' (finite diff, 0.874..0.914) = -2.216
+    Prop-1 drift           = -0.073 pp
+    |gap| / |drift|        = 69x
+
+    Secondary reading, against dispersion rather than mean:
+    DEFF = 30.8, n_eff = 812, coverage sd = 1.09 pp
+    |gap| / sd             = 4.6 sd
+
+[4] READING (a), PER-PREFIX — stated, not measured
+    Calibration and test marginals coincide by construction, so the size channel
+    contributes exactly 0.00 pp at first order. That is an identity and could not have
+    come out otherwise; it is recorded as an argument, not as evidence.
+
+[5] SIGN IS NOT FIXED BY THE RELEASE — see caveat 1 in the docstring.
+    Every gap above negates under the opposite score orientation; magnitudes do not.

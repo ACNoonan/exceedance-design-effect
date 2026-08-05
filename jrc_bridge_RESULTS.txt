@@ -1,0 +1,20 @@
+====================================================================================
+SW-02 Theorem 2 construction, viewed through Jin-Ren-Candes
+====================================================================================
+    a   Gamma  covB plain      gap     pred  t(Alg1)  covB(1)  t(Alg2)  covB(2)
+ 0.00    1.00      0.9000   0.0000   0.0000   0.9000   0.9000   0.9000   0.9000
+ 0.20    1.50      0.8820   0.0180   0.0180   0.9310   0.9182   0.9167   0.9014
+ 0.50    3.00      0.8550   0.0450   0.0450   0.9643   0.9471   0.9333   0.9022
+ 0.90   19.00      0.8190   0.0810   0.0810   0.9942   0.9890   0.9474   0.9025
+
+PRECONDITION CHECKS (each could have failed)
+  C1  a=0: Gamma=1, gap=0, t1=t2=0.90                      : PASS
+  C2  a=0.9 gap = 0.0810 vs paper's 0.081            : PASS
+  C3  both algorithms >= 0.90 in BOTH arms, all a           : PASS
+  C4  finite-n Alg1: plain 0.8190 vs 0.8190, adj 0.9890 vs 0.9890   : PASS
+  C5  NEG CONTROL: Alg1 threshold >= Alg2 threshold, all a  : PASS
+
+READING
+  Theorem 2's construction at a=0.9 sits at Gamma = 19.
+  The sharp (Alg 2) threshold moves 0.9000 -> 0.9474 and lands arm B at 0.9025 -- it repairs the 8.1pp gap almost exactly.
+  The marginal (Alg 1) threshold moves to 0.9942, landing at 0.9890 -- valid but badly overshooting at large Gamma.

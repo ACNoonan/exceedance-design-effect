@@ -1,0 +1,48 @@
+[0] PRECONDITION — independent clusters must give E[C] = k/(n+1) exactly
+    b=  50 m=4  atom q=0   E[C]-k/(n+1) = -1.010e-14  PASS
+    b=  50 m=4  gauss r=0  E[C]-k/(n+1) = -1.010e-14  PASS
+    b= 120 m=5  atom q=0   E[C]-k/(n+1) = -3.553e-15  PASS
+    b= 120 m=5  gauss r=0  E[C]-k/(n+1) = -3.553e-15  PASS
+    b= 400 m=2  atom q=0   E[C]-k/(n+1) = -2.665e-15  PASS
+    b= 400 m=2  gauss r=0  E[C]-k/(n+1) = -2.665e-15  PASS
+    -> pipeline reproduces the exchangeable case
+
+[0b] QUADRATURE STABILITY — refine and confirm the drift does not move
+    GL= 1500 GH= 120   atom -9.056805387062e-04   gauss -7.535289326634e-04
+    GL= 3000 GH= 240   atom -9.056805387047e-04   gauss -7.535289324135e-04
+    GL= 6000 GH= 400   atom -9.056805386636e-04   gauss -7.535289317304e-04
+    spread across refinements: atom 4.3e-14, gauss 9.3e-13
+    smallest residual this script reports: 3.0e-08  -> quadrature noise is 1/32,153 of it  PASS
+
+[1] MODEL A — atom mixture, q=0.30, m=4. rho_I == q exactly, so rho_I' = 0
+    and the prediction is the second term alone: -(m-1)(2p-1)q/(2n).
+     b      n        p    exact drift      predicted    ratio     residual   n^2*resid
+    25    100  0.90099     -3.684e-03     -3.609e-03   1.0208   -7.522e-05     -0.7522
+    50    200  0.90050     -1.822e-03     -1.802e-03   1.0112   -2.025e-05     -0.8098
+   100    400  0.90025     -9.057e-04     -9.006e-04   1.0057   -5.119e-06     -0.8191
+   200    800  0.90012     -4.514e-04     -4.501e-04   1.0029   -1.287e-06     -0.8236
+   400   1600  0.90006     -2.254e-04     -2.250e-04   1.0014   -3.226e-07     -0.8258
+   800   3200  0.90003     -1.126e-04     -1.125e-04   1.0007   -8.075e-08     -0.8269
+
+[2] MODEL B — one-factor Gaussian, rho=0.40, m=4. Both terms active;
+    this is what tests the rho_I' term behind Corollary 3's sign claim.
+     b      n        p    exact drift      predicted    ratio     residual   n^2*resid
+    25    100  0.90099     -2.992e-03     -3.021e-03   0.9905    2.860e-05      0.2860
+    50    200  0.90050     -1.503e-03     -1.511e-03   0.9950    7.589e-06      0.3035
+   100    400  0.90025     -7.535e-04     -7.555e-04   0.9974    1.951e-06      0.3121
+   200    800  0.90012     -3.773e-04     -3.778e-04   0.9987    4.943e-07      0.3163
+   400   1600  0.90006     -1.888e-04     -1.889e-04   0.9993    1.244e-07      0.3185
+   800   3200  0.90003     -9.441e-05     -9.444e-05   0.9997    3.120e-08      0.3195
+
+[3] REMAINDER SCALING
+  model A: |residual| ~ n^(-1.98)   [Proposition 1 claims O(n^-2)]
+           n^2 * residual -> -0.8280 by Richardson (differences halving — consistent with an O(n^-3) next term)
+  model B: |residual| ~ n^(-1.97)   [Proposition 1 claims O(n^-2)]
+           n^2 * residual -> +0.3206 by Richardson (differences halving — consistent with an O(n^-3) next term)
+
+[4] ROBUSTNESS — ratio exact/predicted across p and m, n ~ 1600
+  m       0.80       0.90       0.95       0.99
+  2     0.9993     0.9993     0.9990     0.9951
+  4     0.9992     0.9993     0.9993     0.9956
+  8     0.9989     0.9995     0.9999     0.9965
+    (one-factor Gaussian, rho=0.40; 1.0000 is exact agreement with Proposition 1)
