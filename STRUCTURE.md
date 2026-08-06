@@ -3,7 +3,7 @@
 **Kind: artifact (public proof).** S1 applies. S2–S5 do not — the private research repo
 `exceedance-paper` owns the row-space; this repo owns the demonstration.
 
-*Added 2026-08-05 per [`~/Documents/STANDARD.md`](../STANDARD.md).*
+*Added 2026-08-05 per [`~/Documents/STANDARD.md`](../command-center/standard/artifact.md).*
 
 ## The one rule
 
