@@ -1,0 +1,14 @@
+{
+  "upload_type": "software",
+  "title": "exceedance-design-effect: verification code for The Exceedance Design Effect",
+  "creators": [
+    {"name": "Noonan, Adam", "orcid": "0009-0000-7506-6395"}
+  ],
+  "description": "Verification code and the installable neff estimator for the paper \"The Exceedance Design Effect: Effective Sample Size for Thresholds under Clustering\" (arXiv:2608.21262). Each directory verifies one part of the argument; every script travels with its committed output so a reader can diff their run against ours.",
+  "license": "MIT",
+  "keywords": ["effective sample size", "design effect", "conformal prediction", "clustering", "exceedance"],
+  "related_identifiers": [
+    {"identifier": "10.5281/zenodo.21595640", "relation": "isSupplementTo", "resource_type": "publication-preprint", "scheme": "doi"},
+    {"identifier": "arXiv:2608.21262", "relation": "isSupplementTo", "resource_type": "publication-preprint", "scheme": "arxiv"}
+  ]
+}
