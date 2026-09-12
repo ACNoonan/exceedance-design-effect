@@ -1,0 +1,29 @@
+# PINNED 2026-08-07. This repo is the PUBLIC proof (github.com/ACNoonan/exceedance-design-effect);
+# exceedance-paper is the private workspace behind it. Every private lane reaches the shared
+# instrument by symlink into ~/Documents/research-vocab/, and this repo must not: that path exists
+# only on one machine, so the link would dangle for anyone who clones the repo. A vendored copy is
+# what makes the artifact self-contained and re-runnable by a stranger.
+#
+# Not the closed-lane case. The three calibrated-uncertainty pins are frozen because their copy IS
+# the provenance record for numbers already reported. This one is frozen because of who the reader
+# is. It SHOULD track the canonical over time — it just has to be refreshed deliberately rather
+# than by a link that updates silently.
+#
+# Pinned at sha256 29de96547ac2057e… — byte-identical to the canonical on 2026-08-07.
+#
+# To refresh (a deliberate act, not a sync):
+#   cp ~/Documents/research-vocab/verdict.py .
+#   re-run the claim scripts, diff their committed <claim>_RESULTS.txt
+#   update the sha above
+# A refresh that changes a published number is a correction, and gets recorded as one.
+verdict.py: public artifact repo — must be self-contained; a symlink into ~/Documents would dangle for anyone who clones it
+
+# PINNED 2026-08-24. neff/_icc.py is a vendored copy of the canonical estimator module at
+# ~/Documents/calibrated-uncertainty/experiments/_icc.py (sha256 f066e868a8428771..., byte-identical
+# at vendoring). Same reason as verdict.py above: this repo must run for a stranger from a clean
+# checkout, so no symlink into ~/Documents. Refresh deliberately:
+#   cp ~/Documents/calibrated-uncertainty/experiments/_icc.py neff/_icc.py
+#   uv run --extra test pytest    # the golden suite pins published numbers
+# A refresh that changes a published number is a correction, and gets recorded as one.
+# tests/test_icc_golden.py is vendored from the same directory with only its import line changed.
+neff/_icc.py: public artifact repo — self-containment; canonical lives in calibrated-uncertainty/experiments

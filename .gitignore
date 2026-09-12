@@ -2,3 +2,6 @@ __pycache__/
 prm/prm_calibration_cache.json
 figures/*.png
 figures/*.pdf
+.venv/
+.pytest_cache/
+*.egg-info/

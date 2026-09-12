@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neff"
+version = "0.1.0"
+description = "How many independent observations does your evaluation have? Effective sample size for clustered ML evidence: outcomes+ids, pass@k spectra, and thresholds at an operating level."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Adam Noonan" }]
+dependencies = ["numpy>=1.24", "scipy>=1.10"]
+
+[project.urls]
+Repository = "https://github.com/ACNoonan/exceedance-design-effect"
+Paper = "https://doi.org/10.5281/zenodo.21595640"
+
+[project.scripts]
+neff = "neff.cli:main"
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[tool.setuptools]
+packages = ["neff"]
