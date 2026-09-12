@@ -28,6 +28,9 @@ prm/ nhanes/     real substrates
 sw02ext/         extensions to SW-02
 figures/         generated figures
 calkit/          the shared conformal library (mirrored from calibrated-uncertainty)
+neff/            the installable estimator package (pip install -e .): outcomes+ids,
+                 pass@k spectra, thresholds at a level; `neff` CLI; see pyproject.toml
+tests/           the package test suite (golden numbers + pass@k round trip)
 docs/            reader-facing documentation
 ```
 
@@ -38,6 +41,24 @@ root pile.
 
 ## Waivers
 
-`_conformal.py` and `verdict.py` sit at root as shared modules imported across claim directories.
-Root is at 3 files. Left as-is rather than moved to `src/` — a reader opening the repo should see
+`_conformal.py`, `verdict.py` and `_icc.py` sit at root as shared modules imported across claim
+directories. Root is at 4 files. Left as-is rather than moved to `src/` — a reader opening the repo should see
 the verdict machinery immediately.
+
+**`verdict.py` is a pinned vendored copy, deliberately not a symlink.** Every private lane
+reaches the shared instrument by symlink into `~/Documents/research-vocab/verdict.py`, and this
+repo must not: it is the public proof, so a link into a directory that exists only on Adam's
+machine would dangle for anyone who clones it. The copy is what makes the repo self-contained
+and the results re-runnable by a stranger, which is the entire point of an artifact repo.
+
+The cost of that decision is the one this arrangement exists to prevent — the copy can fall
+behind the canonical without anyone noticing. Two things hold it:
+
+- `.vocab-pin` records the reason, which is what stands `canonical-symlink-gate` down. Without
+  it the gate blocks edits here, because an unexplained copy is indistinguishable from a copy
+  that drifted by accident.
+- Refreshing is a deliberate act, not a sync: `cp ~/Documents/research-vocab/verdict.py .`,
+  re-run the claim scripts, and update the sha in `.vocab-pin`. A refresh that changes a
+  published number is a correction, and gets recorded as one.
+
+Pinned at sha256 `29de96547ac2057e…` (2026-08-07), byte-identical to the canonical on that date.

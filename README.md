@@ -2,9 +2,30 @@
 
 Verification code for **"The Exceedance Design Effect: Effective Sample Size for Thresholds under Clustering."**
 
-Concept DOI: [10.5281/zenodo.21595640](https://doi.org/10.5281/zenodo.21595640), which always resolves to the newest version and is the only DOI worth citing.
+- **Paper:** [arXiv:2608.21262](https://arxiv.org/abs/2608.21262) (stat.ML, cs.LG), 48 pages.
+- **Cite:** concept DOI [10.5281/zenodo.21595640](https://doi.org/10.5281/zenodo.21595640). It always resolves to the newest version, and it is the only DOI worth citing.
+- **Current record:** Zenodo v8, [10.5281/zenodo.22048277](https://doi.org/10.5281/zenodo.22048277), 2026-08-21. The arXiv text and the v8 record are the same paper.
 
-## Layout
+The section numbers below refer to that text.
+
+## The estimator, in one command
+
+`neff` answers one question: how many independent observations is your evaluation worth?
+
+```bash
+pip install -e .
+
+neff outcomes results.csv --cluster-col repo --value-col resolved --unit repo
+neff scores cal.csv --cluster-col prompt --value-col score --level 0.9 --unit prompt
+neff passk --pass-at 1=0.428,2=0.522,3=0.568,4=0.596,5=0.615 --trials 5 --n-items 89
+```
+
+Each prints rho, m-tilde, DEFF, n_eff and a reporting line you can paste into a paper.
+`pytest` runs the golden suite, which pins the published numbers.
+
+## Reproducing the paper
+
+Organized by claim: each directory verifies one part of the argument.
 
 | directory | what lives there |
 |---|---|
@@ -13,13 +34,17 @@ Concept DOI: [10.5281/zenodo.21595640](https://doi.org/10.5281/zenodo.21595640),
 | `prm/` | the released PRM calibration set (§6.1): measurement, dispersion, trajectory index, and their shared download cache |
 | `selection/` | the selection channel — Theorem 2's construction, the dose–response sweep, and the reweighting costs |
 | `empirical_core/` | the EC-01 lane: distributional shape test, generated beam families (§6.2), the §8 tail-separability budget |
-| `deploy_gate/` | §3's measurement on [pasc2026]'s substrate (CoNLL) |
+| `deploy_gate/` | §3's measurement on the CoNLL calibration pool of Kotte's PASC ([arXiv:2605.18812](https://arxiv.org/abs/2605.18812)) |
 | `nhanes/` | §5.2's real-substrate check, where the clustering is geographic rather than generative |
 | `sw02ext/` | §8's clustered training-conditional shift |
 | `figures/` | the figure builders |
 | `docs/` | the two documents the paper cites: the SW-12 lemma reduction and the prior-art convergence inventory |
+| `neff/` | the installable estimator package — `pip install -e .` then `neff outcomes\|scores\|passk`; rho, m̃, DEFF, n_eff and a one-line reporting string from cluster ids + outcomes, a published pass@k spectrum, or scores at an operating level |
+| `tests/` | package test suite: the golden suite pinning published numbers, and the pass@k inversion round trip |
 
-The shared modules stay at root: `calkit/` and `_conformal.py` (the two conformal implementations), and `verdict.py` (the reporting helper).
+The shared modules stay at root: `calkit/` and `_conformal.py` (the two conformal implementations), `verdict.py` (the reporting helper), and `_icc.py` (a shim onto `neff/_icc.py`, so the claim scripts' root-level import still works).
+
+The tag [`v7-zenodo`](https://github.com/ACNoonan/exceedance-design-effect/tree/v7-zenodo) mirrors the 83-file code archive attached to the Zenodo record, byte for byte. The v7 and v8 records carry the same archive. `main` has since moved on: it sorts those files into the directories in the table above, and adds the `neff` package.
 
 ## theory/
 
@@ -86,7 +111,7 @@ The shared modules stay at root: `calkit/` and `_conformal.py` (the two conforma
 ## The lane directories
 
 - `empirical_core/` — `e1_shape_test.py`: does the coverage law hold distributionally, or only in variance; `e2_beam_families.py`: generated beam families vs decode config (§6.2); `p5b_cluster_budget.py`: §8's tail-separability budget, with `p5_tail_separability.py` as its precondition module
-- `deploy_gate/` — §3's measurement on [pasc2026]'s CoNLL substrate
+- `deploy_gate/` — §3's measurement on the PASC CoNLL substrate
 - `nhanes/` — §5.2's geographic-clustering check
 - `sw02ext/` — §8's clustered training-conditional shift, with its run log
 - `figures/` — `build_figures.py` renders all five figures; `figure.py` is the sweep it grew from
