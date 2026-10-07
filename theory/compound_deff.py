@@ -109,3 +109,7 @@ for d in hard:
           f"z_naive={d['zn']:.2f} (>3)  : {'PASS' if (d['zo']<3 and d['zn']>3) else 'FAIL'}")
 p5 = all(abs(d["rw"] - d["ri"]) > 0.01 for d in hard)
 print(f"  P5  rho_W != rho_I at r>0, a>0                              : {'PASS' if p5 else 'FAIL'}")
+
+# A completed process must not hide a failed declared check.
+if __name__ == "__main__" and not (p1 and p2 and p3 and p4 and p5):
+    raise SystemExit(1)

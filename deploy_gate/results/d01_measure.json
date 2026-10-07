@@ -1,0 +1,466 @@
+{
+  "split": "dev",
+  "n_questions": 11873,
+  "merge_preserved_rows": true,
+  "levels": [
+    0.5,
+    0.7,
+    0.8,
+    0.9,
+    0.95,
+    0.99
+  ],
+  "G-01_auroc": 0.9323860392554782,
+  "G-01_pass": true,
+  "G-02": {
+    "distinct": 11865,
+    "frac_distinct": 0.9993262023077571,
+    "modal_mass": 0.000168449423060726,
+    "pass": true
+  },
+  "G-04": {
+    "article": {
+      "expected": {
+        "b": 35,
+        "n": 11873,
+        "m_bar": 339.23,
+        "m_tilde": 364.03
+      },
+      "got": {
+        "b": 35,
+        "n": 11873,
+        "m_bar": 339.22857142857146,
+        "m_tilde": 364.03141581740084
+      },
+      "pass": true
+    },
+    "paragraph": {
+      "expected": {
+        "b": 1204,
+        "n": 11873,
+        "m_bar": 9.86,
+        "m_tilde": 10.41
+      },
+      "got": {
+        "b": 1204,
+        "n": 11873,
+        "m_bar": 9.861295681063122,
+        "m_tilde": 10.407394929672366
+      },
+      "pass": true
+    }
+  },
+  "G-06": {
+    "rho": 1.0,
+    "m_tilde": 364.03141581740084,
+    "deff": 364.03141581740084,
+    "pass": true
+  },
+  "score_icc": {
+    "article": 0.035178836358084185,
+    "paragraph": -0.0025521290896811564
+  },
+  "sweep": {
+    "article": [
+      {
+        "p": 0.5,
+        "threshold": -1.655130386352539,
+        "retained_frac": 0.5000421123557652,
+        "G-05_pass": true,
+        "rho_I": 0.020730809715497036,
+        "m_tilde": 364.03141581740084,
+        "deff": 8.525935202058019,
+        "n_eff": 1392.5745057426727,
+        "null_mean": -6.007157665978545e-05,
+        "null_p95": 0.0011785518338577996,
+        "clears_null": true,
+        "G-03_pass": true
+      },
+      {
+        "p": 0.7,
+        "threshold": 6.507344937324524,
+        "retained_frac": 0.699991577528847,
+        "G-05_pass": true,
+        "rho_I": 0.025410555255738168,
+        "m_tilde": 364.03141581740084,
+        "deff": 10.224829851196922,
+        "n_eff": 1161.192916927624,
+        "null_mean": 3.1514603871860086e-05,
+        "null_p95": 0.0013756783806276524,
+        "clears_null": true,
+        "G-03_pass": true
+      },
+      {
+        "p": 0.8,
+        "threshold": 10.361837196350098,
+        "retained_frac": 0.7999663101153879,
+        "G-05_pass": true,
+        "rho_I": 0.03934882095819406,
+        "m_tilde": 364.03141581740084,
+        "deff": 15.284858183198605,
+        "n_eff": 776.7818227486741,
+        "null_mean": 1.4301750923085578e-05,
+        "null_p95": 0.0012699734792132266,
+        "clears_null": true,
+        "G-03_pass": true
+      },
+      {
+        "p": 0.9,
+        "threshold": 14.088428163528446,
+        "retained_frac": 0.8999410427019288,
+        "G-05_pass": true,
+        "rho_I": 0.04264035799866524,
+        "m_tilde": 364.03141581740084,
+        "deff": 16.479789535216273,
+        "n_eff": 720.4582300416001,
+        "null_mean": -4.402379029671288e-06,
+        "null_p95": 0.0012006271313454557,
+        "clears_null": true,
+        "G-03_pass": true
+      },
+      {
+        "p": 0.95,
+        "threshold": 16.89830570220947,
+        "retained_frac": 0.9499705213509644,
+        "G-05_pass": true,
+        "rho_I": 0.032265718728564444,
+        "m_tilde": 364.03141581740084,
+        "deff": 12.713469552396777,
+        "n_eff": 933.8914095060439,
+        "null_mean": -1.6233743863709303e-05,
+        "null_p95": 0.001253619835387107,
+        "clears_null": true,
+        "G-03_pass": true
+      },
+      {
+        "p": 0.99,
+        "threshold": 19.899294128417974,
+        "retained_frac": 0.9899772593278868,
+        "G-05_pass": true,
+        "rho_I": 0.017543931948514717,
+        "m_tilde": 364.03141581740084,
+        "deff": 7.36899845427343,
+        "n_eff": 1611.2094572519022,
+        "null_mean": 2.165032420794463e-05,
+        "null_p95": 0.0013578485116008314,
+        "clears_null": true,
+        "G-03_pass": true
+      }
+    ],
+    "paragraph": [
+      {
+        "p": 0.5,
+        "threshold": -1.655130386352539,
+        "retained_frac": 0.5000421123557652,
+        "G-05_pass": true,
+        "rho_I": -0.019824317993270613,
+        "m_tilde": 10.407394929672366,
+        "deff": 1.0,
+        "n_eff": 11873.0,
+        "null_mean": -4.874139533430069e-05,
+        "null_p95": 0.007069434364071806,
+        "clears_null": false,
+        "G-03_pass": false
+      },
+      {
+        "p": 0.7,
+        "threshold": 6.507344937324524,
+        "retained_frac": 0.699991577528847,
+        "G-05_pass": true,
+        "rho_I": 0.00617571823772082,
+        "m_tilde": 10.407394929672366,
+        "deff": 1.05809742043662,
+        "n_eff": 11221.083967013785,
+        "null_mean": 5.481728144453544e-05,
+        "null_p95": 0.0076657564619784365,
+        "clears_null": false,
+        "G-03_pass": false
+      },
+      {
+        "p": 0.8,
+        "threshold": 10.361837196350098,
+        "retained_frac": 0.7999663101153879,
+        "G-05_pass": true,
+        "rho_I": 0.040731998993193796,
+        "m_tilde": 10.407394929672366,
+        "deff": 1.3831820008039912,
+        "n_eff": 8583.830611661138,
+        "null_mean": 1.5249116064921797e-06,
+        "null_p95": 0.007739037718524679,
+        "clears_null": true,
+        "G-03_pass": true
+      },
+      {
+        "p": 0.9,
+        "threshold": 14.088428163528446,
+        "retained_frac": 0.8999410427019288,
+        "G-05_pass": true,
+        "rho_I": 0.06398254300661857,
+        "m_tilde": 10.407394929672366,
+        "deff": 1.6019090506680076,
+        "n_eff": 7411.781583385695,
+        "null_mean": 6.478515949903504e-05,
+        "null_p95": 0.007446027788544411,
+        "clears_null": true,
+        "G-03_pass": true
+      },
+      {
+        "p": 0.95,
+        "threshold": 16.89830570220947,
+        "retained_frac": 0.9499705213509644,
+        "G-05_pass": true,
+        "rho_I": 0.05835658645029106,
+        "m_tilde": 10.407394929672366,
+        "deff": 1.5489834554854554,
+        "n_eff": 7665.026994287019,
+        "null_mean": -0.00022152064126293227,
+        "null_p95": 0.00801709319760536,
+        "clears_null": true,
+        "G-03_pass": true
+      },
+      {
+        "p": 0.99,
+        "threshold": 19.899294128417974,
+        "retained_frac": 0.9899772593278868,
+        "G-05_pass": true,
+        "rho_I": 0.03578872109942257,
+        "m_tilde": 10.407394929672366,
+        "deff": 1.3366786334101664,
+        "n_eff": 8882.464119074994,
+        "null_mean": 0.00015667563585116133,
+        "null_p95": 0.008483433618647156,
+        "clears_null": true,
+        "G-03_pass": true
+      }
+    ]
+  },
+  "bootstrap_paragraph": {
+    "0.8": {
+      "sd_cluster_pp": 0.42943204125716944,
+      "sd_iid_pp": 0.3658302333514386,
+      "ratio": 1.173856073411601,
+      "implied_deff": 1.3779380810853021
+    },
+    "0.9": {
+      "sd_cluster_pp": 0.34970508547184453,
+      "sd_iid_pp": 0.2771291359389806,
+      "ratio": 1.2618849486430184,
+      "implied_deff": 1.592353623611793
+    }
+  },
+  "T-06_answerability_control": {
+    "article": [
+      {
+        "p": 0.8,
+        "rho_raw": 0.03934882095819406,
+        "rho_controlled": 0.05867447533569344,
+        "retained_frac_of_raw": 1.4911368093603572,
+        "null_p95": 0.0013596743041158483,
+        "survives": true
+      },
+      {
+        "p": 0.9,
+        "rho_raw": 0.04264035799866524,
+        "rho_controlled": 0.05179259005822751,
+        "retained_frac_of_raw": 1.2146377865741362,
+        "null_p95": 0.0012764567469060915,
+        "survives": true
+      }
+    ],
+    "paragraph": [
+      {
+        "p": 0.8,
+        "rho_raw": 0.040731998993193796,
+        "rho_controlled": 0.09007625357006402,
+        "retained_frac_of_raw": 2.2114370960559904,
+        "null_p95": 0.007182081557867664,
+        "survives": true
+      },
+      {
+        "p": 0.9,
+        "rho_raw": 0.06398254300661857,
+        "rho_controlled": 0.08726539579835543,
+        "retained_frac_of_raw": 1.3638938325619288,
+        "null_p95": 0.0077389962332143755,
+        "survives": true
+      }
+    ]
+  },
+  "per_article": {
+    "Pharmacy": {
+      "n": 244,
+      "unanswerable": 0.47540983606557374,
+      "retain90": 0.7581967213114754
+    },
+    "Scottish_Parliament": {
+      "n": 357,
+      "unanswerable": 0.47058823529411764,
+      "retain90": 0.7899159663865546
+    },
+    "Computational_complexity_theory": {
+      "n": 418,
+      "unanswerable": 0.5287081339712919,
+      "retain90": 0.7942583732057417
+    },
+    "French_and_Indian_War": {
+      "n": 402,
+      "unanswerable": 0.572139303482587,
+      "retain90": 0.8034825870646766
+    },
+    "Immune_system": {
+      "n": 458,
+      "unanswerable": 0.5305676855895196,
+      "retain90": 0.8165938864628821
+    },
+    "Force": {
+      "n": 377,
+      "unanswerable": 0.46419098143236076,
+      "retain90": 0.8222811671087533
+    },
+    "Economic_inequality": {
+      "n": 515,
+      "unanswerable": 0.42330097087378643,
+      "retain90": 0.8310679611650486
+    },
+    "Imperialism": {
+      "n": 364,
+      "unanswerable": 0.48626373626373626,
+      "retain90": 0.8434065934065934
+    },
+    "European_Union_law": {
+      "n": 421,
+      "unanswerable": 0.4513064133016627,
+      "retain90": 0.8456057007125891
+    },
+    "Sky_(United_Kingdom)": {
+      "n": 210,
+      "unanswerable": 0.4857142857142857,
+      "retain90": 0.8523809523809524
+    },
+    "Islamism": {
+      "n": 384,
+      "unanswerable": 0.4869791666666667,
+      "retain90": 0.8828125
+    },
+    "Harvard_University": {
+      "n": 262,
+      "unanswerable": 0.5725190839694656,
+      "retain90": 0.8854961832061069
+    },
+    "Yuan_dynasty": {
+      "n": 445,
+      "unanswerable": 0.48764044943820223,
+      "retain90": 0.898876404494382
+    },
+    "University_of_Chicago": {
+      "n": 356,
+      "unanswerable": 0.5056179775280899,
+      "retain90": 0.898876404494382
+    },
+    "Amazon_rainforest": {
+      "n": 284,
+      "unanswerable": 0.35563380281690143,
+      "retain90": 0.9084507042253521
+    },
+    "Construction": {
+      "n": 232,
+      "unanswerable": 0.5775862068965517,
+      "retain90": 0.9094827586206896
+    },
+    "Rhine": {
+      "n": 498,
+      "unanswerable": 0.41767068273092367,
+      "retain90": 0.9216867469879518
+    },
+    "Jacksonville,_Florida": {
+      "n": 192,
+      "unanswerable": 0.5,
+      "retain90": 0.9322916666666666
+    },
+    "Packet_switching": {
+      "n": 373,
+      "unanswerable": 0.7211796246648794,
+      "retain90": 0.9329758713136729
+    },
+    "Geology": {
+      "n": 362,
+      "unanswerable": 0.6795580110497238,
+      "retain90": 0.9337016574585635
+    },
+    "Private_school": {
+      "n": 240,
+      "unanswerable": 0.5291666666666667,
+      "retain90": 0.9375
+    },
+    "1973_oil_crisis": {
+      "n": 255,
+      "unanswerable": 0.5843137254901961,
+      "retain90": 0.9411764705882353
+    },
+    "Victoria_(Australia)": {
+      "n": 247,
+      "unanswerable": 0.4979757085020243,
+      "retain90": 0.9433198380566802
+    },
+    "Intergovernmental_Panel_on_Climate_Change": {
+      "n": 222,
+      "unanswerable": 0.5315315315315315,
+      "retain90": 0.9459459459459459
+    },
+    "Black_Death": {
+      "n": 219,
+      "unanswerable": 0.5068493150684932,
+      "retain90": 0.9497716894977168
+    },
+    "Huguenot": {
+      "n": 424,
+      "unanswerable": 0.4882075471698113,
+      "retain90": 0.9504716981132075
+    },
+    "Ctenophora": {
+      "n": 325,
+      "unanswerable": 0.47692307692307695,
+      "retain90": 0.9507692307692308
+    },
+    "Warsaw": {
+      "n": 486,
+      "unanswerable": 0.5020576131687243,
+      "retain90": 0.9547325102880658
+    },
+    "Oxygen": {
+      "n": 415,
+      "unanswerable": 0.41927710843373495,
+      "retain90": 0.9590361445783132
+    },
+    "Southern_California": {
+      "n": 324,
+      "unanswerable": 0.4444444444444444,
+      "retain90": 0.9629629629629629
+    },
+    "Civil_disobedience": {
+      "n": 327,
+      "unanswerable": 0.39755351681957185,
+      "retain90": 0.963302752293578
+    },
+    "Normans": {
+      "n": 208,
+      "unanswerable": 0.5384615384615384,
+      "retain90": 0.9663461538461539
+    },
+    "Fresno,_California": {
+      "n": 275,
+      "unanswerable": 0.5054545454545455,
+      "retain90": 0.9709090909090909
+    },
+    "Prime_number": {
+      "n": 308,
+      "unanswerable": 0.5032467532467533,
+      "retain90": 0.9805194805194806
+    },
+    "Steam_engine": {
+      "n": 444,
+      "unanswerable": 0.5157657657657657,
+      "retain90": 0.9864864864864865
+    }
+  }
+}

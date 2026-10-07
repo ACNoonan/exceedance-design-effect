@@ -1,3 +1,5 @@
+# AUDIT 2026-09-16: Historical calculation; the centered phase omits the lattice offset.
+# This script does not validate the coverage-drift expansion. See audit/v9/STATUS.md.
 """SW-12, the last piece: does Esseen's lattice sawtooth integrate away?
 
 After the skewness term is handled (edgeworth_terms.py: O(n^-2) on two models,
@@ -119,3 +121,7 @@ p4 = (-1.4 < e_c < -0.6) and (e_s < e_c - 0.4)
 print(f"  P4  NEG CTRL: constant-amplitude is n^-1 (fit {e_c:+.2f})      : {'PASS' if p4 else 'FAIL'}")
 r = max(abs(x[1] / x[3]) for x in rows)
 print(f"  P5  |I_saw| stays below 5% of the drift (max {r:.3%})        : {'PASS' if r < 0.05 else 'FAIL'}")
+
+# A completed process must not hide a failed declared check.
+if __name__ == "__main__" and not (p1a and p1b and p2 and p3 and p4 and r < 0.05):
+    raise SystemExit(1)

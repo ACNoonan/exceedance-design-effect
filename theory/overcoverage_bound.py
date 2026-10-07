@@ -151,7 +151,7 @@ def preconditions() -> bool:
     # 2 --- known bounds: the arm already recorded in integrity.md
     b, m, c, target_p = 200, 4, 0.95, 0.850
     n = b * m
-    k = int(round(target_p * (n + 1)))
+    k = int(np.ceil(target_p * (n + 1)))
     p = k / (n + 1.0)
     ec = exact_EC(lambda t: pmf_tail_comonotone(t, m, c),
                   lambda t: rho_I_tail_comonotone(t, c), b, m, k)

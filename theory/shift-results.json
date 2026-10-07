@@ -1,0 +1,117 @@
+{
+  "parameters": {
+    "target": 0.9,
+    "delta": 0.1,
+    "repetitions": 200000,
+    "seed": 20260918,
+    "n": 25028,
+    "b": 500,
+    "m_tilde": 61.28552021735656,
+    "sizes_sha256": "93d51d7de858c03b76e16a52dc457d4cc19f0b2cd6e98b708366736b51505b9d"
+  },
+  "iid_control": {
+    "estimated": 0.999865,
+    "exact": 0.9998542044740586,
+    "mc_se": 2.699761745099196e-05
+  },
+  "rows": [
+    {
+      "rho_indicator_at_target": 0.4946,
+      "gaussian_score_correlation": 0.7834083175879261,
+      "routes": [
+        {
+          "route": "iid",
+          "shift": 0.0067823433750014255,
+          "rank": 22696,
+          "success_probability": 0.736065,
+          "ci95": [
+            0.7341273879131034,
+            0.7379957679647162
+          ]
+        },
+        {
+          "route": "cluster_hoeffding",
+          "shift": 0.05309562188078178,
+          "rank": 23856,
+          "success_probability": 1.0,
+          "ci95": [
+            0.9999815557728263,
+            1.0
+          ]
+        },
+        {
+          "route": "neff_heuristic",
+          "shift": 0.03765099786091913,
+          "rank": 23469,
+          "success_probability": 0.99998,
+          "ci95": [
+            0.9999487928556655,
+            0.9999945506471093
+          ]
+        }
+      ],
+      "estimated_minimum_rank": 22859,
+      "minimum_rank_dkw95": [
+        22855,
+        22863
+      ],
+      "sufficient_level_shift": [
+        0.013140756722202274,
+        0.013300571337248823,
+        0.013460385952295262
+      ]
+    },
+    {
+      "rho_indicator_at_target": 0.2,
+      "gaussian_score_correlation": 0.42465632332990283,
+      "routes": [
+        {
+          "route": "iid",
+          "shift": 0.0067823433750014255,
+          "rank": 22696,
+          "success_probability": 0.840595,
+          "ci95": [
+            0.8389832961492703,
+            0.8421968256885655
+          ]
+        },
+        {
+          "route": "cluster_hoeffding",
+          "shift": 0.05309562188078178,
+          "rank": 23856,
+          "success_probability": 1.0,
+          "ci95": [
+            0.9999815557728263,
+            1.0
+          ]
+        },
+        {
+          "route": "neff_heuristic",
+          "shift": 0.024507736694899657,
+          "rank": 23140,
+          "success_probability": 0.99997,
+          "ci95": [
+            0.9999347037822944,
+            0.9999889904517174
+          ]
+        }
+      ],
+      "estimated_minimum_rank": 22744,
+      "minimum_rank_dkw95": [
+        22741,
+        22747
+      ],
+      "sufficient_level_shift": [
+        0.00858604019337561,
+        0.008705901154660523,
+        0.008825762115945435
+      ]
+    }
+  ],
+  "checks": {
+    "rank_event": true,
+    "iid_binomial_control": true,
+    "bound_not_refuted_rho_0.4946": true,
+    "bound_not_refuted_rho_0.2": true
+  }
+}

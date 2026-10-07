@@ -1,0 +1,55 @@
+==============================================================================
+OPTIMAL DEPLOYMENT BATCH SIZE — Kish (1965) eq. 8.3.7, applied to the test side
+==============================================================================
+
+--- PRECONDITION 1: reproduce Kalton, Brick & Le (2005) ch.VI para.71 ---
+    They publish: C* = 16, rho = 0.05  ->  b_opt = 17.4
+    computed 17.4356   PASS
+    WOULD HAVE FAILED IF: the cost ratio were inverted (b_opt would be 1.09),
+    or roh and 1-roh swapped (b_opt would be 0.92).
+    inverted-ratio value  = 1.0897  (does NOT match 17.4)
+    swapped-roh    value  = 0.9177  (does NOT match 17.4)
+
+--- PRECONDITION 2: reproduce UN ch.II Table II.2, seven published cells ---
+       C*    rho  computed  published  result
+        4   0.01     19.90         20  PASS
+       25   0.01     49.75         50  PASS
+       16   0.02     28.00         28  PASS
+        4   0.05      8.72          9  PASS
+        9   0.05     13.08         13  PASS
+       16   0.05     17.44         17  PASS
+       25   0.05     21.79         22  PASS
+    all seven: PASS
+
+--- PRECONDITION 3: direction. b_opt must RISE as roh falls ---
+    roh=0.9     b_opt=    1.33  increasing=True
+    roh=0.5     b_opt=    4.00  increasing=True
+    roh=0.1     b_opt=   12.00  increasing=True
+    roh=0.01    b_opt=   39.80  increasing=True
+    roh=0.001   b_opt=  126.43  increasing=True
+    monotone: PASS
+
+==============================================================================
+ILLUSTRATION — equal cluster sizes, using rho_I = 0.495 (CA-14)
+==============================================================================
+
+    sqrt((1-roh)/roh) = 1.0101, so optimum M = 1.01 * sqrt(C*)
+
+     cost ratio C*    optimum M
+                 1         1.01
+                 4         2.02
+                16         4.04
+                64         8.08
+               256        16.16
+              1024        32.32
+
+    The released size-biased mean is 61.29; the ordinary mean is 50.06.
+    Illustrative equal-size cost ratio at M = 61.29: C* = 3682
+    This does not establish an optimum for the observed ragged allocation.
+
+--- HEADLINE ---
+    optimum deployment batch = 1.01 * sqrt(C*)
+    Equal-size illustration at M = 61.29: C* = 3682
+    at C* = 16, optimum M = 4.04
+
+=== PRECONDITIONS 3/3 PASS ===

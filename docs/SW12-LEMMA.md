@@ -1,3 +1,5 @@
+> **Superseded by the 16 September 2026 audit.** Positive count variance does not imply a span-one lattice. The unrestricted drift conjecture is false. The centered-phase oscillation arguments in the historical scripts also omit the lattice offset. This note is not a proof. See `../../audit/v9/STATUS.md`.
+
 # SW-12: the uniform lattice Edgeworth lemma, written out
 
 **Status: an argument, not yet a referee-grade proof.** Every step is here, every constant

@@ -1,0 +1,333 @@
+{
+  "packages": {
+    "samplics": "0.4.33",
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "scipy": "1.18.1"
+  },
+  "cells": 40,
+  "max_relative_variance_difference": 1.5543122344752192e-15,
+  "max_absolute_mean_difference": 3.3306690738754696e-16,
+  "rows": [
+    {
+      "analyte": "sodium",
+      "p": 0.9,
+      "mean": 0.9028958966813002,
+      "variance": 0.0002248294000706346,
+      "relative_variance_difference": 3.3306690738754696e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "sodium",
+      "p": 0.95,
+      "mean": 0.9525083326621526,
+      "variance": 8.01880719112679e-05,
+      "relative_variance_difference": 3.3306690738754696e-16,
+      "absolute_mean_difference": 1.1102230246251565e-16
+    },
+    {
+      "analyte": "sodium",
+      "p": 0.975,
+      "mean": 0.9791660477887923,
+      "variance": 2.2582075331745973e-05,
+      "relative_variance_difference": 4.440892098500626e-16,
+      "absolute_mean_difference": 1.1102230246251565e-16
+    },
+    {
+      "analyte": "sodium",
+      "p": 0.99,
+      "mean": 0.9920398836052117,
+      "variance": 5.580798710943701e-06,
+      "relative_variance_difference": 4.440892098500626e-16,
+      "absolute_mean_difference": 2.220446049250313e-16
+    },
+    {
+      "analyte": "potassium",
+      "p": 0.9,
+      "mean": 0.9025346464068474,
+      "variance": 7.338499687522266e-05,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "potassium",
+      "p": 0.95,
+      "mean": 0.9630106252325383,
+      "variance": 1.627340578253121e-05,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 1.1102230246251565e-16
+    },
+    {
+      "analyte": "potassium",
+      "p": 0.975,
+      "mean": 0.9773356696707284,
+      "variance": 7.395453557409926e-06,
+      "relative_variance_difference": 1.1102230246251565e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "potassium",
+      "p": 0.99,
+      "mean": 0.9909405064397009,
+      "variance": 2.053907172379292e-06,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "calcium",
+      "p": 0.9,
+      "mean": 0.9230860419865835,
+      "variance": 1.9363119362956514e-05,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 1.1102230246251565e-16
+    },
+    {
+      "analyte": "calcium",
+      "p": 0.95,
+      "mean": 0.9527952801009825,
+      "variance": 8.5852640924117e-06,
+      "relative_variance_difference": 0.0,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "calcium",
+      "p": 0.975,
+      "mean": 0.9837280343297373,
+      "variance": 2.3430747126449553e-06,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "calcium",
+      "p": 0.99,
+      "mean": 0.9908608579266098,
+      "variance": 1.212834191441965e-06,
+      "relative_variance_difference": 4.440892098500626e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "albumin",
+      "p": 0.9,
+      "mean": 0.9265888950058991,
+      "variance": 1.7530202706395103e-05,
+      "relative_variance_difference": 7.771561172376096e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "albumin",
+      "p": 0.95,
+      "mean": 0.9597456368216538,
+      "variance": 1.2470446224417618e-05,
+      "relative_variance_difference": 4.440892098500626e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "albumin",
+      "p": 0.975,
+      "mean": 0.9801079404084511,
+      "variance": 4.628138212510638e-06,
+      "relative_variance_difference": 1.1102230246251565e-15,
+      "absolute_mean_difference": 1.1102230246251565e-16
+    },
+    {
+      "analyte": "albumin",
+      "p": 0.99,
+      "mean": 0.9912921210805338,
+      "variance": 1.1029515782089787e-06,
+      "relative_variance_difference": 0.0,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "creatinine",
+      "p": 0.9,
+      "mean": 0.9041301555235941,
+      "variance": 1.9327315446074362e-05,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "creatinine",
+      "p": 0.95,
+      "mean": 0.9513260607434335,
+      "variance": 6.077745334484476e-06,
+      "relative_variance_difference": 1.1102230246251565e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "creatinine",
+      "p": 0.975,
+      "mean": 0.9753298094950545,
+      "variance": 3.135795831164414e-06,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "creatinine",
+      "p": 0.99,
+      "mean": 0.9901477824936743,
+      "variance": 7.741477914570392e-07,
+      "relative_variance_difference": 1.1102230246251565e-16,
+      "absolute_mean_difference": 2.220446049250313e-16
+    },
+    {
+      "analyte": "glucose",
+      "p": 0.9,
+      "mean": 0.902254598457228,
+      "variance": 1.3678636613350421e-05,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "glucose",
+      "p": 0.95,
+      "mean": 0.9500950779438616,
+      "variance": 4.466031721864001e-06,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "glucose",
+      "p": 0.975,
+      "mean": 0.9750895976545516,
+      "variance": 2.1696442942477164e-06,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "glucose",
+      "p": 0.99,
+      "mean": 0.9902585117933274,
+      "variance": 9.61025420963811e-07,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "ALT",
+      "p": 0.9,
+      "mean": 0.9012472676702694,
+      "variance": 1.5802900511091275e-05,
+      "relative_variance_difference": 8.881784197001252e-16,
+      "absolute_mean_difference": 1.1102230246251565e-16
+    },
+    {
+      "analyte": "ALT",
+      "p": 0.95,
+      "mean": 0.9518370827108593,
+      "variance": 5.929108698033924e-06,
+      "relative_variance_difference": 1.5543122344752192e-15,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "ALT",
+      "p": 0.975,
+      "mean": 0.975243404416416,
+      "variance": 3.0848551046067865e-06,
+      "relative_variance_difference": 8.881784197001252e-16,
+      "absolute_mean_difference": 2.220446049250313e-16
+    },
+    {
+      "analyte": "ALT",
+      "p": 0.99,
+      "mean": 0.9903319539358975,
+      "variance": 1.4937829751810812e-06,
+      "relative_variance_difference": 1.1102230246251565e-15,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "AST",
+      "p": 0.9,
+      "mean": 0.9009011397614922,
+      "variance": 1.3756372744035856e-05,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "AST",
+      "p": 0.95,
+      "mean": 0.95040052575389,
+      "variance": 6.6992852031025056e-06,
+      "relative_variance_difference": 8.881784197001252e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "AST",
+      "p": 0.975,
+      "mean": 0.9751467851268275,
+      "variance": 3.5602226873925545e-06,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 1.1102230246251565e-16
+    },
+    {
+      "analyte": "AST",
+      "p": 0.99,
+      "mean": 0.990029872904882,
+      "variance": 2.0678174115408632e-06,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "bilirubin",
+      "p": 0.9,
+      "mean": 0.9159392603788439,
+      "variance": 1.4227543439352378e-05,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 1.1102230246251565e-16
+    },
+    {
+      "analyte": "bilirubin",
+      "p": 0.95,
+      "mean": 0.9578971010965345,
+      "variance": 5.429397482792704e-06,
+      "relative_variance_difference": 1.1102230246251565e-16,
+      "absolute_mean_difference": 2.220446049250313e-16
+    },
+    {
+      "analyte": "bilirubin",
+      "p": 0.975,
+      "mean": 0.9797650924144545,
+      "variance": 2.69526648128511e-06,
+      "relative_variance_difference": 0.0,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "bilirubin",
+      "p": 0.99,
+      "mean": 0.9919167778569664,
+      "variance": 8.979948248224141e-07,
+      "relative_variance_difference": 0.0,
+      "absolute_mean_difference": 1.1102230246251565e-16
+    },
+    {
+      "analyte": "cholesterol",
+      "p": 0.9,
+      "mean": 0.9028767902206554,
+      "variance": 2.0334758435950933e-05,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 1.1102230246251565e-16
+    },
+    {
+      "analyte": "cholesterol",
+      "p": 0.95,
+      "mean": 0.9518265070117853,
+      "variance": 9.447800966780671e-06,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 2.220446049250313e-16
+    },
+    {
+      "analyte": "cholesterol",
+      "p": 0.975,
+      "mean": 0.976676131811013,
+      "variance": 3.9825780407457445e-06,
+      "relative_variance_difference": 2.220446049250313e-16,
+      "absolute_mean_difference": 0.0
+    },
+    {
+      "analyte": "cholesterol",
+      "p": 0.99,
+      "mean": 0.9906723405072164,
+      "variance": 1.4057457076166853e-06,
+      "relative_variance_difference": 1.1102230246251565e-16,
+      "absolute_mean_difference": 3.3306690738754696e-16
+    }
+  ]
+}

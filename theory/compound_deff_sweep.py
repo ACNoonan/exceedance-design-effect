@@ -60,3 +60,7 @@ print(f"  S1  rel_err(ours) shrinks as b grows                 : {'PASS' if mono
 print(f"  S2  rel_err x b roughly constant ({min(prod):.2f}..{max(prod):.2f})  : {'PASS' if stable else 'FAIL'}")
 print(f"  S3  NEG CTRL z_naive GROWS with b (fixed offset)      : {'PASS' if zn_grows else 'FAIL'}")
 print(f"  S4  z_ours at largest b = {res[-1][2]:.2f}")
+
+# A completed process must not hide a failed declared check.
+if __name__ == "__main__" and not (mono and stable and zn_grows):
+    raise SystemExit(1)

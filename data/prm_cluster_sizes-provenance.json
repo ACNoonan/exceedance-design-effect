@@ -1,0 +1,6 @@
+{
+  "source": "audit/v9/released/sw02_code/prm_calibration_cache.json",
+  "sha256": "af5ade7ab544c56dcb43e91b55364ad18c223ee4132c3eae6c3489bf4dc89f96",
+  "clusters": 500,
+  "n": 25028
+}

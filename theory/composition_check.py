@@ -99,7 +99,7 @@ def gap1_composition():
     ]
     out = []
     for label, sizes, a, c in profiles:
-        n = int(sum(sizes)); k = int(round(0.90 * (n + 1))); p = k / (n + 1.0)
+        n = int(sum(sizes)); k = int(np.ceil(0.90 * (n + 1))); p = k / (n + 1.0)
         mt = m_tilde(sizes)
         uniq = sorted(set(sizes))
         # rhobar_I averaged over families, weighted the way m~ weights them: by m_j(m_j-1),
@@ -141,7 +141,7 @@ def gap2_negative():
     print("    Flip copula at q -> 0 gives rho_I(p) = -(1-p)/p < 0, so n_eff > n.\n")
     print(f"    {'q':>6} {'rho_I(p)':>10} {'n_eff/n':>9} {'sd exact':>10} {'sd law':>9} {'ratio':>7}")
     m, b = 2, 400
-    n = m * b; k = int(round(0.90 * (n + 1))); p = k / (n + 1.0)
+    n = m * b; k = int(np.ceil(0.90 * (n + 1))); p = k / (n + 1.0)
     out = []
     for q in (0.20, 0.10, 0.05, 0.00):
         ri = float(rho_I_flip(np.array([p]), q)[0])
@@ -162,7 +162,7 @@ def gap3_unbalanced():
                                 ("m=8 as 4x2",         4, 2, 0.05, 0.75),
                                 ("m=9 as 3x3",         3, 3, 0.05, 0.75),
                                 ("m=10 as 5x2",        5, 2, 0.02, 0.85)]:
-        m = ns * ks; n = b * m; k = int(round(0.90 * (n + 1))); p = k / (n + 1.0)
+        m = ns * ks; n = b * m; k = int(np.ceil(0.90 * (n + 1))); p = k / (n + 1.0)
         rbar = lambda t, ns=ns, ks=ks, a=a, c=c: rho_bar_I(t, ns, ks, a, c)  # noqa: E731
         rb = float(np.atleast_1d(rbar(p))[0])
         ec, sd = ragged_moments(

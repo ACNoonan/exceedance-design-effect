@@ -32,6 +32,11 @@ neff/            the installable estimator package (pip install -e .): outcomes+
                  pass@k spectra, thresholds at a level; `neff` CLI; see pyproject.toml
 tests/           the package test suite (golden numbers + pass@k round trip)
 docs/            reader-facing documentation
+formalization/   the 59 Lean source files, the claim inventory and the checker
+audit/           the recorded Lean proof build and its source hashes
+conll/           the document-corpus example (217 at the median, 621 at the 95th percentile)
+data/            the PRM cluster sizes and their provenance
+run.py           runs any claim script with the topic directories on its import path
 ```
 
 **House style:** `<claim>.py` paired with `<claim>_RESULTS.txt`, inside the directory for that
@@ -42,7 +47,7 @@ root pile.
 ## Waivers
 
 `_conformal.py`, `verdict.py` and `_icc.py` sit at root as shared modules imported across claim
-directories. Root is at 4 files. Left as-is rather than moved to `src/` — a reader opening the repo should see
+directories. `run.py` joined them with the v11 archive (2026-10-07), so root is at 5 files. Left as-is rather than moved to `src/` — a reader opening the repo should see
 the verdict machinery immediately.
 
 **`verdict.py` is a pinned vendored copy, deliberately not a symlink.** Every private lane
@@ -61,4 +66,5 @@ behind the canonical without anyone noticing. Two things hold it:
   re-run the claim scripts, and update the sha in `.vocab-pin`. A refresh that changes a
   published number is a correction, and gets recorded as one.
 
-Pinned at sha256 `29de96547ac2057e…` (2026-08-07), byte-identical to the canonical on that date.
+Pinned at sha256 `3027d5a29593650c…` (2026-10-07), byte-identical to the canonical on that date and to
+the copy in the v9–v11 Zenodo code archive.

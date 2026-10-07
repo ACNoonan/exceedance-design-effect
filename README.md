@@ -1,12 +1,18 @@
 # exceedance-design-effect
 
-Verification code for **"The Exceedance Design Effect: Effective Sample Size for Thresholds under Clustering."**
+The Lean proofs, analysis scripts and `neff` estimator for my paper, **"The Exceedance Design Effect: Effective Sample Size for Thresholds under Clustering"** (Adam Noonan, 2026).
 
-- **Paper:** [arXiv:2608.21262](https://arxiv.org/abs/2608.21262) (stat.ML, cs.LG), 48 pages.
+A dataset does not have one effective sample size. How much information it contains depends on the question you ask.
+
+In our document experiment, the same 1,000 rows carried about 217 independent observations' worth of information at the median. At the 95th percentile, they carried about 621. Nothing about the dataset changed. We asked it a different question.
+
+That is why a single "quality-adjusted" sample count can mislead. The number of rows is a property of the dataset. The effective sample size belongs to the analysis.
+
+The paper proves the result behind those numbers. Set a cutoff at a percentile of a sample whose observations come in groups. Grouping multiplies the variance of the fraction that falls below the cutoff by `1 + (m − 1)ρ_I(p)`, where `m` is the group size and `ρ_I(p)` measures whether two members of a group land on the same side of the cutoff. That correlation can be positive when the scores themselves are uncorrelated, and it changes with the cutoff.
+
+- **Paper:** [arXiv:2608.21262](https://arxiv.org/abs/2608.21262) (v2, 22 pages).
 - **Cite:** concept DOI [10.5281/zenodo.21595640](https://doi.org/10.5281/zenodo.21595640). It always resolves to the newest version, and it is the only DOI worth citing.
-- **Current record:** Zenodo v8, [10.5281/zenodo.22048277](https://doi.org/10.5281/zenodo.22048277), 2026-08-21. The arXiv text and the v8 record are the same paper.
-
-The section numbers below refer to that text.
+- **Current record:** Zenodo v11, [10.5281/zenodo.23083374](https://doi.org/10.5281/zenodo.23083374), 2026-10-01. It holds the paper, an eight-page theorem note and the code archive. arXiv v2 carries the same text.
 
 ## The estimator, in one command
 
@@ -23,30 +29,61 @@ neff passk --pass-at 1=0.428,2=0.522,3=0.568,4=0.596,5=0.615 --trials 5 --n-item
 Each prints rho, m-tilde, DEFF, n_eff and a reporting line you can paste into a paper.
 `pytest` runs the golden suite, which pins the published numbers.
 
-## Reproducing the paper
+## Checking the proofs
 
-Organized by claim: each directory verifies one part of the argument.
+`formalization/` holds 59 Lean source files, a claim inventory and the checker. Lean verifies Theorem 1, both propositions, the finite-sample guarantee, the variance estimator's consistency and both main counterexamples. [`formalization/CLAIM_INVENTORY.md`](formalization/CLAIM_INVENTORY.md) maps each statement in the paper to its Lean declaration and its hypotheses.
 
-| directory | what lives there |
+```bash
+bash formalization/check.sh        # rebuilds every module, then audits each declaration for unapproved axioms and placeholders
+bash formalization/test_audit.sh   # shows the audit rejects an incomplete proof and a custom axiom
+```
+
+The checker needs elan. It uses Lean 4.32.1 and pins the mathlib commit, which it may download. `audit/v9/` records the completed proof build and the hashes of its sources.
+
+Lean checks the mathematics under explicit assumptions. It does not check the data pipelines, the sampling assumptions or the numerical tables. The scripts below do that.
+
+## Reproducing the paper's numbers
+
+`python run.py --list` lists every script, and `python run.py theory/verify_indicator_icc.py` runs one. The runner puts the topic directories on the import path and keeps the script's exit code. Read a script before you run it: some write files or download data and models.
+
+These are the scripts behind the current text (its Appendix F.2):
+
+| result in the paper | scripts |
 |---|---|
-| `theory/` | exact and simulated verification of Theorem 1, the propositions and corollaries, and the Proposition-1 remainder work |
-| `tails/` | Proposition 3 — the tail limits of ρ_I and the λ_U estimation question |
-| `prm/` | the released PRM calibration set (§6.1): measurement, dispersion, trajectory index, and their shared download cache |
-| `selection/` | the selection channel — Theorem 2's construction, the dose–response sweep, and the reweighting costs |
-| `empirical_core/` | the EC-01 lane: distributional shape test, generated beam families (§6.2), the §8 tail-separability budget |
-| `deploy_gate/` | §3's measurement on the CoNLL calibration pool of Kotte's PASC ([arXiv:2605.18812](https://arxiv.org/abs/2605.18812)) |
-| `nhanes/` | §5.2's real-substrate check, where the clustering is geographic rather than generative |
-| `sw02ext/` | §8's clustered training-conditional shift |
-| `figures/` | the figure builders |
-| `docs/` | the two documents the paper cites: the SW-12 lemma reduction and the prior-art convergence inventory |
-| `neff/` | the installable estimator package — `pip install -e .` then `neff outcomes\|scores\|passk`; rho, m̃, DEFF, n_eff and a one-line reporting string from cluster ids + outcomes, a published pass@k spectrum, or scores at an operating level |
-| `tests/` | package test suite: the golden suite pinning published numbers, and the pass@k inversion round trip |
+| Gaussian dispersion comparison | `theory/verify_indicator_icc.py`, `theory/sim_validation.py` |
+| Score-correlation counterexample and dependence checks | `theory/assumption_stress.py` |
+| Tail-limit calculations | `tails/verify_tail_limit.py`, `tails/evt_tail_rate.py` |
+| Unequal-size and ICC estimation examples | `theory/ragged_and_estimation.py`, `prm/icc_estimators.py` |
+| Released proxy measurements and resampling | `prm/prm_measurement.py`, `prm/prm_dispersion.py`, `prm/test_marginal_scope.py` |
+| SQuAD score–indicator comparison (§3.3) | `deploy_gate/score_squad2.py`, `deploy_gate/measure.py`, `deploy_gate/results/d01_measure.json` |
+| PRM singleton control and Beta comparison (Appendix E.4) | `prm/deployment_reframe.py`, `empirical_core/e1_shape_test.py`, `empirical_core/result_ec01.json` |
+| Document-corpus example (§5.3), the source of 217 and 621 | `deploy_gate/score_conll_ner.py`, `conll/conll_levels.py` |
+| Unweighted NHANES indicator comparison | `nhanes/one_sided_rho_I.py` |
+| Weighted NHANES fixed-threshold comparison | `nhanes/nhanes_fixed_threshold.py`, `nhanes/nhanes_samplics_check.py` |
+| Gaussian mean-drift integration | `theory/drift_tables.py` |
+| Nested Gaussian comparison | `theory/nested_structure.py` |
 
-The shared modules stay at root: `calkit/` and `_conformal.py` (the two conformal implementations), `verdict.py` (the reporting helper), and `_icc.py` (a shim onto `neff/_icc.py`, so the claim scripts' root-level import still works).
+A script travels with its committed output (`<script>_RESULTS.txt` or a results JSON), so you can diff your run against ours.
 
-The tag [`v7-zenodo`](https://github.com/ACNoonan/exceedance-design-effect/tree/v7-zenodo) mirrors the 83-file code archive attached to the Zenodo record, byte for byte. The v7 and v8 records carry the same archive. `main` has since moved on: it sorts those files into the directories in the table above, and adds the `neff` package.
+Some analyses need cached inputs this repo does not include. The CoNLL analysis needs `deploy_gate/results/conll_ner_scores.parquet`, which `score_conll_ner.py` creates. For SQuAD, the repo carries the scoring metadata and the measurement results, and not the cached data or model weights. The PRM analysis uses released proxy scores. The NHANES comparison uses public masked survey groups.
 
-## theory/
+The numerical audit ran on Python 3.14, NumPy 2.5.1, SciPy 1.18.0, pandas 3.0.5, mpmath 1.3.0 and Matplotlib 3.11.1.
+
+## How this repo relates to the Zenodo archive
+
+`main` carries every file of the v11 code archive unchanged, with two exceptions: this README, and root `_icc.py`, which here is a shim onto `neff/_icc.py` (the same module, byte for byte). `main` adds the `neff` package, its tests and the packaging files. The archive is unchanged from v9 through v11, which is why its own README and `audit/` say v9.
+
+The tag [`v7-zenodo`](https://github.com/ACNoonan/exceedance-design-effect/tree/v7-zenodo) mirrors the 83-file archive of the v7 and v8 records.
+
+`docs/REPRODUCTION.md` and `docs/CORE-CLAIM-REVIEW.md` record the audit decisions. `calkit/` and `_conformal.py` are the two conformal implementations, and `verdict.py` is the reporting helper.
+
+## Earlier analyses, kept for traceability
+
+The paper was 48 pages through Zenodo v8 and arXiv v1, and it is 22 pages now. The scripts below include analyses the current text no longer claims, among them the generated-beam and WHO sensitivity comparisons. The historical drift and compound-design scripts include scientific checks that failed, and a saved result file may predate a source correction. A script's presence here is not an endorsement of its claim: the current paper decides which claims stand.
+
+The section numbers in these tables refer to the 48-page text.
+
+### theory/
 
 | script | produces |
 |---|---|
@@ -73,7 +110,7 @@ The tag [`v7-zenodo`](https://github.com/ACNoonan/exceedance-design-effect/tree/
 | `compound_deff.py` | the compound design effect, separated from Kish's naive ρ product |
 | `compound_deff_sweep.py` | whether the 3.6-SE residual is a finite-b delta-method artifact or a real bias |
 
-## tails/
+### tails/
 
 | script | produces |
 |---|---|
@@ -81,7 +118,7 @@ The tag [`v7-zenodo`](https://github.com/ACNoonan/exceedance-design-effect/tree/
 | `evt_tail_rate.py` | the tail approach rate, building on `verify_tail_limit.py` |
 | `evt_lambda_u_estimation.py` | §5 — whether a practitioner can estimate their own tail-dependence floor λ_U |
 
-## prm/
+### prm/
 
 | script | produces |
 |---|---|
@@ -94,7 +131,7 @@ The tag [`v7-zenodo`](https://github.com/ACNoonan/exceedance-design-effect/tree/
 | `ceiling_rho_response.py` | §6.1's sampling-depth ceiling, recomputed with ρ_I responding to family size |
 | `sw52_direct_sim.py` | whether the measured-vs-plug-in gap is the law running high or the bootstrap running low |
 
-## selection/
+### selection/
 
 | script | produces |
 |---|---|
@@ -108,7 +145,7 @@ The tag [`v7-zenodo`](https://github.com/ACNoonan/exceedance-design-effect/tree/
 | `weighting_deff.py` | the quantile step and the weighted-calibration design effect — the two items the full-read audit left open |
 | `reweighting_cost.py` | what §2.5's size-reweighting repair costs in effective sample size |
 
-## The lane directories
+### The lane directories
 
 - `empirical_core/` — `e1_shape_test.py`: does the coverage law hold distributionally, or only in variance; `e2_beam_families.py`: generated beam families vs decode config (§6.2); `p5b_cluster_budget.py`: §8's tail-separability budget, with `p5_tail_separability.py` as its precondition module
 - `deploy_gate/` — §3's measurement on the PASC CoNLL substrate

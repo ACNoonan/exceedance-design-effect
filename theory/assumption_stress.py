@@ -1,4 +1,4 @@
-"""Two stress tests on the assumptions the law rests on. Exact, no Monte Carlo.
+"""Two stress tests on the assumptions the law rests on. Deterministic quadrature, no Monte Carlo.
 
     python experiments/2026-07-26-sw02-exchangeability-audit/assumption_stress.py
 
@@ -17,8 +17,9 @@ The question that decides everything is whether the test point sees the same W.
     Conditional on W every score shifts by the same sqrt(g) W, and coverage is invariant to a
     common location shift, so C is distributed exactly as the ordinary one-factor model at the
     CONDITIONAL within-family correlation r_cond = a/(1-g), independent of W. Across-family
-    dependence is then completely harmless -- but the ICC you would estimate by pooling calibration
-    data is the MARGINAL one, g+a, which is too large. Using it understates n_eff.
+    dependence from this common shift cancels. The unconditional score correlation is g+a.
+    It is not the ICC estimated within one deployment: centering removes the common shift.
+    The two theoretical correlations in the table are not two empirical estimates.
 
   BRANCH B — it does not (the test point is a fresh draw with its own W'). Then
     C = Phi( Phi^-1(V) + xi ),  xi ~ N(0, 2g/(1-g)) independent of V,
@@ -103,11 +104,11 @@ def Eh(h, hp, ts, wq, tail, lo):
 def test1(b=200, m=4, p_target=0.90):
     print("[1] ACROSS-FAMILY DEPENDENCE — a global factor shared by every cluster")
     n = b * m
-    k = int(round(p_target * (n + 1)))
+    k = int(np.ceil(p_target * (n + 1)))
     p = k / (n + 1.0)
     print(f"    b={b} clusters of m={m}, n={n}, p={p:.5f}\n")
     print(f"    {'g (across)':>11} {'a':>6} {'within':>7} {'r_cond':>7} "
-          f"{'rhoI(cond)':>10} {'rhoI(marg)':>10} {'n_eff true':>11} {'n_eff if pooled':>15}")
+          f"{'rhoI(cond)':>10} {'rhoI(marg)':>10} {'n_eff cond':>11} {'n_eff marginal':>15}")
     for g, a in ((0.00, 0.40), (0.10, 0.30), (0.20, 0.25), (0.35, 0.20), (0.50, 0.15)):
         within = g + a
         r_cond = a / (1.0 - g)
@@ -118,9 +119,9 @@ def test1(b=200, m=4, p_target=0.90):
         print(f"    {g:>11.2f} {a:>6.2f} {within:>7.2f} {r_cond:>7.4f} "
               f"{ri_c:>10.4f} {ri_m:>10.4f} {ne_c:>11.1f} {ne_m:>15.1f}")
     print("\n    BRANCH A (test point shares W): coverage is invariant to the common shift, so the")
-    print("    law holds EXACTLY at r_cond. Across-family dependence costs nothing. But an ICC")
-    print("    estimated from pooled calibration data is the marginal one, so n_eff is understated")
-    print("    (last column) — conservative, and by a lot at large g.\n")
+    print("    first-order law uses r_cond. Centering removes the common shift in one deployment.")
+    print("    The last column substitutes an unconditional theoretical correlation.")
+    print("    It is not an ICC estimate from the pooled data of that deployment.\n")
 
     print("    BRANCH B (test point has its own W'): C = Phi(Phi^-1(V) + xi), xi ~ N(0, 2g/(1-g))")
     print(f"    {'g':>6} {'sd(V) branch A':>15} {'sd(C) branch B':>15} {'inflation':>10}")
@@ -174,7 +175,7 @@ def cluster_pmf_flip(t, q):
 def test2(b=400, p_target=0.90):
     print("\n[2] CAN THE SCORE-CORRELATION RIVAL BE ANTI-CONSERVATIVE?")
     m, n = 2, 2 * b
-    k = int(round(p_target * (n + 1)))
+    k = int(np.ceil(p_target * (n + 1)))
     p = k / (n + 1.0)
     print(f"    m=2, b={b}, n={n}, p={p:.5f}")
     print(f"    {'q':>6} {'rho_score':>10} {'rho_I(p)':>9} {'DEFF true':>10} {'DEFF rival':>11} "

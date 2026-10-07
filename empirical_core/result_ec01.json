@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "n": 25028,
+    "b": 500,
+    "level": 0.8908822119226466,
+    "threshold": 0.75,
+    "rho_I": 0.49455722705118477,
+    "m_tilde": 61.28552021735656,
+    "plugin_neff": 812.0,
+    "reps": 8000,
+    "seed": 20260729
+  },
+  "arms": {
+    "raw": {
+      "empirical": {
+        "mean": 0.9022889264024291,
+        "sd": 0.01303333373604621,
+        "skew": 0.13012617801812446,
+        "n_distinct": 5,
+        "neff_matched": 572.2750463142066
+      },
+      "laws": {
+        "naive": {
+          "ks_D": 0.503125,
+          "law_sd": 0.001970810409751947,
+          "law_mean": 0.8908822119226466,
+          "law_skew": -0.03169695568779886
+        },
+        "plugin": {
+          "ks_D": 0.4919478734951253,
+          "law_sd": 0.010941576623951729,
+          "law_mean": 0.8908822119226466,
+          "law_skew": -0.17576623372966735
+        },
+        "matched": {
+          "ks_D": 0.47482709781245286,
+          "law_sd": 0.01303333373604621,
+          "law_mean": 0.8908822119226466,
+          "law_skew": -0.2092605412899179
+        }
+      },
+      "positive_control": {
+        "ks_D_iid_vs_naive": 0.505375,
+        "neff_iid": 697.3472047421272,
+        "ratio_to_nominal": 0.027862681985860924
+      }
+    },
+    "tiebroken": {
+      "empirical": {
+        "mean": 0.8905327832827233,
+        "sd": 0.008682465204180402,
+        "skew": -0.20323188799375633,
+        "n_distinct": 1084,
+        "neff_matched": 1289.5249172953481
+      },
+      "laws": {
+        "naive": {
+          "ks_D": 0.3128061033972857,
+          "law_sd": 0.001970810409751947,
+          "law_mean": 0.8908822119226466,
+          "law_skew": -0.03169695568779886
+        },
+        "plugin": {
+          "ks_D": 0.07096051188440866,
+          "law_sd": 0.010941576623951729,
+          "law_mean": 0.8908822119226466,
+          "law_skew": -0.17576623372966735
+        },
+        "matched": {
+          "ks_D": 0.017019777800158675,
+          "law_sd": 0.008682465204180402,
+          "law_mean": 0.8908822119226466,
+          "law_skew": -0.13953927197199129
+        }
+      },
+      "positive_control": {
+        "ks_D_iid_vs_naive": 0.022565603587162864,
+        "neff_iid": 24311.517605444336,
+        "ratio_to_nominal": 0.9713727667190482
+      }
+    }
+  },
+  "preconditions": {
+    "p1_iid_recovers_nominal": true,
+    "p2_naive_rejected": true
+  },
+  "verdict": {
+    "ks_D_matched_tiebroken": 0.017019777800158675,
+    "shape_survives": true,
+    "note": "relative comparison across laws on one bootstrap sample; not a hypothesis test"
+  }
+}
