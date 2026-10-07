@@ -289,6 +289,197 @@ def waive_control(passed: bool, would_fail_if: str, why_no_control: str,
                         observed=observed, control_waived=why_no_control)
 
 
+_UNSET = object()   # "no observed point supplied" — None is a legal statistic value
+
+
+# ── gate falsifiability (2026-08-12) ──────────────────────────────────────────────
+# Everything above polices the INSTRUMENT. Nothing polices the VERDICT GATE, and on
+# 2026-08-11 that gap cost a 171.7-GPU-hour pool its headline.
+#
+# CC-03b pre-registered a table whose validity row fires at >= 8 false kills of 60.
+# The rule is only allowed to "falsely" kill a run that was going to turn out good,
+# so the attainable maximum is however many good runs the test split actually holds.
+# The design planned for ~12. The pre-registered split realized 6. Every attainable
+# outcome — 0 through 6 false kills — mapped to PASS. The gate returned PASS, and a
+# null rule that kills every run at the first checkpoint scored PASS on it too, more
+# cheaply. The prereg's own addendum computed the 8-of-60 firing threshold and never
+# asked whether 8 was reachable.
+#
+# `rules` in emit_verdict cannot catch this: it takes already-evaluated booleans, so
+# by the time this module sees (True, "PASS") the outcome space is gone. These two
+# helpers take the gate as a FUNCTION plus the outcomes it could have been fed, and
+# enumerate. Both are additive; no existing caller changes.
+
+@dataclass(frozen=True)
+class GateTable:
+    """A verdict gate expressed so its own falsifiability can be enumerated.
+
+    `decide` maps ONE point of the outcome space to ONE row label of the gate table.
+    `support` is every value the statistic can attain under the **realized** design —
+    not the planned one. That word is the whole lesson: CC-03b's planned support ran
+    to 12 and its realized support stopped at 6, and only the realized one exposes
+    the dead gate.
+
+        GateTable(decide=lambda fk: gate_row(fk, savings),
+                  support=range(0, n_good_test + 1),   # NOT range(0, n_test + 1)
+                  statistic="false kills among test runs")
+    """
+
+    decide: Callable[[Any], str]
+    support: Sequence[Any]
+    statistic: str
+
+    def reachable(self) -> dict[str, list[Any]]:
+        """row label -> the outcomes that produce it. Exhaustive over `support`."""
+        out: dict[str, list[Any]] = {}
+        for point in self.support:
+            out.setdefault(str(self.decide(point)), []).append(point)
+        return out
+
+
+def assert_gate_can_fail(gate: GateTable, observed: Any = _UNSET,
+                         *, name: str = "gate falsifiability",
+                         expect_rows: Sequence[str] | None = None) -> Precondition:
+    """TIER 1 — enumerate the gate over its attainable outcomes; >1 row or it is dead.
+
+    Deterministic, exhaustive, and self-controlling: the enumeration exhibits the
+    outcomes that would have produced the other rows, so no separate negative control
+    is constructible or needed.
+
+    `observed`, when supplied, is itself checked for membership in `support` — a
+    declared support that does not contain the value actually seen is wrong, and that
+    is a mistake this catches for free.
+
+    `expect_rows` names rows the pre-registration promises are live. A gate that can
+    only ever return PASS or INCONCLUSIVE passes the >1 test while still being unable
+    to fail in the direction that matters; naming the breach row closes that hole.
+
+    KNOWN LIMIT, stated because adopting this without it recreates the bug: the check
+    is only as good as `support`. Hand it the naive range(0, n_test + 1) and CC-03b
+    passes, because 8..60 do map to a breach. It forces you to write down the
+    question nobody asked; it does not answer it for you. Where a resample of the
+    design's nuisance structure exists, use assert_gate_can_fail_empirically too —
+    that one derives the support from the data instead of from your reasoning.
+    """
+    support = list(gate.support)
+    if not support:
+        raise ValueError(
+            f"assert_gate_can_fail({name!r}) got an empty support. An outcome space "
+            "with no points cannot show a gate is live.")
+
+    reach = gate.reachable()
+    rows = sorted(reach)
+    missing = sorted(set(expect_rows or ()) - set(rows))
+    in_support = observed is _UNSET or observed in support
+
+    passed = len(rows) > 1 and not missing and in_support
+
+    if not in_support:
+        why = (f"the declared support does not contain the observed {gate.statistic} "
+               f"({observed!r}), so it is not the outcome space this gate ran on")
+    elif missing:
+        why = (f"pre-registered row(s) {', '.join(missing)} are unreachable — no "
+               f"attainable value of {gate.statistic} produces them")
+    elif len(rows) == 1:
+        why = (f"every attainable value of {gate.statistic} maps to {rows[0]!r}, so "
+               "the gate returns it whatever the data does")
+    else:
+        witnesses = ", ".join(f"{r}<-{reach[r][0]!r}" for r in rows[:4])
+        why = (f"a single reachable row would mean the gate cannot fail; "
+               f"{len(rows)} are reachable ({witnesses})")
+
+    return Precondition(
+        passed=passed,
+        would_fail_if=why,
+        observed={"statistic": gate.statistic, "support_size": len(support),
+                  "reachable_rows": {r: len(reach[r]) for r in rows},
+                  "observed_point": None if observed is _UNSET else observed},
+        control_demonstrated=(
+            f"{name}: exhaustive enumeration of {len(support)} attainable "
+            f"{gate.statistic} values reached {len(rows)} row(s) — "
+            f"{', '.join(rows)}"),
+    )
+
+
+def assert_gate_can_fail_empirically(decide: Callable[[Any], str],
+                                     resample: Callable[[int], Any],
+                                     *, B: int = 1000,
+                                     name: str = "gate falsifiability (empirical)",
+                                     expect_rows: Sequence[str] | None = None,
+                                     min_frac: float = 0.0) -> Precondition:
+    """TIER 2 — derive the attainable rows from the DATA, not from a declared support.
+
+    `resample(b)` re-runs the design's nuisance structure at replicate `b` — the
+    calibration/test split, the label permutation, whatever the pre-registration
+    randomizes — and returns the statistic. Seed it from `b` so the census is
+    reproducible. `decide` maps that statistic to a gate row, exactly as in Tier 1.
+
+    This is the strong one. It needs no insight about which quantity bounds the
+    outcome space, which is precisely the insight CC-03b was missing: 2000 resplits
+    of that pool put a validity breach in reach 83.6% of the time and showed the
+    pre-registered split sitting in the 16.4% where it is not. Cost is CPU, not
+    tokens.
+
+    `min_frac` optionally demands each expected row appear in at least that fraction
+    of replicates. DEFAULT 0.0, and raise it only when you have thought about what
+    the row means, because for a VALIDITY row a high floor tests the wrong thing.
+    Retrofitting CC-03b caught this: its breach row occurs in 2.9% of resplits, and
+    a 5% floor called that a dead gate. It is not — a correct rule at alpha=0.05
+    SHOULD breach about that often, so the floor was demanding the rule be broken.
+    Rarity under a working rule is the target, not the defect.
+
+    Which means "can the gate fail" splits into two questions, and this function
+    answers whichever one you point it at:
+
+      REACHABILITY — resample the real rule, min_frac=0. Does the row ever occur?
+      POWER        — resample a rule you KNOW is bad (the null that kills
+                     everything immediately, a deliberately miscalibrated lambda)
+                     and set a high min_frac. Does the gate actually catch it?
+
+    Power is the stronger question and the one a validity gate exists to answer.
+    On CC-03b's pre-registered split the gate does not catch the null rule at all;
+    across resplits it catches it 83.6% of the time.
+    """
+    if B < 1:
+        raise ValueError("assert_gate_can_fail_empirically needs B >= 1 replicates.")
+
+    counts: dict[str, int] = {}
+    for b in range(B):
+        # resample and decide ONCE per replicate — calling either twice would
+        # double the cost and, if `resample` draws from a shared RNG, silently
+        # count a different replicate than the one it reports.
+        row = str(decide(resample(b)))
+        counts[row] = counts.get(row, 0) + 1
+    rows = sorted(counts)
+    fracs = {r: counts[r] / B for r in rows}
+    missing = sorted(set(expect_rows or ()) - set(rows))
+    thin = sorted(r for r in (expect_rows or ()) if fracs.get(r, 0.0) < min_frac)
+
+    passed = len(rows) > 1 and not missing and not thin
+
+    if missing:
+        why = (f"pre-registered row(s) {', '.join(missing)} never occurred in {B} "
+               "resamples of the design")
+    elif thin:
+        why = (f"row(s) {', '.join(thin)} occurred below the {min_frac:.1%} floor "
+               f"({', '.join(f'{r} {fracs[r]:.1%}' for r in thin)})")
+    elif len(rows) == 1:
+        why = (f"all {B} resamples of the design returned {rows[0]!r}, so the gate "
+               "is decided by the design and not by the data")
+    else:
+        why = (f"a single row across {B} resamples would mean the gate cannot fail; "
+               f"{len(rows)} occurred ({', '.join(f'{r} {fracs[r]:.1%}' for r in rows)})")
+
+    return Precondition(
+        passed=passed,
+        would_fail_if=why,
+        observed={"replicates": B, "row_frequencies": fracs},
+        control_demonstrated=(
+            f"{name}: {B} resamples of the design reached {len(rows)} row(s) — "
+            f"{', '.join(f'{r} {fracs[r]:.1%}' for r in rows)}"),
+    )
+
+
 def component_dominance(derived_name: str, derived: float,
                         components: dict[str, float],
                         margin: float = 0.0) -> Precondition:
@@ -403,6 +594,12 @@ class VerdictResult:
     # Which verdict.py emitted this. See INSTRUMENT above — this is what makes two
     # results comparable without re-scanning the filesystem they were produced on.
     instrument: dict[str, Any] = field(default_factory=lambda: dict(INSTRUMENT))
+    # Derived bookkeeping for write_s4() below. DELIBERATELY ABSENT from to_dict():
+    # several lanes' verdict.json IS the provenance record for published numbers, so the
+    # instrument record stays byte-identical across this change.
+    n_passed: int = 0
+    n_total: int = 0
+    controlled: dict[str, str] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return {
@@ -430,6 +627,9 @@ def emit_verdict(
     preconditions: dict[str, "bool | Precondition"],
     prereg: "str | Any | None" = None,
     schema: str | None = None,
+    gate: "GateTable | None" = None,
+    gate_observed: Any = _UNSET,
+    gate_expect_rows: Sequence[str] | None = None,
     require_controls: str | None = None,
     evidence_formatter: Callable[[Any], str] | None = None,
     width: int = 74,
@@ -455,6 +655,13 @@ def emit_verdict(
             preconditions, voiding the verdict. A prereg with no such block
             raises — its §3 is still prose, which is what SA-01 walked through.
         schema: optional registered schema name to validate `components`.
+        gate: optional GateTable. When given, assert_gate_can_fail() runs over its
+            support and is merged in as a precondition, so a gate that could only
+            ever return one row voids the verdict by the same path a dead
+            instrument does. Optional rather than required because six lanes
+            symlink this file and a gate that forces a mass edit gets disabled
+            instead of adopted — same staging as the 2026-08-04 control census.
+        gate_observed / gate_expect_rows: passed through to assert_gate_can_fail.
         evidence_formatter: how to render one evidence row (default: repr, but
             dicts are pretty-printed compactly).
     """
@@ -482,6 +689,13 @@ def emit_verdict(
         import prereg as _prereg_mod
         commitments = _prereg_mod.preconditions(prereg)
         preconditions = {**preconditions, **commitments}
+
+    # The gate's own falsifiability joins the instrument's, and voids the verdict by
+    # the same path. A verdict whose gate could only return one row is not a finding.
+    if gate is not None:
+        preconditions = {**preconditions,
+                         "gate falsifiability": assert_gate_can_fail(
+                             gate, gate_observed, expect_rows=gate_expect_rows)}
 
     normalised = {name: _as_precondition(v) for name, v in preconditions.items()}
     failed = [name for name, (ok, _, _) in normalised.items() if not ok]
@@ -607,7 +821,127 @@ def emit_verdict(
                                                    if k in failed],
                          uncontrolled_preconditions=uncontrolled,
                          waived_controls=waived,
-                         control_policy=policy)
+                         control_policy=policy,
+                         n_passed=len(normalised) - len(failed),
+                         n_total=len(normalised),
+                         controlled={k: w for k, (_, w, _) in normalised.items() if w})
+
+
+
+# ---------------------------------------------------------------------------
+# S4 — the results contract, so a verdict can join command-center/results/
+#
+# WHY THIS EXISTS, and what it does NOT do.
+#
+# On 2026-09-21 the first build of command-center/results/ found that 10 of 17
+# verdict.json files on disk could not join the federated view. They are the shape
+# to_dict() writes -- an INSTRUMENT record -- while the view needs the S4 shape in
+# command-center/templates/verdict.schema.json. check-structure.py's S4 counts files
+# and never opens them, so nine ramsey verdicts had been passing the check while
+# being unusable by the view the check exists to feed.
+#
+# The tempting fix was to have this module emit both automatically. IT CANNOT.
+# `id`, `repo`, `date` and `preconditions` are all derivable from the path and the
+# result -- but `status`, `confidence` and `insight` are JUDGMENTS:
+#
+#   status      confirmed / null-result / void -- whether a run with sound
+#               preconditions answered its question yes, no, or not at all
+#   confidence  smoke-test / adequately-powered / pre-registered-confirmatory --
+#               a claim about power and about what was registered before the run
+#   insight     one sentence with its own polarity, readable alone
+#
+# Nothing in this module knows any of the three. So they are REQUIRED arguments and
+# this function fails closed without them, the same way emit_verdict() refuses empty
+# evidence. That keeps the gap from recurring on new runs; the ten existing files
+# still need a per-lane judgment, which is the honest cost.
+#
+# to_dict() is untouched and byte-identical. Several lanes' verdict.json IS the
+# provenance record for published numbers.
+
+S4_STATUSES = ("planned", "running", "confirmed", "null-result", "void",
+               "abandoned", "superseded", "shelved")
+S4_CONFIDENCES = ("smoke-test", "adequately-powered", "pre-registered-confirmatory")
+_BARE_POLARITY = {
+    "yes", "no", "failed", "it failed", "it works", "works", "success", "pass",
+    "passed", "the answer is no", "the answer is yes", "confirmed", "not confirmed",
+    "inconclusive", "null", "null result", "negative", "positive",
+}
+
+
+def write_s4(result: "VerdictResult", path, *, id: str, status: str,
+             confidence: str, insight: str, repo: str | None = None,
+             date: str | None = None, could_have_failed: str | None = None,
+             **extra) -> dict:
+    """Write a verdict.json carrying BOTH the S4 contract and the instrument record.
+
+    Required because they are judgments this module cannot make: `status`,
+    `confidence`, `insight`. Derived: `id`/`repo` from `path` if not given, `date`
+    from today, `preconditions` from the result.
+
+    Raises ValueError rather than writing something the federated view would have to
+    represent as half-true.
+    """
+    import datetime as _dt
+    import json as _json
+    import os as _os
+    import re as _re
+
+    path = str(path)
+    if status not in S4_STATUSES:
+        raise ValueError("write_s4: status %r not in %s" % (status, list(S4_STATUSES)))
+    if confidence not in S4_CONFIDENCES:
+        raise ValueError("write_s4: confidence %r not in %s"
+                         % (confidence, list(S4_CONFIDENCES)))
+
+    flat = " ".join(str(insight).split())
+    if len(flat) < 20:
+        raise ValueError(
+            "write_s4: insight is %d chars; the contract needs >=20 and a sentence "
+            "that makes sense read alone. Got %r" % (len(flat), flat))
+    if flat.rstrip(".!").strip().lower() in _BARE_POLARITY:
+        raise ValueError(
+            "write_s4: %r is a bare polarity word. The insight must carry its own "
+            "polarity and be readable cold -- 'the score's agreement falls off in the "
+            "tail faster than the standard model allows', not 'the answer is no'."
+            % flat)
+
+    if not _re.match(r"^[A-Z]{2,4}-[0-9]{2}[a-z]?$", id):
+        raise ValueError("write_s4: id %r does not match ^[A-Z]{2,4}-[0-9]{2}[a-z]?$" % id)
+
+    if repo is None:
+        # .../<repo>/experiments/<dated-dir>/verdict.json
+        parts = _os.path.abspath(path).split(_os.sep)
+        repo = parts[-4] if len(parts) >= 4 else ""
+        if not repo:
+            raise ValueError("write_s4: could not derive repo from %r; pass repo=" % path)
+
+    if could_have_failed is None:
+        if not result.controlled:
+            raise ValueError(
+                "write_s4: no precondition named a would_fail_if, so there is nothing "
+                "to put in preconditions.could_have_failed. A check that cannot fail is "
+                "not evidence -- give one a would_fail_if, or pass could_have_failed=.")
+        name, why = sorted(result.controlled.items())[0]
+        could_have_failed = "%s: %s" % (name, why)
+
+    record = {
+        "id": id,
+        "repo": repo,
+        "status": status,
+        "confidence": confidence,
+        "date": date or _dt.date.today().isoformat(),
+        "insight": flat,
+        "preconditions": {
+            "passed": result.n_passed,
+            "of": result.n_total,
+            "could_have_failed": could_have_failed,
+        },
+    }
+    record.update(extra)
+    record.update(result.to_dict())   # instrument record alongside, never replacing
+    with open(path, "w") as fh:
+        fh.write(_json.dumps(record, indent=1, default=str) + "\n")
+    return record
 
 
 # ---------------------------------------------------------------------------

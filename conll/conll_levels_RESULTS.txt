@@ -1,0 +1,18 @@
+n=14041  documents b=946  mean size 14.84  size-biased m_tilde 26.37  sizes 3/11/197  atom at 0: 0.2066
+
+FULL POOL
+  p=0.50 cutoff=0.003705 ties=1  rho ANOVA 0.1265 (D 4.21)  count 0.1349 (D 4.42)  null95 +0.0040  Spearman(size, rate) +0.148 (p=4.6e-06)
+  p=0.80 cutoff=0.1728 ties=1  rho ANOVA 0.0975 (D 3.47)  count 0.0826 (D 3.09)  null95 +0.0041  Spearman(size, rate) +0.164 (p=3.9e-07)
+  p=0.90 cutoff=0.3531 ties=1  rho ANOVA 0.0627 (D 2.59)  count 0.0374 (D 1.95)  null95 +0.0040  Spearman(size, rate) +0.020 (p=0.53)
+  p=0.95 cutoff=0.4552 ties=1  rho ANOVA 0.0495 (D 2.26)  count 0.0272 (D 1.69)  null95 +0.0043  Spearman(size, rate) -0.037 (p=0.25)
+
+DIRECT: n about 1000, 4000 draws per design, coverage against the pool ECDF
+  level | sentences | documents      95% band | count plug-in | ANOVA plug-in | ratio
+   0.50 |      1002 |       217 [ 208,  227] |           217 |           228 | 4.62x
+   0.80 |      1014 |       326 [ 312,  341] |           311 |           276 | 3.11x
+   0.90 |      1019 |       485 [ 465,  507] |           497 |           372 | 2.10x
+   0.95 |      1000 |       621 [ 595,  649] |           575 |           428 | 1.61x
+  sentence: mean n 1000.0, mean m_tilde of draw 2.88
+  document: mean n 987.4, mean m_tilde of draw 27.37
+
+wrote analysis/conll/conll_levels_RESULTS.json

@@ -1,3 +1,5 @@
+# AUDIT 2026-09-16: Historical calculation; the centered phase omits the lattice offset.
+# This script does not validate the coverage-drift expansion. See audit/v9/STATUS.md.
 """The sawtooth term is exponentially small, not merely o(1/n).
 
 Round 1 (sawtooth_integral.py) failed its own quadrature precondition: the

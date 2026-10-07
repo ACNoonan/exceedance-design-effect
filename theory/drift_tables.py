@@ -69,7 +69,7 @@ def tune(p, target_rho_I):
 
 def drift_at(m, r, b, target_p):
     n = b * m
-    k = int(round(target_p * (n + 1)))
+    k = int(np.ceil(target_p * (n + 1)))
     p = k / (n + 1.0)
     ec = exact_EC(lambda t: cluster_pmf_gauss(t, m, r), lambda t: rho_I_gauss(t, r), b, m, k)
     pred = predicted_drift(lambda t: rho_I_gauss(t, r), n, m, p)
@@ -118,7 +118,7 @@ def main() -> int:
     worst = 0.0
     for m, tgt, target_rI in T2_ROWS:
         n = T2_B * m
-        k = int(round(tgt * (n + 1)))
+        k = int(np.ceil(tgt * (n + 1)))
         p = k / (n + 1.0)
         r, got = tune(p, target_rI)
         err = abs(got - target_rI)

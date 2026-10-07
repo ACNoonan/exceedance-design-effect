@@ -1,0 +1,387 @@
+Current branch: HEAD
+Using cache from origin: (some leanprover-community/mathlib4)
+No files to download
+Already decompressed 3754 file(s)
+Checking Exceedance
+'Exceedance.variance_from_covariance_rows' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.duplicated_pair_drift_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking IndicatorVariance
+'Exceedance.cluster_indicator_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.cluster_count_clt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.cluster_increment_variance_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.independent_increment_variance_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.independent_increment_deviation_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.normalized_increment_tendstoInMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.count_limit_stable_under_local_perturbation' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking CountInversion
+'Exceedance.ordered_count_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.ordered_survival_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.measurable_sampleQuantile' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.sampleQuantile_monotone_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking Concentration
+'Exceedance.independent_bounded_sum_upper_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.cluster_count_upper_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.independent_bounded_sum_lower_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.cluster_count_lower_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking ProbabilityTransform
+'Exceedance.continuous_cdf_transform_interior' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.continuous_cdf_transform' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.continuous_cdf_transform_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.marginal_cdf_transform' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking LimitInversion
+'Exceedance.probability_ge_tendsto_of_distribution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.probability_ge_moving_tendsto' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.centered_gaussian_reflected_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.centered_gaussian_no_atom_at_continuity' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking CoverageLimit
+'Exceedance.quantile_cdf_limit_of_count_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.coverage_rank_cutoff_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.coverage_rank_cutoff_tendsto' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.coverage_probability_limit_of_transformed_count_limit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Exceedance.coverage_probability_limit_of_gaussian_count_limit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Checking ClusterModel
+'Exceedance.thresholdCount_increment_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.independent_threshold_increment_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_vector_fixed_count_clt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.normalizedCount_increment_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_vector_moving_count_clt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_score_moving_count_clt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_vector_moving_count_total_scale_clt' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking ClusterSample
+'Exceedance.pooledSample_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.distribution_limit_eventually_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.distribution_limit_succ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_vector_moving_count_interior_clt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_pooled_moving_count_clt' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking ClusterCoverage
+'Exceedance.clusterCoverageVariance_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_cluster_coverage_cdf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_continuous_score_coverage_cdf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.clusterCoverageVariance_indicator_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.ceil_rank_levels_tendsto' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_continuous_score_ceil_coverage_cdf' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking QuantileConcentration
+'Exceedance.pooled_count_tails' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pooled_quantile_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.normalized_pooled_quantile_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.continuous_score_coverage_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking QuantileMoments
+'Exceedance.exponential_tail_excess_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.exponential_tail_truncation_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.uniformIntegrable_of_exponential_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.gaussian_tail_square_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pooled_quantile_square_uniformIntegrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pooled_quantile_second_moment_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pooled_quantile_square_truncation_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.continuous_score_coverage_square_uniformIntegrable' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Checking CoverageMoments
+'Exceedance.normalizedPooledQuantile_no_atoms' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.nonnegative_expectation_limit_of_tail_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_pooled_quantile_second_moment_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_pooled_quantile_mean_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_pooled_quantile_variance_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_continuous_score_coverage_variance_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_continuous_score_ceil_coverage_variance_limit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Exceedance.iid_continuous_score_ceil_design_effect_variance_limit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Checking DuplicatedPairs
+'Exceedance.permuted_duplicatedSample_quantile' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.permuted_duplicatedSample_even_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.permuted_duplicatedSample_expectation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.duplicated_pair_count_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking PairSymmetrization
+'Exceedance.uniform_pmf_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.symmetrizedFour_exchangeable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.symmetrized_pair_count_law' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.symmetrizedFourLaw_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.symmetrizedFourLaw_exchangeable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.symmetrized_pair_measure_count_law' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.symmetrizedFourLaw_marginal' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking OrderStatisticRanks
+'Exceedance.iid_rank_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking UniformOrderStatistic
+'Exceedance.uniform_orderStatistic_expectation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_uniform_orderStatistic_expectation' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking DuplicatedPairModel
+'Exceedance.pairLatent_independent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pairCluster_independent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pairCluster_identDistrib' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pairCluster_exchangeable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pairCluster_marginal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pairBaseSample_expectation' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking DuplicatedPairDrift
+'Exceedance.pair_pooled_expectation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pairCounterexampleRank_ceil' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pairCounterexample_drift_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking DuplicatedPairMoments
+'Exceedance.pairCluster_count_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pairCluster_pair_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pairCluster_indicator_correlation' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking ConditionalCoverage
+'Exceedance.independent_test_conditional_coverage' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking DuplicatedPairCounterexample
+'Exceedance.duplicated_pair_counterexample_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pairCounterexample_conditional_coverage' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking FinitePrefixCoverage
+'Exceedance.clampedCeilRank_eventually' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.ceilingRuleCoverage_eventually_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.ceilingRuleCoverage_variance_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_ceilingRuleCoverage_variance_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking RaggedQuantileConcentration
+'Exceedance.ragged_quantile_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking RaggedCoverage
+'Exceedance.ragged_normalized_quantile_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.ragged_coverage_square_uniformIntegrable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.ragged_continuous_score_coverage_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.ragged_continuous_score_coverage_square_uniformIntegrable' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Checking TailLimits
+'Exceedance.indicator_correlation_lower_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.indicator_correlation_upper_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking FiniteSampleGuarantee
+'Exceedance.correctedCoverage_failure_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.correctedCoverage_success_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking FourthMoment
+'Exceedance.gaussian_tail_fourth_moment' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.ragged_quantile_fourth_moment' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking RandomCutoff
+'Exceedance.monotone_random_cutoff_consistency' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.continuous_pair_tendstoInMeasure' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking EstimatorConsistency
+'Exceedance.iid_count_moment_random_cutoff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_pooled_quantile_estimator_consistent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_continuous_score_estimator_consistent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.clusterVarianceEstimator_eq_sample_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_continuous_score_ceil_estimator_consistent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_continuous_score_estimator_variance_comparison' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Checking BoundedArrayCLT
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/BoundedArrayCLT.lean:84:49: warning: Variable name `hB` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/BoundedArrayCLT.lean:156:8: warning: 'congr 1' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/BoundedArrayCLT.lean:151:25: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/BoundedArrayCLT.lean:151:35: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'Exceedance.bounded_charFun_taylor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.bounded_charFun_gaussian_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.bounded_array_clt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.bounded_array_sqrt_clt' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking RaggedModel
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/RaggedModel.lean:62:0: warning: automatically included section variable(s) unused in theorem `Exceedance.RaggedUniformModel.b_le_N`:
+  [IsProbabilityMeasure μ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsProbabilityMeasure μ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/RaggedModel.lean:90:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/RaggedModel.lean:125:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'Exceedance.thresholdCount_variance_mean_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.RaggedUniformModel.normalized_variance_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.RaggedUniformModel.rho_continuousAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.RaggedUniformModel.moving_count_interior_clt' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking RaggedLimit
+'Exceedance.RaggedUniformModel.coverage_cdf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.RaggedUniformModel.second_moment_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.RaggedUniformModel.mean_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.RaggedUniformModel.coverage_variance_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.RaggedUniformModel.ceil_coverage_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking RaggedScoreCoverage
+'Exceedance.ragged_continuous_score_ceil_coverage_certificate' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Checking FiniteProfile
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/FiniteProfile.lean:28:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/FiniteProfile.lean:87:4: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'Exceedance.size_biased_mean_cv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.effective_size_fixed_cluster_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.ceil_rank_sqrt_centering' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.effective_size_diminishing_returns' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.size_biased_design_effect_comparison' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking CopulaContinuity
+'Exceedance.pair_diagonal_lipschitz' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.pair_indicator_correlation_continuousAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking BetaMoments
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/BetaMoments.lean:46:13: warning: This simp argument is unused:
+  betaPDF
+
+Hint: Omit it from the simp argument list.
+  simp only [b̵e̵t̵a̵P̵D̵F̵,̵ ̵ENNReal.toReal_ofReal (betaPDFReal_nonneg a b ha hb _), smul_eq_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/BetaMoments.lean:84:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/BetaMoments.lean:97:33: warning: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/BetaMoments.lean:97:33: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+'Exceedance.beta_mean' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.beta_second_moment' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.beta_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.beta_approximation_moments' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking GaussianIntegral
+'Exceedance.gaussian_edgeworth_skewness_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking PairMixture
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/PairMixture.lean:65:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'Exceedance.uniformPairMixture_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.uniformPairMixture_marginals' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.uniformPairMixture_indicator_correlation' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking CountExpectation
+'Exceedance.sampleQuantile_expectation_count_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.sampleQuantile_expectation_count_unit_integral' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking WeightedTargets
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/WeightedTargets.lean:9:0: warning: automatically included section variable(s) unused in theorem `Exceedance.iid_row_target_limit`:
+  [IsProbabilityMeasure μ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsProbabilityMeasure μ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+'Exceedance.iid_row_target_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.row_target_covariance_difference' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking SelectionTarget
+'Exceedance.selection_joint_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.selection_conditional_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.selected_score_cdf' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking UniformCountLaw
+'Exceedance.uniform_threshold_count_probability' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.uniform_orderStatistic_survival' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking BetaOrderPolynomial
+'Exceedance.beta_order_density' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.beta_order_cdf_interior' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking UniformBetaLaw
+'Exceedance.uniform_orderStatistic_beta_law' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.iid_uniform_orderStatistic_beta_law' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking ExactCoverageLaws
+'Exceedance.iid_continuous_score_beta_law' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.identical_cluster_score_beta_law' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking SelectionCounterexample
+'Exceedance.tilted_population_cdf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.tilted_accepted_cdf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.selection_example_coverage_deficit' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking GaussianTail
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/GaussianTail.lean:39:39: warning: Variable name `hY` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'Exceedance.gaussian_pair_upper_tail_ratio' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.gaussian_pair_lower_tail_ratio' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking GaussianCopula
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/GaussianCopula.lean:107:6: warning: Try `simp at hh` instead of `simpa using hh`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/GaussianCopula.lean:113:6: warning: Try `simp at hh` instead of `simpa using hh`
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+'Exceedance.correlatedGaussian_law' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.correlatedGaussian_tail_ratios' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.gaussian_indicator_correlation_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.gaussian_copula_tail_coefficients' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.correlatedGaussian_covariance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.gaussian_indicator_correlation_tail_limits' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking GaussianCalculus
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/GaussianCalculus.lean:41:45: warning: This simp argument is unused:
+  one_div
+
+Hint: Omit it from the simp argument list.
+  simp only [̵N̵N̵R̵e̵a̵l̵.̵c̵o̵e̵_̵o̵n̵e̵,̵m̵u̵l̵_̵o̵n̵e̵,̵s̵u̵b̵_̵z̵e̵r̵o̵,̵o̵n̵e̵_̵d̵i̵v̵]̵[̲N̲N̲R̲e̲a̲l̲.̲c̲o̲e̲_̲o̲n̲e̲,̲ ̲m̲u̲l̲_̲o̲n̲e̲,̲ ̲s̲u̲b̲_̲z̲e̲r̲o̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'Exceedance.standardGaussian_cdf_hasDerivAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.standardGaussian_truncated_mean' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking GaussianExpansion
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/GaussianExpansion.lean:19:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/GaussianExpansion.lean:129:64: warning: Variable name `hp` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'Exceedance.bivariateNormalCDF_conditional' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.gaussian_indicator_correlation_hasDerivAt_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.gaussian_indicator_correlation_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.gaussian_indicator_correlation_small_rho' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking BahadurInversion
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/BahadurInversion.lean:128:41: warning: Variable name `hK` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'Exceedance.stochastic_inverse_linearization' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking ScoreCountLocal
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/ScoreCountLocal.lean:19:17: warning: Variable name `hF` is not explicitly referenced.
+
+The binding can be removed (if unused) or named `_` (if used implicitly).
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'Exceedance.independent_threshold_cdf_increment_variance' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking LocalCDFDerivative
+'Exceedance.local_cdf_derivative' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking BahadurRepresentation
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/BahadurRepresentation.lean:58:6: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/BahadurRepresentation.lean:122:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/BahadurRepresentation.lean:174:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'Exceedance.independent_cluster_bahadur' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.independent_cluster_ceil_bahadur' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking ReflectionMixture
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/ReflectionMixture.lean:139:4: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/ReflectionMixture.lean:165:4: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'Exceedance.reflectionMixture_diagonal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.zero_score_correlation_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.reflectionMixture_exchangeable' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking FixedTargetCoverage
+'Exceedance.iid_continuous_score_fixed_target_cdf' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking SupportingClaims
+'Exceedance.independent_jitter_continuous_cdf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.mean_pair_correlation_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.design_effect_upper_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Exceedance.complement_indicator_covariance' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking ZeroIndicatorCounterexample
+/Users/adamnoonan/Documents/exceedance-paper/audit/v9/total-coverage-bundle/extracted/sw02_code/formalization/ZeroIndicatorCounterexample.lean:25:23: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'Exceedance.zero_indicator_correlation_not_beta' depends on axioms: [propext, Classical.choice, Quot.sound]
+Auditing all local declarations
+Axiom audit passed: 820 declarations, including 744 theorems, across 59 modules.

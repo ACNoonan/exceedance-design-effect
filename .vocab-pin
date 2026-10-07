@@ -9,7 +9,9 @@
 # is. It SHOULD track the canonical over time — it just has to be refreshed deliberately rather
 # than by a link that updates silently.
 #
-# Pinned at sha256 29de96547ac2057e… — byte-identical to the canonical on 2026-08-07.
+# Pinned at sha256 3027d5a29593650c… — byte-identical to the canonical on 2026-10-07, and to the
+# copy in the v9–v11 Zenodo code archive. Refreshed from 29de96547ac2057e… (2026-08-07) when main
+# took the v11 archive.
 #
 # To refresh (a deliberate act, not a sync):
 #   cp ~/Documents/research-vocab/verdict.py .

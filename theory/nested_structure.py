@@ -1,3 +1,5 @@
+# V9 audit: the unrestricted drift conjecture is false.
+# The historical motivation below does not constitute a proof.
 """Does the law survive NON-exchangeable within-family structure? Exact test.
 
     python experiments/2026-07-26-sw02-exchangeability-audit/nested_structure.py
@@ -142,7 +144,7 @@ def exact_moments(pmf_fn, rbar_fn, b, m, k, chunk=150):
 def run(label, n_sub, k_sub, a, c, b, p_target=0.90):
     m = n_sub * k_sub
     n = b * m
-    k = int(round(p_target * (n + 1)))
+    k = int(np.ceil(p_target * (n + 1)))
     p = k / (n + 1.0)
 
     rbar = lambda tt: rho_bar_I(tt, n_sub, k_sub, a, c)             # noqa: E731
@@ -233,15 +235,15 @@ def main() -> int:
     res.append(("nest m=8 .05/.80", *run("nested m=8 (4x2), .05 / .80", 4, 2, 0.05, 0.75, b)))
     res.append(("nest m=8 .02/.85", *run("nested m=8 (2x4), .02 / .85", 2, 4, 0.02, 0.83, b)))
 
-    print("\nVERDICT")
+    print("\nNUMERICAL COMPARISON: these finite cases do not prove a drift theorem.")
     sd_r = np.array([r[1] for r in res])
     dr_r = np.array([r[2] for r in res])
     print(f"  N1 Theorem 1 with rhobar_I : sd ratios in "
           f"[{sd_r.min():.4f}, {sd_r.max():.4f}]  "
-          f"{'HOLDS' if abs(sd_r - 1).max() < 0.02 else 'FAILS'}")
+          f"{'WITHIN NUMERICAL TOLERANCE' if abs(sd_r - 1).max() < 0.02 else 'OUTSIDE NUMERICAL TOLERANCE'}")
     print(f"  N2 Proposition 1 with rhobar_I: drift ratios in "
           f"[{dr_r.min():.4f}, {dr_r.max():.4f}]  "
-          f"{'HOLDS' if abs(dr_r - 1).max() < 0.05 else 'FAILS'}")
+          f"{'WITHIN NUMERICAL TOLERANCE' if abs(dr_r - 1).max() < 0.05 else 'OUTSIDE NUMERICAL TOLERANCE'}")
     worst = res[int(np.argmax(np.abs(dr_r - 1)))]
     print(f"  N3 worst drift deviation at: {worst[0]}  ({(worst[2]-1)*100:+.2f}%)")
     return 0

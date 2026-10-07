@@ -1,0 +1,14 @@
+{
+  "model": "deepset/roberta-base-squad2",
+  "device": "mps",
+  "n_questions": 11873,
+  "n_features": 12165,
+  "max_len": 384,
+  "stride": 128,
+  "batch": 16,
+  "padding": "max_length (fixed shape)",
+  "warmup": true,
+  "forward_seconds": 541.6,
+  "features_per_second": 22.46,
+  "questions_with_no_feature": 0
+}

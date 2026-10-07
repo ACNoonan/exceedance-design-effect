@@ -88,7 +88,7 @@ def part1() -> bool:
     rows = []
     for b in (25, 50, 100, 200, 400, 800, 1600):
         m, n = M_CLUSTER, b * M_CLUSTER
-        k = int(round(0.9 * (n + 1)))
+        k = int(np.ceil(0.9 * (n + 1)))
         i = int(round(Q_ATOM * b))
         M = i + m * (b - i)
         ex, no = EL_exact(M, i, m, k), EL_normal(M, i, m, k)
@@ -113,7 +113,7 @@ def part2() -> bool:
     ns, diffs = [], []
     for b in (25, 50, 100, 200, 400, 800):
         m, n = M_CLUSTER, b * M_CLUSTER
-        k = int(round(0.9 * (n + 1)))
+        k = int(np.ceil(0.9 * (n + 1)))
         p = k / (n + 1)
         d_ex = EC(b, m, Q_ATOM, k, EL_exact) - p
         d_no = EC(b, m, Q_ATOM, k, EL_normal) - p

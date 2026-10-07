@@ -147,7 +147,7 @@ def preconditions() -> bool:
     print("    Not 'to 1e-14': (*) is an identity, so the only error is floating point.")
     for b, m in ((50, 4), (120, 5), (400, 2)):
         n = b * m
-        k = int(round(0.9 * (n + 1)))
+        k = int(np.ceil(0.9 * (n + 1)))
         err = exact_EC_combinatorial(b, m, 0.0, k) - k / (n + 1)
         flag = "PASS" if abs(err) < 1e-12 else "FAIL"
         ok &= flag == "PASS"
@@ -160,7 +160,7 @@ def preconditions() -> bool:
     for b in (25, 50, 100):
         m = M_CLUSTER
         n = b * m
-        k = int(round(0.9 * (n + 1)))
+        k = int(np.ceil(0.9 * (n + 1)))
         err = exact_EC_combinatorial(b, m, 1.0, k) - int(np.ceil(k / m)) / (b + 1)
         flag = "PASS" if abs(err) < 1e-12 else "FAIL"
         ok &= flag == "PASS"
@@ -198,7 +198,7 @@ def main() -> int:
     rows = []
     for b in (25, 50, 100, 200, 400, 800):
         n = b * M_CLUSTER
-        k = int(round(0.9 * (n + 1)))
+        k = int(np.ceil(0.9 * (n + 1)))
         p = k / (n + 1)
         drift = exact_EC_combinatorial(b, M_CLUSTER, Q_ATOM, k) - p
         pred = predicted_drift_atom(n, M_CLUSTER, p, Q_ATOM)

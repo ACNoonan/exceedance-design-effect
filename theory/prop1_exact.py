@@ -189,7 +189,7 @@ def precondition() -> bool:
     print("[0] PRECONDITION — independent clusters must give E[C] = k/(n+1) exactly")
     ok = True
     for b, m in ((50, 4), (120, 5), (400, 2)):
-        n, k = b * m, int(round(0.9 * (b * m + 1)))
+        n, k = b * m, int(np.ceil(0.9 * (b * m + 1)))
         p = k / (n + 1.0)
         for name, pmf_fn, rho_fn in (
             ("atom q=0",  lambda t, m=m: cluster_pmf_atom(t, m, 0.0),  lambda t: rho_I_atom(t, 0.0)),
@@ -212,7 +212,7 @@ def study(label, pmf_of, rho_fn, m, bs, target_p=0.9):
     rows = []
     for b in bs:
         n = b * m
-        k = int(round(target_p * (n + 1)))
+        k = int(np.ceil(target_p * (n + 1)))
         p = k / (n + 1.0)
         ec = exact_EC(lambda t: pmf_of(t, m), rho_fn, b, m, k)
         d_ex = ec - p
@@ -253,7 +253,7 @@ def quadrature_stability() -> bool:
     global GL_NODES, GH_NODES
     print("\n[0b] QUADRATURE STABILITY — refine and confirm the drift does not move")
     b, m = 100, 4
-    n, k = b * m, int(round(0.9 * (b * m + 1)))
+    n, k = b * m, int(np.ceil(0.9 * (b * m + 1)))
     p = k / (n + 1.0)
     base_gl, base_gh = GL_NODES, GH_NODES
     out = {}
@@ -295,7 +295,7 @@ def robustness(m_list=(2, 4, 8), p_list=(0.80, 0.90, 0.95, 0.99), n_target=1600)
         n = b * m
         row = []
         for p_t in p_list:
-            k = int(round(p_t * (n + 1)))
+            k = int(np.ceil(p_t * (n + 1)))
             k = min(max(k, 1), n)
             p = k / (n + 1.0)
             ec = exact_EC(lambda t: cluster_pmf_gauss(t, m, 0.40), lambda t: rho_I_gauss(t, 0.40),
