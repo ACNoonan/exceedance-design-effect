@@ -10,9 +10,9 @@ That is why a single "quality-adjusted" sample count can mislead. The number of 
 
 The paper proves the result behind those numbers. Set a cutoff at a percentile of a sample whose observations come in groups. Grouping multiplies the variance of the fraction that falls below the cutoff by `1 + (m − 1)ρ_I(p)`, where `m` is the group size and `ρ_I(p)` measures whether two members of a group land on the same side of the cutoff. That correlation can be positive when the scores themselves are uncorrelated, and it changes with the cutoff.
 
-- **Paper:** [arXiv:2608.21262](https://arxiv.org/abs/2608.21262) (v2, 22 pages).
+- **Paper:** the current text is on the Zenodo record below (v12, 25 pages). [arXiv:2608.21262](https://arxiv.org/abs/2608.21262) carries the earlier 22-page text until its replacement is announced.
 - **Cite:** concept DOI [10.5281/zenodo.21595640](https://doi.org/10.5281/zenodo.21595640). It always resolves to the newest version, and it is the only DOI worth citing.
-- **Current record:** Zenodo v11, [10.5281/zenodo.23083374](https://doi.org/10.5281/zenodo.23083374), 2026-10-01. It holds the paper, an eight-page theorem note and the code archive. arXiv v2 carries the same text.
+- **Current record:** Zenodo v12, [10.5281/zenodo.24444081](https://doi.org/10.5281/zenodo.24444081), 2026-11-22. It holds the paper, a nine-page theorem note and the code archive.
 
 ## The estimator, in one command
 
@@ -31,7 +31,7 @@ Each prints rho, m-tilde, DEFF, n_eff and a reporting line you can paste into a 
 
 ## Checking the proofs
 
-`formalization/` holds 59 Lean source files, a claim inventory and the checker. Lean verifies Theorem 1, both propositions, the finite-sample guarantee, the variance estimator's consistency and both main counterexamples. [`formalization/CLAIM_INVENTORY.md`](formalization/CLAIM_INVENTORY.md) maps each statement in the paper to its Lean declaration and its hypotheses.
+`formalization/` holds 64 Lean source files, a claim inventory and the checker. Lean verifies Theorem 1, all three propositions, the finite-sample guarantee, the equal-size variance estimator's consistency and both main counterexamples. For Proposition 3, which covers random cluster sizes that may depend on the scores, it checks both limits. Consistency of the unequal-size estimator has a written proof in the paper's Appendix B.11 and a numerical check, and no Lean proof. [`formalization/CLAIM_INVENTORY.md`](formalization/CLAIM_INVENTORY.md) maps each statement in the paper to its Lean declaration and its hypotheses.
 
 ```bash
 bash formalization/check.sh        # rebuilds every module, then audits each declaration for unapproved axioms and placeholders
@@ -54,6 +54,7 @@ These are the scripts behind the current text (its Appendix F.2):
 | Score-correlation counterexample and dependence checks | `theory/assumption_stress.py` |
 | Tail-limit calculations | `tails/verify_tail_limit.py`, `tails/evt_tail_rate.py` |
 | Unequal-size and ICC estimation examples | `theory/ragged_and_estimation.py`, `prm/icc_estimators.py` |
+| Random informative sizes (Proposition 3) | `theory/random_sizes_check.py` |
 | Released proxy measurements and resampling | `prm/prm_measurement.py`, `prm/prm_dispersion.py`, `prm/test_marginal_scope.py` |
 | SQuAD score–indicator comparison (§3.3) | `deploy_gate/score_squad2.py`, `deploy_gate/measure.py`, `deploy_gate/results/d01_measure.json` |
 | PRM singleton control and Beta comparison (Appendix E.4) | `prm/deployment_reframe.py`, `empirical_core/e1_shape_test.py`, `empirical_core/result_ec01.json` |
@@ -71,7 +72,7 @@ The numerical audit ran on Python 3.14, NumPy 2.5.1, SciPy 1.18.0, pandas 3.0.5,
 
 ## How this repo relates to the Zenodo archive
 
-`main` carries every file of the v11 code archive unchanged, with two exceptions: this README, and root `_icc.py`, which here is a shim onto `neff/_icc.py` (the same module, byte for byte). `main` adds the `neff` package, its tests and the packaging files. The archive is unchanged from v9 through v11, which is why its own README and `audit/` say v9.
+`main` carries every file of the v12 code archive unchanged, with two exceptions: this README, and root `_icc.py`, which here is a shim onto `neff/_icc.py` (the same module, byte for byte). `main` adds the `neff` package, its tests and the packaging files. The archive was one file from v9 through v11. v12 adds the Proposition 3 proofs and check, and `audit/` still records the v9 proof build.
 
 The tag [`v7-zenodo`](https://github.com/ACNoonan/exceedance-design-effect/tree/v7-zenodo) mirrors the 83-file archive of the v7 and v8 records.
 
@@ -79,9 +80,9 @@ The tag [`v7-zenodo`](https://github.com/ACNoonan/exceedance-design-effect/tree/
 
 ## Earlier analyses, kept for traceability
 
-The paper was 48 pages through Zenodo v8 and arXiv v1, and it is 22 pages now. The scripts below include analyses the current text no longer claims, among them the generated-beam and WHO sensitivity comparisons. The historical drift and compound-design scripts include scientific checks that failed, and a saved result file may predate a source correction. A script's presence here is not an endorsement of its claim: the current paper decides which claims stand.
+The paper was 48 pages through Zenodo v8 and arXiv v1, and it is 25 pages now. The scripts below include analyses the current text no longer claims, among them the generated-beam and WHO sensitivity comparisons. The historical drift and compound-design scripts include scientific checks that failed, and a saved result file may predate a source correction. A script's presence here is not an endorsement of its claim: the current paper decides which claims stand.
 
-The section numbers in these tables refer to the 48-page text.
+The section and proposition numbers in these tables refer to the 48-page text. Its Proposition 3 is the tail-limit result, which is Proposition 1 in the current text.
 
 ### theory/
 

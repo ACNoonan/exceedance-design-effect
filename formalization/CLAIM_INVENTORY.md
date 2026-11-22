@@ -20,6 +20,10 @@ A supporting lemma alone does not make a larger claim checked.
 | Section 2.4 and B.8: duplicated-pair drift counterexample | Checked | `duplicated_pair_counterexample_certificate`, `pairCounterexample_conditional_coverage`; the construction and expectation formula are proved |
 | Proposition 1: lower and upper endpoint limits | Checked | `indicator_correlation_lower_tail`, `indicator_correlation_upper_tail`; the corresponding tail-coefficient limit is the hypothesis |
 | Proposition 2: unequal-size distributional and variance limits | Checked | `ragged_continuous_score_ceil_coverage_certificate`; bounded independent arrays, actual original-score pooled cutoff, common mean pair correlation, and zero limiting variance |
+| Proposition 3: random sizes, distributional limit | Checked | `RandomSizeModel.coverage_cdf` (root-b scale) and `RandomSizeModel.row_scale_cdf` (root-n scale, random n and random p_n); CDF convergence at every continuity point, including zero limiting variance. The cutoff is the ceiling-rank order statistic of the pooled active rows on the original score scale, with the infinite-cutoff case (`pooledCutoff`, `pooledCoverage_le_iff`). Sizes are bounded for every outcome; iid is stated for the observed cluster (size and active rows). |
+| Proposition 3: variance limits | Checked | `RandomSizeModel.coverage_variance_limit`, `RandomSizeModel.expected_size_variance_limit`; Hoeffding tails `coverage_lower_tail`, `coverage_upper_tail` |
+| B.11: consistency of the unequal-size variance estimator | Not formalized | Written proof in Appendix B.11; numerical check `analysis/theory/random_sizes_check.py` |
+| Proposition 3: independent test point (S3) | Not restated | Coverage is defined as F at the cutoff; the conditional-probability identity is checked for the product model in `ConditionalCoverage.lean` only |
 | Section 6.2: prescribed corrected rank and probability guarantee | Checked | `correctedCoverage_failure_bound`, `correctedCoverage_success_bound`; arbitrary fixed unequal sizes and the infinite-cutoff case |
 | B.9: finite-sample count and quantile tails | Checked | `ragged_count_tails`, `ragged_quantile_tail`, `ragged_continuous_score_coverage_tail` |
 | B.9: exact fourth-moment constant | Checked | `gaussian_tail_fourth_moment_integrable_and_bound`, `ragged_quantile_fourth_moment`; integrability and E[Z⁴] ≤ M² are both proved |
@@ -67,7 +71,7 @@ The unrestricted second-order drift conjecture is false; Lean checks its counter
 Experiments, numerical tables, empirical sampling assumptions, historical attribution, and recommendations require separate validation.
 No uniform accuracy claim for the normal or Beta approximation is proved or made in the manuscript.
 
-The checker compiles 59 modules in dependency order.
+The checker compiles 64 modules in dependency order.
 The integrated log is `audit/v9/lean-total-coverage-2026-09-21.log`.
 The source hashes are in `audit/v9/lean-total-coverage-2026-09-21.sha256`.
 The pinned versions are Lean 4.32.1 and mathlib `520045ab14e26149ee970e2e617ca04b09bde5d6`.

@@ -1,0 +1,4 @@
+p=0.5 b=60: b*mu*Var(C)=1.2301  prop3 v=1.2774  prop2 plug-in=0.3138  iid=0.2500  mean vhat=1.2374  mean C-p=-0.0016
+p=0.5 b=240: b*mu*Var(C)=1.2446  prop3 v=1.2774  prop2 plug-in=0.3138  iid=0.2500  mean vhat=1.2781  mean C-p=-0.0005
+p=0.9 b=60: b*mu*Var(C)=0.5876  prop3 v=0.5751  prop2 plug-in=-0.3428  iid=0.0900  mean vhat=0.4568  mean C-p=-0.0076
+p=0.9 b=240: b*mu*Var(C)=0.5794  prop3 v=0.5751  prop2 plug-in=-0.3428  iid=0.0900  mean vhat=0.5433  mean C-p=-0.0017

@@ -1,6 +1,6 @@
 # Lean verification
 
-The 59 source files compile with Lean 4.32.1 and mathlib commit
+The 64 source files compile with Lean 4.32.1 and mathlib commit
 `520045ab14e26149ee970e2e617ca04b09bde5d6`.
 The compiler log is `audit/v9/lean-total-coverage-2026-09-21.log`.
 The source hashes are in `audit/v9/lean-total-coverage-2026-09-21.sha256`.
@@ -45,6 +45,11 @@ The withdrawn drift conjecture remains false.
 | `FourthMoment.lean` | Integrability of the fourth power and the exact bound E[Z⁴] ≤ M² for bounded unequal clusters |
 | `RandomCutoff.lean` | Consistency of monotone empirical functions at a cutoff fitted on the same sample; continuous arithmetic in probability |
 | `EstimatorConsistency.lean` | The sample-variance estimator, its original-score consistency at the actual fitted quantile, ceiling ranks, and absolute and relative variance comparisons |
+| `RandomSizeModel.lean` | Clusters with random sizes as a size plus bounded slots; the pooled sample of random length, its ceiling-rank order statistic with the infinite-cutoff case, and the count identity for coverage |
+| `RandomSizeLimit.lean` | Proposition 3's model (iid observed clusters, bounded sizes, continuous row-weighted CDF) and the distributional limit on the root-b scale, including zero limiting variance |
+| `RandomSizeSlutsky.lean` | A Slutsky lemma for CDF limits under a random scale and shift |
+| `RandomSizeRowScale.lean` | Proposition 3's limit on the root-n scale with random n and the random rank baseline |
+| `RandomSizeMoments.lean` | Hoeffding tails for random-size coverage and both variance limits of Proposition 3 |
 | `BoundedArrayCLT.lean` | A bounded independent-array CLT proved by characteristic functions, including zero variance |
 | `RaggedModel.lean` | R1–R4, common mean-pair variance, derived correlation continuity, and the unequal-size moving-count CLT |
 | `RaggedLimit.lean` | Actual unequal-size quantile CDF limit, both moment limits, and rescaled variance limit |

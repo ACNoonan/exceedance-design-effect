@@ -20,8 +20,12 @@ THREE ESTIMATES PER LEVEL
       B.5's covariance sum gives. At the fitted cutoff, X_j counts document j's rows at or below
       it, and
           v_hat = b/(b-1) * sum_j (X_j - m_j p_hat)^2 / n,    D_hat = v_hat / (p_hat (1 - p_hat)).
-      With equal sizes this is exactly Section 6.1's estimator. B.10 proves consistency only for
-      equal sizes; here it is a descriptive estimate under Proposition 2's conditions.
+      With equal sizes this is exactly Section 6.1's estimator. This is the ratio-mean variance
+      of Proposition 3: it needs iid clusters and a row-weighted target, and it does not need
+      noninformative sizes or a common indicator correlation. Appendix B.11 proves consistency.
+      Its prediction for a draw of n rows is n / D_hat, reported as the "Prop 3" plug-in. The older
+      "count" plug-in converts D_hat to a correlation and applies Proposition 2 with the draw's
+      own m_tilde; it is kept for comparison.
   (c) Direct measurement at PASC's calibration size. Draw about 1,000 rows either as sentences
       or as whole documents (with replacement, treating the pool as the population), fit the
       split-conformal cutoff at rank ceil((n+1)p), and evaluate coverage against the full pool's
@@ -130,6 +134,7 @@ def main():
     cov = {"sentence": {p: [] for p in LEVELS}, "document": {p: [] for p in LEVELS}}
     mt = {"sentence": [], "document": []}
     ns = {"sentence": [], "document": []}
+    nd = []
     for _ in range(a.reps):
         pick = rng.integers(0, n, N_CAL)
         docs = []; tot = 0
@@ -138,7 +143,7 @@ def main():
             if tot + sizes[j] > N_CAL:
                 break
             docs.append(j); tot += int(sizes[j])
-        rows = np.concatenate([doc_rows[j] for j in docs])
+        rows = np.concatenate([doc_rows[j] for j in docs]); nd.append(len(docs))
         for name, r in (("sentence", pick), ("document", rows)):
             c = np.bincount(doc_codes[r]); c = c[c > 0].astype(float)
             mt[name].append((c ** 2).sum() / c.sum()); ns[name].append(len(r))
@@ -161,20 +166,23 @@ def main():
             rec["levels"][p] = {"mean_coverage": float(x.mean()), "sd": float(math.sqrt(var)),
                                 "n_eff_measured": ne,
                                 "n_eff_band_95": [ne / (1 + 1.96 * se_rel), ne / (1 - 1.96 * se_rel)],
+                                "n_eff_plugin_ratio": n_draw if iid else n_draw / L["D_count"],
                                 "n_eff_plugin_count": n_draw if iid else n_draw / (1 + (m_draw - 1) * L["rho_count"]),
                                 "n_eff_plugin_anova": n_draw if iid else n_draw / (1 + (m_draw - 1) * L["rho_anova"])}
         out["direct"]["designs"][name] = rec
-    print(f"  {'level':>5} | {'sentences':>9} | {'documents':>9} {'95% band':>13} | {'count plug-in':>13} | {'ANOVA plug-in':>13} | ratio")
+    print(f"  {'level':>5} | {'sentences':>9} | {'documents':>9} {'95% band':>13} | {'Prop 3 plug-in':>14} | {'count plug-in':>13} | {'ANOVA plug-in':>13} | ratio")
     for p in LEVELS:
         S = out["direct"]["designs"]["sentence"]["levels"][p]
         D = out["direct"]["designs"]["document"]["levels"][p]
         lo, hi = D["n_eff_band_95"]
         print(f"  {p:5.2f} | {S['n_eff_measured']:9.0f} | {D['n_eff_measured']:9.0f} [{lo:4.0f}, {hi:4.0f}]"
-              f" | {D['n_eff_plugin_count']:13.0f} | {D['n_eff_plugin_anova']:13.0f}"
+              f" | {D['n_eff_plugin_ratio']:14.1f} | {D['n_eff_plugin_count']:13.0f} | {D['n_eff_plugin_anova']:13.0f}"
               f" | {S['n_eff_measured'] / D['n_eff_measured']:.2f}x")
     for name in ("sentence", "document"):
         r = out["direct"]["designs"][name]
         print(f"  {name}: mean n {r['mean_n']:.1f}, mean m_tilde of draw {r['mean_m_tilde']:.2f}")
+    out["direct"]["designs"]["document"]["mean_documents_per_draw"] = float(np.mean(nd))
+    print(f"  document: mean documents per draw {np.mean(nd):.1f}")
 
     dst = HERE / "conll_levels_RESULTS.json"
     dst.write_text(json.dumps(out, indent=2, default=float))
