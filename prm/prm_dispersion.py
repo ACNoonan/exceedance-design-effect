@@ -271,6 +271,14 @@ def main():
         results[lbl] = (c, i, meas, plug, rho)
         print(f"    {lbl:<12}{c.std(ddof=1):>12.5f}{i.std(ddof=1):>10.5f}"
               f"{meas:>10.2f}{plug:>10.2f}")
+        # Proposition 3 (Section 4.4): ratio-mean variance from each question's residual count.
+        # No noninformative-size or common-correlation assumption; deterministic, uses no rng.
+        q3 = t_star if lbl == "raw" else np.quantile(sc, level, method="inverted_cdf")
+        ind3 = (sc <= q3).astype(float)
+        X3 = np.add.reduceat(ind3, starts[:-1]); ph3 = ind3.mean(); b3 = len(sizes)
+        D3 = b3 / (b3 - 1) * ((X3 - sizes * ph3) ** 2).sum() / n / (ph3 * (1 - ph3))
+        print(f"    {'':<12}Proposition 3: design effect {D3:.2f}, predicted sd ratio "
+              f"{np.sqrt(D3):.2f}, effective size {n / D3:.0f}")
         print(f"    {'':<12}rho_I {rho:.4f} at achieved p {p_ach:.4f}; "
               f"5-95 cluster [{np.percentile(c, 5):.4f}, {np.percentile(c, 95):.4f}], "
               f"iid [{np.percentile(i, 5):.4f}, {np.percentile(i, 95):.4f}]")

@@ -36,8 +36,10 @@ PRECONDITIONS — a failure in any one of these invalidates everything below
 ==============================================================================
     arm           cluster sd    iid sd  MEASURED   plug-in
     raw              0.01289   0.01181      1.09      5.55
+                Proposition 3: design effect 19.58, predicted sd ratio 4.43, effective size 1278
                 rho_I 0.4946 at achieved p 0.8909; 5-95 cluster [0.8909, 0.9145], iid [0.8909, 0.9145]
     tie-broken       0.00874   0.00196      4.46      5.55
+                Proposition 3: design effect 19.58, predicted sd ratio 4.43, effective size 1278
                 rho_I 0.4946 at achieved p 0.8909; 5-95 cluster [0.8759, 0.9045], iid [0.8876, 0.8941]
 
     PAPER PRINTS 5.6x and [0.873, 0.909] vs [0.888, 0.894].

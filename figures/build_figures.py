@@ -150,8 +150,8 @@ def fig3_ragged():
     ax[0].legend(frameon=False)
 
     ax[1].plot(x, sd_sim, "o", color=INK, ms=6, label="simulated", zorder=3)
-    ax[1].plot(x, sd_til, "-", color=ACC, label=r"predicted from $\tilde m$")
-    ax[1].plot(x, sd_bar, "--", color=WARN, label=r"predicted from $\bar m$")
+    ax[1].plot(x, sd_til, "-", color=ACC, label=r"predicted, size-biased mean $\tilde m$")
+    ax[1].plot(x, sd_bar, "--", color=WARN, label=r"predicted, average size $\bar m$")
     ax[1].set_xticks(x); ax[1].set_xticklabels(names)
     ax[1].set_ylabel("sd of coverage")
     ax[1].set_title("(b)  the average family size understates it")
@@ -164,16 +164,17 @@ def fig3_ragged():
 def fig4_prm():
     """Measured on the released PRM calibration set.
 
-    Right panel updated 2026-07-27 (SW-24): the headline n_eff is now the MEASURED one from the
-    cluster bootstrap (`prm_dispersion.py`: dispersion ratio 4.4x tie-broken -> n_eff ~ 1,293),
-    with the plug-in n_eff = 812 kept beside it to show the over-correction under informative
-    sizes. Constants recorded here; sources prm_measurement.py + prm_dispersion_RESULTS.txt.
+    Right panel: the effective size MEASURED by the cluster bootstrap (`prm_dispersion.py`:
+    dispersion ratio 4.4x tie-broken -> about 1,293), Proposition 3's prediction (1,278) and the
+    Proposition 2 plug-in (812), which over-corrects under informative sizes. Constants recorded
+    here; sources prm_measurement.py + prm_dispersion_RESULTS.txt.
     """
     thr = np.array([0.000, 0.125, 0.250, 0.375, 0.500, 0.625, 0.750, 0.875])
     cov = np.array([0.6744, 0.7639, 0.8062, 0.8342, 0.8553, 0.8737, 0.8909, 0.9145])
     ricc = np.array([0.4355, 0.5007, 0.5254, 0.5367, 0.5307, 0.5177, 0.4946, 0.4274])
     n_tot = 25028
     neff_measured = round(n_tot / 4.4 ** 2)      # 1,293: measured ratio, ties broken
+    neff_prop3 = 1278                            # n / 19.58, residual-count design effect
     neff_plugin = 812                            # 1 + (m_til - 1) rho_I at p = 0.891
 
     fig, ax = plt.subplots(1, 2, figsize=(7.0, 2.7))
@@ -186,13 +187,14 @@ def fig4_prm():
 
     ax[1].bar([0], [n_tot], 0.5, color=MUTE)
     ax[1].bar([1], [neff_measured], 0.5, color=ACC)
-    ax[1].bar([2], [neff_plugin], 0.5, color=WARN)
+    ax[1].bar([2], [neff_prop3], 0.5, color=ACC, alpha=0.45)
+    ax[1].bar([3], [neff_plugin], 0.5, color=WARN)
     ax[1].set_yscale("log")
-    ax[1].set_xticks([0, 1, 2])
-    ax[1].set_xticklabels(["$n$", "$n_{\\rm eff}$\nmeasured", "$n_{\\rm eff}$\nplug-in"])
-    ax[1].set_ylabel("calibration points (log scale)")
+    ax[1].set_xticks([0, 1, 2, 3])
+    ax[1].set_xticklabels(["rows", "measured", "Prop. 3", "Prop. 2\nplug-in"])
+    ax[1].set_ylabel("effective size (log scale)")
     ax[1].set_title("(b)  25,028 points carry ~1,300 (measured)")
-    for xi, v in ((0, n_tot), (1, neff_measured), (2, neff_plugin)):
+    for xi, v in ((0, n_tot), (1, neff_measured), (2, neff_prop3), (3, neff_plugin)):
         ax[1].annotate(f"{v:,}", (xi, v), textcoords="offset points",
                        xytext=(0, 4), ha="center", fontsize=8)
     fig.tight_layout()
@@ -221,7 +223,59 @@ def fig5_selection():
     save(fig, "fig5_selection")
 
 
+# ---------------------------------------------------------------- fig 6
+def fig6_documents():
+    """Section 5.3: effective size of about 1,000 rows by level, document corpus.
+
+    Every number is read from conll_levels_RESULTS.json, the file behind the Section 5.3 table.
+    """
+    import json
+    for cand in (_HERE.parent / "analysis/conll/conll_levels_RESULTS.json",
+                 _HERE.parent / "conll/conll_levels_RESULTS.json"):
+        if cand.exists():
+            res = json.loads(cand.read_text())
+            break
+    else:
+        raise SystemExit("conll_levels_RESULTS.json not found")
+    keys = ["0.5", "0.8", "0.9", "0.95"]
+    des = res["direct"]["designs"]
+    doc = [des["document"]["levels"][k] for k in keys]
+    sen = [des["sentence"]["levels"][k] for k in keys]
+    x = np.arange(4)
+
+    def col(rows, name):
+        return np.array([r[name] for r in rows])
+
+    def band(rows):
+        m = col(rows, "n_eff_measured")
+        lo = np.array([r["n_eff_band_95"][0] for r in rows])
+        hi = np.array([r["n_eff_band_95"][1] for r in rows])
+        return m, np.vstack([m - lo, hi - m])
+
+    fig, ax = plt.subplots(figsize=(5.2, 3.0))
+    ms, es = band(sen)
+    ax.errorbar(x, ms, yerr=es, fmt="s", color=MUTE, ms=4, capsize=2.5, lw=1,
+                label="sentence draws, measured")
+    ax.plot(x, col(doc, "n_eff_plugin_ratio"), "-", color=ACC, label="Proposition 3 prediction")
+    ax.plot(x, col(doc, "n_eff_plugin_anova"), "--", color=WARN, label="Proposition 2 plug-in")
+    md, ed = band(doc)
+    ax.errorbar(x, md, yerr=ed, fmt="o", color=INK, ms=4.5, capsize=2.5, lw=1, zorder=3,
+                label="document draws, measured")
+    for xi, v in zip(x, md):
+        ax.annotate(f"{v:.0f}", (xi, v), textcoords="offset points", xytext=(7, -11),
+                    ha="left", fontsize=7.5, color=INK)
+    ax.set_xticks(x)
+    ax.set_xticklabels(["0.50", "0.80", "0.90", "0.95"])
+    ax.set_xlabel("level $p$")
+    ax.set_ylabel("effective size of about 1,000 rows")
+    ax.set_ylim(0, 1150)
+    ax.set_xlim(-0.3, 3.5)
+    ax.legend(frameon=False, loc="center left", bbox_to_anchor=(1.0, 0.5))
+    fig.tight_layout()
+    save(fig, "fig6_documents")
+
+
 if __name__ == "__main__":
     print("building figures ->", OUT)
-    fig1_law(); fig2_level(); fig3_ragged(); fig4_prm(); fig5_selection()
+    fig1_law(); fig2_level(); fig3_ragged(); fig4_prm(); fig5_selection(); fig6_documents()
     print("done")
